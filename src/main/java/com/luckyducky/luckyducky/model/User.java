@@ -38,7 +38,7 @@ public class User {
     private List<Budget> budgets;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Bill> bills;
+    private List<Transactions> Transactions;
 
     public User(){};
 
