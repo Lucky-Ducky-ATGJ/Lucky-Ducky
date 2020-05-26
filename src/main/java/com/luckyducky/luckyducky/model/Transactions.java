@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class Bill {
+public class Transactions {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -36,9 +36,9 @@ public class Bill {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Bill(){};
+    public Transactions(){};
 
-    public Bill(long id, String name, String company, int amount_in_cents, Date dueDate) {
+    public Transactions(long id, String name, String company, int amount_in_cents, Date dueDate) {
         this.id = id;
         this.name = name;
         this.company = company;
@@ -46,7 +46,7 @@ public class Bill {
         this.dueDate = dueDate;
     }
 
-    public Bill(String name, String company, int amount_in_cents, Date dueDate) {
+    public Transactions(String name, String company, int amount_in_cents, Date dueDate) {
         this.name = name;
         this.company = company;
         this.amount_in_cents = amount_in_cents;
