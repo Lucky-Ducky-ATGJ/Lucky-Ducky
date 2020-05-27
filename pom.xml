@@ -8,7 +8,7 @@
         <version>2.2.7.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.luckyducky</groupId>
+    <groupId>com.quackertracker</groupId>
     <artifactId>luckyducky</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Lucky Ducky</name>
