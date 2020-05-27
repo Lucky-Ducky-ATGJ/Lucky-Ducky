@@ -14,37 +14,42 @@
                 <div class="card-body">
                     <h5 class="card-title text-center">Register Form</h5>
                     <form class="form-signin" th:action="@{/register}" method="POST" th:object="${user}">
-                        <div class="form-label-group">
+                        <div class="form-label-group d-flex">
                             <label for="username">Username</label>
-                            <input id="username" th:field="*{username}"/>
+                            <input class="ml-auto mt-2" id="username" th:field="*{username}"/>
                         </div>
 
-                        <div class="form-label-group">
+                        <div class="form-label-group d-flex">
                             <label for="firstName">First Name</label>
-                            <input id="firstName" th:field="*{first_name}"/>
+                            <input class="ml-auto mt-2" id="firstName" th:field="*{first_name}"/>
                         </div>
 
-                        <div class="form-label-group">
+                        <div class="form-label-group d-flex">
                             <label for="lastName">Last Name</label>
-                            <input id="lastName" th:field="*{last_name}"/>
+                            <input class="ml-auto mt-2" id="lastName" th:field="*{last_name}"/>
                         </div>
 
-                        <div class="form-label-group">
+                        <div class="form-label-group d-flex">
                             <label for="phone">Phone Number</label>
-                            <input id="phone" th:field="*{phone_num}"/>
+                            <input class="ml-auto mt-2" id="phone" th:field="*{phone_num}"/>
                         </div>
 
-                        <div class="form-label-group">
+                        <div class="form-label-group d-flex">
                             <label for="email">Email</label>
-                            <input id="email" th:field="*{email}"/>
+                            <input class="ml-auto mt-2" id="email" th:field="*{email}"/>
                         </div>
 
-                        <div class="form-label-group">
+                        <div class="form-label-group d-flex">
                             <label for="password">Password</label>
-                            <input id="password" type="password" th:field="*{password}"/>
+                            <input class="ml-auto mt-2" id="password" type="password" th:field="*{password}"/>
                         </div>
 
-                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">REGISTER</button>
+                        <div class="form-label-group d-flex">
+                            <label for="password">Confirm Password</label>
+                            <input class="ml-auto mt-2" id="password" type="password" th:field="*{password}"/>
+                        </div>
+
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase mt-3" type="submit">REGISTER</button>
 
                     </form>
                 </div>
