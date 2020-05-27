@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="partials/partial :: head"></head>
+<body>
+<div th:replace="partials/partial :: top_banner"></div>
+<div th:replace="partials/partial :: standard_nav"></div>
+
+<h1>Create an account</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Register Form</h5>
+                    <form class="form-signin" th:action="@{/register}" method="POST" th:object="${user}">
+                        <div class="form-label-group d-flex">
+                            <label for="username">Username</label>
+                            <input class="ml-auto mt-2" id="username" th:field="*{username}"/>
+                        </div>
+
+                        <div class="form-label-group d-flex">
+                            <label for="firstName">First Name</label>
+                            <input class="ml-auto mt-2" id="firstName" th:field="*{first_name}"/>
+                        </div>
+
+                        <div class="form-label-group d-flex">
+                            <label for="lastName">Last Name</label>
+                            <input class="ml-auto mt-2" id="lastName" th:field="*{last_name}"/>
+                        </div>
+
+                        <div class="form-label-group d-flex">
+                            <label for="phone">Phone Number</label>
+                            <input class="ml-auto mt-2" id="phone" th:field="*{phone_num}"/>
+                        </div>
+
+                        <div class="form-label-group d-flex">
+                            <label for="email">Email</label>
+                            <input class="ml-auto mt-2" id="email" th:field="*{email}"/>
+                        </div>
+
+                        <div class="form-label-group d-flex">
+                            <label for="password">Password</label>
+                            <input class="ml-auto mt-2" id="password" type="password" th:field="*{password}"/>
+                        </div>
+
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase mt-3" type="submit">REGISTER</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                        <div th:replace="partials/partial :: footer_nav"></div>
+                        <div th:replace="partials/partial :: footer"></div>
+
+
+</body>
+</html>
