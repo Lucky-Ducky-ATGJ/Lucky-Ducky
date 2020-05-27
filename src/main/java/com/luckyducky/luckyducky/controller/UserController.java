@@ -36,7 +36,7 @@ public class UserController {
         userRepo.save(user);
 
         model.addAttribute("user",user);
-        return "user/profile";
+        return "redirect:/profile";
     }
 
     @GetMapping("/profile")
