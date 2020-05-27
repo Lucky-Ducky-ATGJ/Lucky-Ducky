@@ -32,12 +32,19 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/register">Sign Up</a>
                 </li>
+            </ul>
+
+            <!-- right side content -->
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/profile"><img src="img/profile-icon.png" alt="profile-picture"></a>
+            </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
+                    <a class="nav-link" href="/login" style="color:green">Login</a>
                 </li>
                 <li class="nav-item">
                     <form th:action="@{/logout}" th:method="post">
-                        <button class="nav-link" style="margin-top: 8px">Logout</button>
+                        <button class="nav-link" style="border:none; background:none; color:red">Logout</button>
                     </form>
                 </li>
             </ul>
@@ -52,7 +59,7 @@
 
         <!-- left side content -->
         <ul class="navbar-nav mr-auto" id="footer-nav">
-            <li class="nav-item"><a class="nav-link" href="https://www.codeup.com/" target="_blank">About Us</a></li>
+            <li class="nav-item"><a class="nav-link" href="/about" target="_blank">About Us</a></li>
         </ul>
     </div>
 </footer_nav>
