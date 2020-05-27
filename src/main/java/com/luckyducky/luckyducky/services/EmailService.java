@@ -1,8 +1,6 @@
 package com.luckyducky.luckyducky.services;
 
-import com.luckyducky.luckyducky.model.Categories;
-import com.luckyducky.luckyducky.model.Transactions;
-import org.hibernate.Transaction;
+import com.luckyducky.luckyducky.model.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
@@ -19,7 +17,7 @@ public class EmailService {
     @Value("${spring.mail.from}")
     private String from;
 
-    public void prepareAndSend(Transactions transactions, String subject, String body) {
+    public void prepareAndSend(Transaction transactions, String subject, String body) {
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setFrom(from);
         msg.setTo(transactions.getUser().getEmail());
