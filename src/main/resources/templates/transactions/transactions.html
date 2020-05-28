@@ -16,11 +16,11 @@
         <input type="text" id="amount" th:field="*{amount_in_cents}" class="form-control" placeholder="amount">
     </div>
 
-    <div>
-        <label for="due_date">Due date</label>
-        <input type="date" id="due_date" th:field:="*{due_date}" class="form-control}">
+<!--    <div>-->
+<!--        <label for="due_date">Due date</label>-->
+<!--        <input type="date" id="due_date" th:field:="*{due_date}" class="form-control}">-->
 
-    </div>
+<!--    </div>-->
 
 
     <div th:object="${isIncome}">
@@ -31,8 +31,8 @@
 
     <div th:object="${categories}">
         <label for="category">Category</label>
-        <select type="text" id="category" th:each="category: ${categories}" class="form-control">
-            <option value="${category.name}">${category.name}</option>
+        <select type="text" id="category"  class="form-control">
+            <option  th:each="category: ${categories}" value="${category.name}" th:text="${category.name}"></option>
         </select>
     </div>
 

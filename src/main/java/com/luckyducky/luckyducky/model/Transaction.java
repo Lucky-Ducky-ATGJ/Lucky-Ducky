@@ -25,7 +25,8 @@ public class Transaction {
     @Value("${some.key:false}")
     private Boolean isIncome;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name= "category_id")
     private Category category;
 
     @ManyToOne
