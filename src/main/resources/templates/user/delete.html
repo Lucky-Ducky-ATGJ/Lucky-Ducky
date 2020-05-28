@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/partial :: head"></head>
+<body>
+<div th:replace="partials/partial :: top_banner"></div>
+<div th:replace="partials/partial :: standard_nav"></div>
+
+<div class="container">
+    <h2>Delete Profile</h2>
+
+    <form th:action="@{'/profile/'+${user.id}+'/delete'}" method="post">
+        <h1>Are you sure?</h1>
+        <button>yes, delete</button>
+        <a th:href="@{'/profile/'}">No, don't delete</a>
+
+    </form>
+</div>
+
+<div th:replace="partials/partial :: footer_nav"></div>
+<div th:replace="partials/partial :: footer"></div>
+</body>
+</html>
