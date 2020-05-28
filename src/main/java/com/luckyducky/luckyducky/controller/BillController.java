@@ -15,7 +15,7 @@ public class BillController {
     private final BillRepository billRepo;
     private final CategoryRepository cateRepo;
 
-    public BillRepository(UserRepository userRepo, TransactionRepository transRepo, BillRepository billRepo, CategoryRepository cateRepo){
+    public BillController(UserRepository userRepo, TransactionRepository transRepo, BillRepository billRepo, CategoryRepository cateRepo){
         this.userRepo = userRepo;
         this.billRepo = billRepo;
         this.transRepo = transRepo;
