@@ -15,47 +15,50 @@ public class Transaction {
     private String name;
 
     @Column(nullable = false)
-    private String company;
-
-    @Column(nullable = false)
     @Value("${some.key:0}")
     private int amount_in_cents;
 
     @Column(nullable = false)
-    private Date dueDate;
+    private Date dateCreated;
 
     @Column(nullable = false)
     @Value("${some.key:false}")
     private Boolean isIncome;
 
-    @Column(nullable = false)
-    @Value("${some.key:false}")
-    private Boolean isPaid;
+    @OneToOne
+    private Category category;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "bill_id")
+    private Bill bill;
 
-    public Transaction(){};
+    @ManyToOne
+    @JoinColumn(name = "budget_id")
+    private Budget budget;
 
-    public Transaction(long id, String name, String company, int amount_in_cents, Date dueDate) {
+    public Transaction() {
+    }
+
+    public Transaction(long id, String name, int amount_in_cents, Date dateCreated, boolean isIncome) {
         this.id = id;
         this.name = name;
-        this.company = company;
         this.amount_in_cents = amount_in_cents;
-        this.dueDate = dueDate;
+        this.dateCreated = dateCreated;
+        this.isIncome = isIncome;
     }
 
-    public Transaction(String name, String company, int amount_in_cents, Date dueDate) {
+    public Transaction(String name, int amount_in_cents, Date dateCreated, boolean isIncome) {
         this.name = name;
-        this.company = company;
         this.amount_in_cents = amount_in_cents;
-        this.dueDate = dueDate;
+        this.dateCreated = dateCreated;
+        this.isIncome = isIncome;
     }
+
 
     public long getId() {
         return id;
     }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -63,49 +66,43 @@ public class Transaction {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-    public void setCompany(String company) {
-        this.company = company;
     }
 
     public int getAmount_in_cents() {
         return amount_in_cents;
     }
+
     public void setAmount_in_cents(int amount_in_cents) {
         this.amount_in_cents = amount_in_cents;
     }
 
-    public Date getDueDate() {
-        return dueDate;
+    public Date getDateCreated() {
+        return dateCreated;
     }
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
+
+    public void setDateCreated(Date dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     public Boolean getIncome() {
         return isIncome;
     }
+
     public void setIncome(Boolean income) {
         isIncome = income;
     }
 
-    public Boolean getPaid() {
-        return isPaid;
-    }
-    public void setPaid(Boolean paid) {
-        isPaid = paid;
+    public Budget getBudget() {
+        return budget;
     }
 
-    public User getUser() {
-        return user;
-    }
-    public void setUser(User user) {
-        this.user = user;
+    public void setBudget(Budget budget) {
+        this.budget = budget;
     }
 }
+
+
+
