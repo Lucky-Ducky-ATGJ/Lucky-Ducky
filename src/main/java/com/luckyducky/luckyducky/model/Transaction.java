@@ -1,12 +1,13 @@
 package com.luckyducky.luckyducky.model;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class Transaction {
+public class Transaction extends Auditable<String>   {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -16,10 +17,11 @@ public class Transaction {
 
     @Column(nullable = false)
     @Value("${some.key:0}")
-    private int amount_in_cents;
+    private int amountInCents;
 
-    @Column(nullable = false)
-    private Date dateCreated;
+//    @CreatedDate
+//    @Column(nullable = true)
+//    private Date dateCreated;
 
     @Column(nullable = false)
     @Value("${some.key:false}")
@@ -40,19 +42,17 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(long id, String name, int amount_in_cents, Date dateCreated, boolean isIncome, Category category) {
+    public Transaction(long id, String name, int amountInCents, boolean isIncome, Category category) {
         this.id = id;
         this.name = name;
-        this.amount_in_cents = amount_in_cents;
-        this.dateCreated = dateCreated;
+        this.amountInCents = amountInCents;
         this.isIncome = isIncome;
         this.category = category;
     }
 
-    public Transaction(String name, int amount_in_cents, Date dateCreated, boolean isIncome, Category category) {
+    public Transaction(String name, int amountInCents, boolean isIncome, Category category) {
         this.name = name;
-        this.amount_in_cents = amount_in_cents;
-        this.dateCreated = dateCreated;
+        this.amountInCents = amountInCents;
         this.isIncome = isIncome;
         this.category = category;
     }
@@ -74,21 +74,21 @@ public class Transaction {
         this.name = name;
     }
 
-    public int getAmount_in_cents() {
-        return amount_in_cents;
+    public int getAmountInCents() {
+        return amountInCents;
     }
 
-    public void setAmount_in_cents(int amount_in_cents) {
-        this.amount_in_cents = amount_in_cents;
+    public void setAmountInCents(int amountInCents) {
+        this.amountInCents = amountInCents;
     }
 
-    public Date getDateCreated() {
-        return dateCreated;
-    }
-
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
+//    public Date getDateCreated() {
+//        return dateCreated;
+//    }
+//
+//    public void setDateCreated(Date dateCreated) {
+//        this.dateCreated = dateCreated;
+//    }
 
     public Boolean getIncome() {
         return isIncome;
@@ -96,6 +96,22 @@ public class Transaction {
 
     public void setIncome(Boolean income) {
         isIncome = income;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Bill getBill() {
+        return bill;
+    }
+
+    public void setBill(Bill bill) {
+        this.bill = bill;
     }
 
     public Budget getBudget() {
