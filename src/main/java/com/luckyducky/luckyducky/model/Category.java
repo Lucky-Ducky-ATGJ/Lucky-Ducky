@@ -1,6 +1,7 @@
 package com.luckyducky.luckyducky.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Category {
@@ -11,7 +12,8 @@ public class Category {
 @Column(nullable = false)
     private String name;
 
-@OneToOne
-    private Transaction transaction;
+@OneToMany(cascade = CascadeType.ALL, mappedBy="category")
+
+    private List<Transaction> transactions;
 
 }

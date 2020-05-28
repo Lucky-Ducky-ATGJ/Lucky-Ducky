@@ -4,17 +4,17 @@
 <body>
 <div th:replace="partials/partial :: top_banner"></div>
 <div th:replace="partials/partial :: standard_nav"></div>
+<div class="container">
+<form th:action="@{/transactions/add}" method="POST" th:object="${transaction}">
+    <div>
+        <label for="name">Name</label>
+        <input type="text" id="name" th:field="*{name}" class="form-control" placeholder="name">
+    </div>
 
-<!--<form th:action="@{/transactions/add}" method="POST" th:object="${transaction}">-->
-<!--    <div>-->
-<!--        <label for="name">Name</label>-->
-<!--        <input type="text" id="name" th:field="*{name}" class="form-control" placeholder="name">-->
-<!--    </div>-->
-
-<!--    <div>-->
-<!--        <label for="company">Company</label>-->
-<!--        <input type="text" id="company" th:field="*{company}" class="form-control" placeholder="Company">-->
-<!--    </div>-->
+    <div>
+        <label for="amount">Amount</label>
+        <input type="text" id="amount" th:field="*{amount_in_cents}" class="form-control" placeholder="amount">
+    </div>
 
 <!--    <div>-->
 <!--        <label for="due_date">Due date</label>-->
@@ -23,32 +23,25 @@
 <!--    </div>-->
 
 
-<!--    <div>-->
-<!--        <label for="is_income">Income</label>-->
-<!--        <input type="checkbox" id="is_income" th:field:="*{is_income}" value="true" class="form-control">-->
+    <div th:object="${isIncome}">
+        <label for="isIncome">Income</label>
+        <input type="checkbox" id="isIncome" th:value="${isIncome}" class="form-control">
 
-<!--    </div>-->
+    </div>
 
-<!--    <div>-->
-<!--        <label for="is_paid">Paid</label>-->
-<!--        <input type="checkbox" id="is_paid" th:field:="*{is_paid}" value="true" class="form-control">-->
+    <div th:object="${categories}">
+        <label for="category">Category</label>
+        <select type="text" id="category"  class="form-control">
+            <option  th:each="category: ${categories}" value="${category.name}" th:text="${category.name}"></option>
+        </select>
+    </div>
 
-<!--    </div>-->
 
-<!--    <div>-->
-<!--        <label for="category">Paid</label>-->
-<!--        <input type="text" id="category" th:field:="*{category}" class="form-control">-->
 
-<!--    </div>-->
+    <button class="btn btn-lg btn-primary btn-block text-uppercase mt-3" type="submit">+</button>
 
-<!--    <div>-->
-<!--        <label for="amount">Amount</label>-->
-<!--        <input type="text" id="amount" th:field="*{amount_in_cents}" class="form-control" placeholder="amount">-->
-<!--    </div>-->
-
-<!--    <button class="btn btn-lg btn-primary btn-block text-uppercase mt-3" type="submit">+</button>-->
-
-<!--</form>-->
+</form>
+</div>
 
 
 <div th:replace="partials/partial :: footer_nav"></div>

@@ -25,7 +25,8 @@ public class Transaction {
     @Value("${some.key:false}")
     private Boolean isIncome;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name= "category_id")
     private Category category;
 
     @ManyToOne
@@ -39,19 +40,21 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(long id, String name, int amount_in_cents, Date dateCreated, boolean isIncome) {
+    public Transaction(long id, String name, int amount_in_cents, Date dateCreated, boolean isIncome, Category category) {
         this.id = id;
         this.name = name;
         this.amount_in_cents = amount_in_cents;
         this.dateCreated = dateCreated;
         this.isIncome = isIncome;
+        this.category = category;
     }
 
-    public Transaction(String name, int amount_in_cents, Date dateCreated, boolean isIncome) {
+    public Transaction(String name, int amount_in_cents, Date dateCreated, boolean isIncome, Category category) {
         this.name = name;
         this.amount_in_cents = amount_in_cents;
         this.dateCreated = dateCreated;
         this.isIncome = isIncome;
+        this.category = category;
     }
 
 
