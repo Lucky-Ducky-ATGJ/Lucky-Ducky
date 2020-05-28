@@ -1,44 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Profile</title>
-    <head th:replace="partials/partial :: head"></head>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="partials/partials :: head('Profile')"></head>
 <body>
-<top_banner th:fragment="top_banner">
-    <div class="top_banner nav-top-margin">Your Profile Page</div>
-</top_banner>
+<div th:replace="partials/partial :: top_banner"></div>
+<div th:replace="partials/partial :: standard_nav"></div>
 
-<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
-    <!--    <a class="navbar-brand" href="#">Navbar</a>-->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-
-        <!-- left side content -->
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/about">About Us</a>
-            </li>
-        </ul>
-
-        <!-- right side content -->
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/profile"><img src="img/profile-icon.png" alt="profile-picture"></a>
-            </li>
-            <li class="nav-item">
-                <form th:action="@{/logout}" th:method="post">
-                    <button class="nav-link" style="border:none; background:none; color:red">Logout</button>
-                </form>
-            </li>
-        </ul>
-    </div>
-</nav>
 <img src="..." alt="..." class="img-thumbnail">
 <div class="text-center">
 <div> Upcoming Bills</div>
