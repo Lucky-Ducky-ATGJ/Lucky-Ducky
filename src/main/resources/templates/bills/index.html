@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="partials/partial :: head"></head>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="partials/partials :: head('Bill Page')"></head>
 <body>
 <div th:replace="partials/partial :: top_banner"></div>
 <div th:replace="partials/partial :: standard_nav"></div>
 
-<h1>Bills Page</h1>
+<h1 class="text-center">Bills Page</h1>
 
-<div>
+<div class="p-2">
     <table class="table table-hover">
         <thead class="thead-dark">
         <tr>
