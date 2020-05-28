@@ -38,7 +38,7 @@ public class User {
     private List<Budget> budgets;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Transaction> Transactions;
+    private List<Bill> bill;
 
     public User(){};
 
@@ -63,9 +63,13 @@ public class User {
 
     public User(User copy) {
         id = copy.id; // This line is SUPER important! Many things won't work if it's absent
-        email = copy.email;
+        first_name = copy.first_name;
+        last_name = copy.last_name;
         username = copy.username;
+        phone_num = copy.phone_num;
+        email = copy.email;
         password = copy.password;
+        isAdmin = copy.isAdmin;
     }
 
     public long getId() {
