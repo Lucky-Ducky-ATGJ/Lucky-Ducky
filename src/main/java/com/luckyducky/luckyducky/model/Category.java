@@ -11,4 +11,7 @@ public class Category {
 @Column(nullable = false)
     private String name;
 
+@OneToOne
+    private Transaction transaction;
+
 }

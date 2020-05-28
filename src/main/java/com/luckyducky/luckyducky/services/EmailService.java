@@ -1,5 +1,6 @@
 package com.luckyducky.luckyducky.services;
 
+import com.luckyducky.luckyducky.model.Budget;
 import com.luckyducky.luckyducky.model.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,10 +18,10 @@ public class EmailService {
     @Value("${spring.mail.from}")
     private String from;
 
-    public void prepareAndSend(Transaction transactions, String subject, String body) {
+    public void prepareAndSend(Budget budget, String subject, String body) {
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setFrom(from);
-        msg.setTo(transactions.getUser().getEmail());
+        msg.setTo(budget.getUser().getEmail());
         msg.setSubject(subject);
         msg.setText(body);
 
