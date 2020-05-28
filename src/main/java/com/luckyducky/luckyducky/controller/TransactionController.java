@@ -40,7 +40,7 @@ public class TransactionController {
         Transaction transaction = new Transaction();
         model.addAttribute("transaction", transaction);
         model.addAttribute("categories", catRepo.findAll());
-        model.addAttribute("isIncome", transaction.getIncome());
+//        model.addAttribute("isIncome", transaction.getIncome());
         return "transactions/transactions";
     }
 

@@ -16,7 +16,7 @@ public class Transaction {
 
     @Column(nullable = false)
     @Value("${some.key:0}")
-    private int amount_in_cents;
+    private int amountInCents;
 
     @Column(nullable = false)
     private Date dateCreated;
@@ -40,18 +40,18 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(long id, String name, int amount_in_cents, Date dateCreated, boolean isIncome, Category category) {
+    public Transaction(long id, String name, int amountInCents, Date dateCreated, boolean isIncome, Category category) {
         this.id = id;
         this.name = name;
-        this.amount_in_cents = amount_in_cents;
+        this.amountInCents = amountInCents;
         this.dateCreated = dateCreated;
         this.isIncome = isIncome;
         this.category = category;
     }
 
-    public Transaction(String name, int amount_in_cents, Date dateCreated, boolean isIncome, Category category) {
+    public Transaction(String name, int amountInCents, Date dateCreated, boolean isIncome, Category category) {
         this.name = name;
-        this.amount_in_cents = amount_in_cents;
+        this.amountInCents = amountInCents;
         this.dateCreated = dateCreated;
         this.isIncome = isIncome;
         this.category = category;
@@ -75,18 +75,18 @@ public class Transaction {
     }
 
     public int getAmount_in_cents() {
-        return amount_in_cents;
+        return amountInCents;
     }
 
-    public void setAmount_in_cents(int amount_in_cents) {
-        this.amount_in_cents = amount_in_cents;
+    public void setAmount_in_cents(int amountInCents) {
+        this.amountInCents = amountInCents;
     }
 
-    public Date getDateCreated() {
+    public Date getdateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(Date dateCreated) {
+    public void setdateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
     }
 

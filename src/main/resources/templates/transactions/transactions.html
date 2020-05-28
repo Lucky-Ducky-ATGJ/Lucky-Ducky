@@ -13,26 +13,26 @@
 
     <div>
         <label for="amount">Amount</label>
-        <input type="text" id="amount" th:field="*{amount_in_cents}" class="form-control" placeholder="amount">
+        <input type="text" id="amount" th:field="*{amountInCents}" class="form-control" placeholder="amount">
     </div>
 
-<!--    <div>-->
-<!--        <label for="due_date">Due date</label>-->
-<!--        <input type="date" id="due_date" th:field:="*{due_date}" class="form-control}">-->
+    <div>
+        <label for="date_created">Date Created</label>
+        <input type="date" id="date_created" th:field:="*{dateCreated}" class="form-control}">
 
-<!--    </div>-->
+    </div>
 
 
-    <div th:object="${isIncome}">
+    <div >
         <label for="isIncome">Income</label>
-        <input type="checkbox" id="isIncome" th:value="${isIncome}" class="form-control">
+        <input type="checkbox" id="isIncome" th:field="*{isIncome}"  class="form-control">
 
     </div>
 
     <div th:object="${categories}">
         <label for="category">Category</label>
         <select type="text" id="category"  class="form-control">
-            <option  th:each="category: ${categories}" value="${category.name}" th:text="${category.name}"></option>
+            <option  th:each="category: ${categories}" name="category" value="${category.name}" th:text="${category.name}"></option>
         </select>
     </div>
 
