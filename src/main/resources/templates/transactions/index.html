@@ -7,7 +7,32 @@
 <div th:replace="partials/partial :: standard_nav"></div>
 
 
-<h1>Bills page.</h1>
+<h1>Your Transactions</h1>
+
+<div class="p-2">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Income</th>
+            <th>Category</th>
+            <th>Date added</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="transaction : ${transactions}">
+            <td th:utext="${transaction.name}"></td>
+            <td th:utext="${transaction.amountInCents}"></td>
+            <td th:utext="${transaction.income}"></td>
+            <td th:utext="${transaction.category}"></td>
+            <td th:utext="${transaction.createdDate}"></td>
+
+            <td>
+        </tbody>
+    </table>
+</div>
+
 
 <div th:replace="partials/partial :: footer_nav"></div>
 <div th:replace="partials/partial :: footer"></div>
