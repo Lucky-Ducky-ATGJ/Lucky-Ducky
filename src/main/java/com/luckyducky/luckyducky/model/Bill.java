@@ -1,5 +1,6 @@
 package com.luckyducky.luckyducky.model;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Auditable;
 
 import javax.persistence.*;
@@ -25,6 +26,7 @@ public class Bill implements Auditable {
     private Date dueDate;
 
     @Column
+    @Value("${some.key:false}")
     private boolean isPaid;
 
     @Column

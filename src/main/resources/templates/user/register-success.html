@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="partials/partial :: head"></head>
+<head th:replace="partials/partial :: head('Register')"></head>
 <body>
 <div th:replace="partials/partial :: top_banner"></div>
 <div th:replace="partials/partial :: standard_nav"></div>
 
-<h1 class="text-center mt-3 mb-3">Hello, <span th:text="${user.username}"> </span> you have registered </h1>
+<h1 class="text-center mt-3 mb-3">Hello, <span th:text="${user.first_name}"> </span>.</h1>
+<h1 class="text-center mt-3 mb-3">You have successfully registered on QuackerTracker.com </h1>
+<h1 class="text-center mt-3 mb-3">Your username to login is: <span th:text="${user.username}"> </span></h1>
 
 
 <div th:replace="partials/partial :: footer_nav"></div>
