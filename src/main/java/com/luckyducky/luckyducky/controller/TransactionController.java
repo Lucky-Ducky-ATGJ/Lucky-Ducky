@@ -36,19 +36,15 @@ public class TransactionController {
         public String addTransaction (Model model){
             Transaction transaction = new Transaction();
             model.addAttribute("transaction", transaction);
-            return "transaction/add";
+            return "transactions/transactions";
         }
 
         @PostMapping("/transactions/add")
-        public String newTransaction(@ModelAttribute Transaction transaction
-
-    ) {
-
-            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            transaction.setUser(user);
+        public String newTransaction(@ModelAttribute Transaction transaction) {
             transRepo.save(transaction);
-            emailService.prepareAndSend(transaction, "You added a transaction", "Name:" + transaction.getName());
-            return "redirect:/posts";
+            return "redirect:/transactions/add";
         }
     }
+
+
 
