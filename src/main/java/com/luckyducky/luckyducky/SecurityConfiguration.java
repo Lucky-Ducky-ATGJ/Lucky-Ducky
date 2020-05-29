@@ -54,7 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/profile", // only authenticated users can access profile
                         "/profile/bills", // only authenticated users can access bills
-                        "/profile/budget" // only authenticated users can access budget
+                        "/budget" // only authenticated users can access budget
                 )
                 .authenticated()
         ;
