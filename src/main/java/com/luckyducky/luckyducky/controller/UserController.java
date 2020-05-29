@@ -69,5 +69,28 @@ public class UserController {
         userRepo.delete(singleUser);
         return "redirect:/login";
     }
+
+//    I added the part below, remove it if it doesn't work.
+    @GetMapping("/profile/{id}/profile-edit")
+    public String getEditProfileForm(@PathVariable long id, Model model){
+        Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (obj == null || !(obj instanceof UserDetails)) {
+            return "redirect:/login";
+        }
+        User user = (User) obj;
+        User singleUser = userRepo.getOne(id);
+        if (user.getId() != user.getId()) {
+            return "redirect:/profile/" + user.getId();
+        }
+        model.addAttribute("user", singleUser);
+        return "user/profile-edit";
+    }
+
+    @PostMapping("/profile/{id}/profile-edit")
+    public String editProfile(@PathVariable long id, Model model) {
+        User singleUser = userRepo.getOne(id);
+        userRepo.delete(singleUser);
+        return "redirect:/login";
+    }
 }
 
