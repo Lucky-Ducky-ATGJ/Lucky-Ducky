@@ -1,29 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="partials/partial :: head('Profile')"></head>
+<head th:replace="partials/partial :: head('Delete Account')"></head>
 <body>
 <div th:replace="partials/partial :: top_banner"></div>
 <div th:replace="partials/partial :: standard_nav"></div>
 
-<img src="..." alt="..." class="img-thumbnail">
-<div class="text-center">
-<div> Upcoming Bills</div>
+<div class="container">
+    <h2>Delete Profile</h2>
 
-<div> Overdue Bills</div>
+    <form th:action="@{'/profile/'+${user.id}+'/delete'}" method="post">
+        <h1>Are you sure?</h1>
+        <button>yes, delete</button>
+        <a th:href="@{'/profile/'}">No, don't delete</a>
 
-<div> Goal Tracker</div>
-    <a th:href="@{'/profile/'+${user.id}+'/delete'}">Delete Profile</a>
-
-</div>
-
-
-<div th:if="${param.logout}">
-    You have been logged out.
+    </form>
 </div>
 
 <div th:replace="partials/partial :: footer_nav"></div>
 <div th:replace="partials/partial :: footer"></div>
-
 </body>
 </html>

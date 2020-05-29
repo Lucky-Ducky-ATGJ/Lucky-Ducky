@@ -2,19 +2,22 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:fragment="head">
+<head th:fragment="head(title)">
     <meta charset="UTF-8"/>
-    <link th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}" rel="stylesheet">
+    <link href="/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css" rel="stylesheet">
     <link th:href="@{/css/style.css}" rel="stylesheet">
-    <title></title>
+    <script src="https://kit.fontawesome.com/5811016069.js" crossorigin="anonymous"></script>
+    <title th:text="${title}"></title>
 </head>
+
 <body>
+
+
 <top_banner th:fragment="top_banner">
     <div class="top_banner nav-top-margin">Quacker Tracker</div>
 </top_banner>
 
-<standard_nav th:fragment="navbar">
-
+<standard_nav>
     <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
         <!--    <a class="navbar-brand" href="#">Navbar</a>-->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -31,12 +34,21 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/about">About Us</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/transactions" sec:authorize="isAuthenticated()">Transaction</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" sec:authorize="isAuthenticated()">Budget</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/profile/bills" sec:authorize="isAuthenticated()">Bills</a>
+                </li>
             </ul>
 
             <!-- right side content -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" href="/profile"><img src="img/profile-icon.png" alt="profile-picture"></a>
+                    <a class="nav-link" href="/profile"><i class="fas fa-user"></i></a>
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
                     <form th:action="@{/logout}" th:method="post">
@@ -65,9 +77,14 @@
         </ul>
     </div>
 </footer_nav>
-<div th:fragment="footer" th:remove="tag">
-    <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+
+
+<div th:fragment="footer">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/popper.js/popper.min.js"></script>
+    <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </div>
+
+
 </body>
 </html>

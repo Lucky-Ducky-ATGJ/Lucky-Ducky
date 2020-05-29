@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="partials/partial :: head('Adding Bill')"></head>
+<body>
+<div th:replace="partials/partial :: top_banner"></div>
+<div th:replace="partials/partial :: standard_nav"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Register Form</h5>
+                    <form class="form-signin" th:action="@{/profile/bills/add}" method="POST" th:object="${bill}">
+                        <div class="form-label-group d-flex">
+                            <label for="name">Name</label>
+                            <input class="ml-auto mt-2" id="name" th:field="*{name}"/>
+                        </div>
+
+                        <div class="form-label-group d-flex">
+                            <label for="dueDate">Due Date</label>
+                            <input class="ml-auto mt-2" id="dueDate" th:field="*{dueDate}"/>
+                        </div>
+
+                        <div class="form-label-group d-flex">
+                            <label for="amount">Amount</label>
+                            <input class="ml-auto mt-2" id="amount" th:field="*{amountInCents}"/>
+                        </div>
+
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase mt-3" type="submit">Add Bill</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="partials/partial :: footer_nav"></div>
+<div th:replace="partials/partial :: footer"></div>
+</body>
+</html>

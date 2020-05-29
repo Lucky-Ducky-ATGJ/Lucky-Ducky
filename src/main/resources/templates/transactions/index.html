@@ -1,14 +1,40 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="/partial :: head"></head>
+<head th:replace="partials/partial :: head('Transaction Page')"></head>
 <body>
-<div th:replace="/partial :: top_banner"></div>
-<div th:replace="/partial :: standard_nav"></div>
+<div th:replace="partials/partial :: top_banner"></div>
+<div th:replace="partials/partial :: standard_nav"></div>
 
-<h1>Bills page.</h1>
 
-<div th:replace="/partial :: footer_nav"></div>
-<div th:replace="/partial :: footer"></div>
+<h1>Your Transactions</h1>
+
+<div class="p-2">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Income</th>
+            <th>Category</th>
+            <th>Date added</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="transaction : ${transactions}">
+            <td th:utext="${transaction.name}"></td>
+            <td th:utext="${transaction.amountInCents}"></td>
+            <td th:utext="${transaction.income}"></td>
+            <td th:utext="${transaction.category.name}"></td>
+            <td th:utext="${transaction.createdDate}"></td>
+
+            <td>
+        </tbody>
+    </table>
+</div>
+
+
+<div th:replace="partials/partial :: footer_nav"></div>
+<div th:replace="partials/partial :: footer"></div>
 </body>
 </html>

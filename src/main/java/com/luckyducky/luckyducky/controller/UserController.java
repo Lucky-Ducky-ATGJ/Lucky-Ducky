@@ -3,11 +3,13 @@ package com.luckyducky.luckyducky.controller;
 import com.luckyducky.luckyducky.model.User;
 import com.luckyducky.luckyducky.repositories.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -36,7 +38,7 @@ public class UserController {
         userRepo.save(user);
 
         model.addAttribute("user",user);
-        return "redirect:/profile";
+        return "user/register-success";
     }
 
     @GetMapping("/profile")
@@ -44,6 +46,28 @@ public class UserController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
         return "user/profile";
+    }
+
+    @GetMapping("/profile/{id}/delete")
+    public String getDeleteProfileForm(@PathVariable long id, Model model){
+        Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (obj == null || !(obj instanceof UserDetails)) {
+            return "redirect:/login";
+        }
+        User user = (User) obj;
+        User singleUser = userRepo.getOne(id);
+        if (user.getId() != user.getId()) {
+            return "redirect:/profile/" + user.getId();
+        }
+        model.addAttribute("user", singleUser);
+        return "user/delete";
+    }
+
+    @PostMapping("/profile/{id}/delete")
+    public String deleteProfile(@PathVariable long id, Model model) {
+        User singleUser = userRepo.getOne(id);
+        userRepo.delete(singleUser);
+        return "redirect:/login";
     }
 }
 

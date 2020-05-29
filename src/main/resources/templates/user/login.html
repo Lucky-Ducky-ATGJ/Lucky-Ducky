@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="partials/partial :: head"></head>
+<head th:replace="partials/partial :: head('Login')"></head>
 <body>
 <div th:replace="partials/partial :: top_banner"></div>
 <div th:replace="partials/partial :: standard_nav"></div>
@@ -21,12 +21,12 @@
                     <h5 class="card-title text-center">Sign In</h5>
                     <form class="form-signin" th:action="@{/login}" method="post" >
                         <div class="form-label-group">
-                            <input type="text" id="username" name="username"  class="form-control" placeholder="username" required autofocus>
+                            <input type="text" id="username" name="username"  class="form-control" placeholder="(Enter username)" required autofocus>
                             <label for="username">Username</label>
                         </div>
 
                         <div class="form-label-group">
-                            <input type="password" id="password" name="password" class="form-control" placeholder="password" required>
+                            <input type="password" id="password" name="password" class="form-control" placeholder="(Enter password)" required>
                             <label for="password">Password</label>
                         </div>
 

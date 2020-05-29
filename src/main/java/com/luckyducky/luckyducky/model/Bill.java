@@ -1,15 +1,17 @@
 package com.luckyducky.luckyducky.model;
 
-
-import org.hibernate.annotations.Generated;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Auditable;
 
 import javax.persistence.*;
+import java.time.temporal.TemporalAccessor;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 
 @Entity
-public class Bill {
+public class Bill implements Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -24,6 +26,7 @@ public class Bill {
     private Date dueDate;
 
     @Column
+    @Value("${some.key:false}")
     private boolean isPaid;
 
     @Column
@@ -42,8 +45,18 @@ public class Bill {
     public Bill() {
     }
 
-    public long getId() {
-        return id;
+//    public long getId() {
+//        return id;
+//    }
+
+    @Override
+    public Object getId() {
+        return null;
+    }
+
+    @Override
+    public boolean isNew() {
+        return false;
     }
 
     public void setId(long id) {
@@ -112,5 +125,45 @@ public class Bill {
 
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
+    }
+
+    @Override
+    public Optional getCreatedBy() {
+        return Optional.empty();
+    }
+
+    @Override
+    public void setCreatedBy(Object o) {
+
+    }
+
+    @Override
+    public Optional getCreatedDate() {
+        return Optional.empty();
+    }
+
+    @Override
+    public void setCreatedDate(TemporalAccessor temporalAccessor) {
+
+    }
+
+    @Override
+    public Optional getLastModifiedBy() {
+        return Optional.empty();
+    }
+
+    @Override
+    public void setLastModifiedBy(Object o) {
+
+    }
+
+    @Override
+    public Optional getLastModifiedDate() {
+        return Optional.empty();
+    }
+
+    @Override
+    public void setLastModifiedDate(TemporalAccessor temporalAccessor) {
+
     }
 }

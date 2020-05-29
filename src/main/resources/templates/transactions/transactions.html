@@ -1,54 +1,47 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="partials/partial :: head"></head>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="partials/partial :: head('Adding Transaction')"></head>
 <body>
 <div th:replace="partials/partial :: top_banner"></div>
 <div th:replace="partials/partial :: standard_nav"></div>
+<div class="container">
+    <form th:action="@{/transactions/add}" method="POST" th:object="${transaction}">
+        <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" th:field="*{name}" class="form-control" placeholder="name">
+        </div>
 
-<!--<form th:action="@{/transactions/add}" method="POST" th:object="${transaction}">-->
-<!--    <div>-->
-<!--        <label for="name">Name</label>-->
-<!--        <input type="text" id="name" th:field="*{name}" class="form-control" placeholder="name">-->
-<!--    </div>-->
+        <div>
+            <label for="amountIncents">Amount</label>
+            <input type="text" id="amountInCents" th:field="*{amountInCents}" class="form-control" placeholder="amount">
+        </div>
 
-<!--    <div>-->
-<!--        <label for="company">Company</label>-->
-<!--        <input type="text" id="company" th:field="*{company}" class="form-control" placeholder="Company">-->
-<!--    </div>-->
+<!--        <div>-->
+<!--            <label for="dateCreated">Date Created</label>-->
+<!--            <input type="date" id="dateCreated" th:field:="*{createdDate}" class="form-control}">-->
 
-<!--    <div>-->
-<!--        <label for="due_date">Due date</label>-->
-<!--        <input type="date" id="due_date" th:field:="*{due_date}" class="form-control}">-->
+<!--        </div>-->
 
-<!--    </div>-->
+        <div>
+            <label for="isIncome">Income</label>
+            <input type="checkbox" id="isIncome" th:field="*{income}" class="form-control">
+
+        </div>
+
+        <div>
+            <label for="category">Category</label>
+            <select type="text" id="category" class="form-control" th:field="*{category}">
+                <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
+            </select>
+        </div>
 
 
-<!--    <div>-->
-<!--        <label for="is_income">Income</label>-->
-<!--        <input type="checkbox" id="is_income" th:field:="*{is_income}" value="true" class="form-control">-->
 
-<!--    </div>-->
+        <button class="btn btn-lg btn-primary btn-block text-uppercase mt-3" type="submit">+</button>
 
-<!--    <div>-->
-<!--        <label for="is_paid">Paid</label>-->
-<!--        <input type="checkbox" id="is_paid" th:field:="*{is_paid}" value="true" class="form-control">-->
-
-<!--    </div>-->
-
-<!--    <div>-->
-<!--        <label for="category">Paid</label>-->
-<!--        <input type="text" id="category" th:field:="*{category}" class="form-control">-->
-
-<!--    </div>-->
-
-<!--    <div>-->
-<!--        <label for="amount">Amount</label>-->
-<!--        <input type="text" id="amount" th:field="*{amount_in_cents}" class="form-control" placeholder="amount">-->
-<!--    </div>-->
-
-<!--    <button class="btn btn-lg btn-primary btn-block text-uppercase mt-3" type="submit">+</button>-->
-
-<!--</form>-->
+    </form>
+</div>
 
 
 <div th:replace="partials/partial :: footer_nav"></div>
