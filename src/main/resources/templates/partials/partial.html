@@ -5,6 +5,7 @@
 <head th:fragment="head(title)">
     <meta charset="UTF-8"/>
     <link th:href="@{/webjars/bootstrap/4.4.1-1/css/bootstrap.min.css}" rel="stylesheet">
+<!--    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">-->
     <link th:href="@{/css/style.css}" rel="stylesheet">
     <script src="https://kit.fontawesome.com/5811016069.js" crossorigin="anonymous"></script>
     <title th:text="${title}"></title>
@@ -17,7 +18,7 @@
     <div class="top_banner nav-top-margin">Quacker Tracker</div>
 </top_banner>
 
-<standard_nav>
+
     <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
         <!--    <a class="navbar-brand" href="#">Navbar</a>-->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -64,7 +65,7 @@
             </ul>
         </div>
     </nav>
-</standard_nav>
+
 
 
 <footer_nav th:fragment="footer_nav">
@@ -80,9 +81,12 @@
 </footer_nav>
 
 
-<div th:fragment="footer" th:remove="tag">
+<div th:fragment="footer">
     <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/1.14.3/popper.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/4.4.1-1/js/bootstrap.min.js}"></script>
+<!--    <script th:src="@{/js/jquery-3.5.1.min.js}"></script>-->
+<!--    <script th:src="@{/js/bootstrap.min.js}"></script>-->
 </div>
 
 
