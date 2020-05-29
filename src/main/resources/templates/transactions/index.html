@@ -27,6 +27,14 @@
             <td th:utext="${transaction.income}"></td>
             <td th:utext="${transaction.category.name}"></td>
             <td th:utext="${transaction.createdDate}"></td>
+            <td>
+                <form  th:action="@{|/transactions/${transaction.id}/delete|}" th:method="POST">
+                <button class="btn bg-transparent p-1"> <i class="fas fa-trash-alt"></i></button>
+                </form>
+                <button type="button" class="btn bg-transparent p-1" data-toggle="modal" data-target="#deletePost">
+                    <i class="fas fa-edit"></i>
+                </button>
+            </td>
 
             <td>
         </tbody>
