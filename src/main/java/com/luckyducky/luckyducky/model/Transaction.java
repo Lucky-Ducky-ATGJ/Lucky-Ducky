@@ -1,13 +1,16 @@
 package com.luckyducky.luckyducky.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class Transaction extends Auditable<String>   {
+public class Transaction{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -19,9 +22,16 @@ public class Transaction extends Auditable<String>   {
     @Value("${some.key:0}")
     private int amountInCents;
 
-//    @CreatedDate
-//    @Column(nullable = true)
-//    private Date dateCreated;
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_date")
+    private Date createDate;
+
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "modify_date")
+    private Date modifyDate;
+
 
     @Column(nullable = false)
     @Value("${some.key:false}")
@@ -82,13 +92,13 @@ public class Transaction extends Auditable<String>   {
         this.amountInCents = amountInCents;
     }
 
-//    public Date getDateCreated() {
-//        return dateCreated;
-//    }
-//
-//    public void setDateCreated(Date dateCreated) {
-//        this.dateCreated = dateCreated;
-//    }
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date dateCreated) {
+        this.createDate = createDate;
+    }
 
     public Boolean getIncome() {
         return isIncome;

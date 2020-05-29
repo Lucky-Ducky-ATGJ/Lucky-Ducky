@@ -29,6 +29,7 @@ public class TransactionController {
     @GetMapping("/transactions")
     public String getAllTransactions(Model model) {
         model.addAttribute("transactions", transRepo.findAll());
+        model.addAttribute("categories", catRepo.findAll());
         return "transactions/index";
     }
 
@@ -51,6 +52,29 @@ public class TransactionController {
     public String deleteTransaction(@PathVariable long id) {
         transRepo.deleteById(id);
         return "redirect:/transactions";
+    }
+
+    @GetMapping("/transactions/{id}/edit")
+    public String showEditPost(@PathVariable long id, Model model) {
+        Transaction editedTransaction = transRepo.getOne(id);
+        model.addAttribute("categories", catRepo.findAll());
+        model.addAttribute("transaction", editedTransaction);
+        return ("/transactions/transactions");
+    }
+
+    @PostMapping("/transactions/{id}/edit")
+    public String editPost(@PathVariable long id, @RequestParam String name, @RequestParam int amount,  @RequestParam Category category,@RequestParam(value = "isIncome", required = false) boolean isIncome,  Model model  ) {
+        Transaction transToEdit = transRepo.getOne(id);
+        model.addAttribute("categories", catRepo.findAll());
+
+        transToEdit.setName(name);
+        transToEdit.setAmountInCents(amount);
+        transToEdit.setIncome(isIncome);
+        transToEdit.setCategory(category);
+
+        transRepo.save(transToEdit);
+
+        return ("redirect:/transactions");
     }
 }
 
