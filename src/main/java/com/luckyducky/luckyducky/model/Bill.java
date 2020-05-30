@@ -1,17 +1,15 @@
 package com.luckyducky.luckyducky.model;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Auditable;
 
 import javax.persistence.*;
-import java.time.temporal.TemporalAccessor;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 
 @Entity
-public class Bill implements Auditable {
+public class Bill{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -23,7 +21,7 @@ public class Bill implements Auditable {
     private int amountInCents;
 
     @Column
-    private Date dueDate;
+    private LocalDate dueDate;
 
     @Column
     @Value("${some.key:false}")
@@ -45,18 +43,31 @@ public class Bill implements Auditable {
     public Bill() {
     }
 
-//    public long getId() {
-//        return id;
-//    }
-
-    @Override
-    public Object getId() {
-        return null;
+    public Bill(long id, String name, int amountInCents, LocalDate dueDate, boolean isPaid, Date createdAt, Date modifiedAt, User user, List<Transaction> transactions) {
+        this.id = id;
+        this.name = name;
+        this.amountInCents = amountInCents;
+        this.dueDate = dueDate;
+        this.isPaid = isPaid;
+        this.createdAt = createdAt;
+        this.modifiedAt = modifiedAt;
+        this.user = user;
+        this.transactions = transactions;
     }
 
-    @Override
-    public boolean isNew() {
-        return false;
+    public Bill(String name, int amountInCents, LocalDate dueDate, boolean isPaid, Date createdAt, Date modifiedAt, User user, List<Transaction> transactions) {
+        this.name = name;
+        this.amountInCents = amountInCents;
+        this.dueDate = dueDate;
+        this.isPaid = isPaid;
+        this.createdAt = createdAt;
+        this.modifiedAt = modifiedAt;
+        this.user = user;
+        this.transactions = transactions;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public void setId(long id) {
@@ -79,11 +90,11 @@ public class Bill implements Auditable {
         this.amountInCents = amountInCents;
     }
 
-    public Date getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 
@@ -127,43 +138,4 @@ public class Bill implements Auditable {
         this.transactions = transactions;
     }
 
-    @Override
-    public Optional getCreatedBy() {
-        return Optional.empty();
-    }
-
-    @Override
-    public void setCreatedBy(Object o) {
-
-    }
-
-    @Override
-    public Optional getCreatedDate() {
-        return Optional.empty();
-    }
-
-    @Override
-    public void setCreatedDate(TemporalAccessor temporalAccessor) {
-
-    }
-
-    @Override
-    public Optional getLastModifiedBy() {
-        return Optional.empty();
-    }
-
-    @Override
-    public void setLastModifiedBy(Object o) {
-
-    }
-
-    @Override
-    public Optional getLastModifiedDate() {
-        return Optional.empty();
-    }
-
-    @Override
-    public void setLastModifiedDate(TemporalAccessor temporalAccessor) {
-
-    }
 }

@@ -29,16 +29,18 @@ public class Budget {
 
     public Budget(){}
 
-    public Budget(long id, String name, int balance_in_cents) {
+    public Budget(long id, String name, int balance_in_cents, User user) {
         this.id = id;
         this.name = name;
         this.balance_in_cents = balance_in_cents;
+        this.user = user;
 
     }
 
-    public Budget(String name, int balance_in_cents) {
+    public Budget(String name, int balance_in_cents, User user) {
         this.name = name;
         this.balance_in_cents = balance_in_cents;
+        this.user = user;
     }
 
 
@@ -72,5 +74,13 @@ public class Budget {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 }

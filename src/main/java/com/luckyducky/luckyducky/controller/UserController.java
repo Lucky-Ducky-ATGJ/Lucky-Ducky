@@ -1,6 +1,8 @@
 package com.luckyducky.luckyducky.controller;
 
+import com.luckyducky.luckyducky.model.Budget;
 import com.luckyducky.luckyducky.model.User;
+import com.luckyducky.luckyducky.repositories.BudgetRepository;
 import com.luckyducky.luckyducky.repositories.UserRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,11 +20,13 @@ public class UserController {
     // Dependency Injection
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepo;
+    private final BudgetRepository budgetRepo;
 
     // Springs version of DaoFactory that uses the Repo(interface as a Dao)
-    public UserController(PasswordEncoder passwordEncoder, UserRepository userRepo) {
+    public UserController(PasswordEncoder passwordEncoder, UserRepository userRepo, BudgetRepository budgetRepo) {
         this.passwordEncoder = passwordEncoder;
         this.userRepo = userRepo;
+        this.budgetRepo = budgetRepo;
     }
 
     @GetMapping("/register")
@@ -35,7 +39,9 @@ public class UserController {
     public String saveUser(@ModelAttribute User user, Model model) {
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
+        Budget budget = new Budget("main", 0,user);
         userRepo.save(user);
+        budgetRepo.save(budget);
 
         model.addAttribute("user",user);
         return "user/register-success";
