@@ -29,24 +29,15 @@ public class BillController {
         this.cateRepo = cateRepo;
     }
 
-    /////////////////  Show Bills  //////////////////////////
+/////////////////  Show Bills  //////////////////////////
     @GetMapping("/bills")
     public String showBill(Model model) {
-        Bill bill = new Bill();
         model.addAttribute("bills", billRepo.findAll());
         model.addAttribute("categories", cateRepo.findAll());
-        model.addAttribute("bill", bill);
         return "bills/index";
     }
 
-    /////////////////  Add Bills  ///////////////////////////
-//    @GetMapping("/bills/add")
-//    public String addBill(Model model) {
-//        Bill bill = new Bill();
-//        model.addAttribute("bill", bill);
-//        return "bills/add";
-//    }
-
+/////////////////  Add Bills  ///////////////////////////
     @PostMapping("/bills/add")
     public String newBill(@ModelAttribute Bill bill) {
         bill.setCreatedAt(new Date());
@@ -55,16 +46,19 @@ public class BillController {
     }
 
 /////////////////  Edit Bills  //////////////////////////
-    @PostMapping("/bills/{id}/edit")
-    public String editBill(@ModelAttribute Bill updatedBill,@PathVariable long id){
-        updatedBill.setId(id);
+    @PostMapping("/bills/edit")
+    public String editBill(@RequestParam long id, @RequestParam String name, @RequestParam String date, @RequestParam int amount){
+        LocalDate lDate = LocalDate.parse(date);
+        Bill bill = billRepo.getOne(id);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Bill updatedBill = new Bill(id,name,amount,lDate,bill.isPaid(),bill.getCreatedAt(),bill.getModifiedAt(), user, bill.getTransactions());
         billRepo.save(updatedBill);
         return "redirect:/bills";
     }
 
 
 /////////////////  Delete Bills  ////////////////////////
-    @PostMapping("bills/delete")
+    @PostMapping("/bills/delete")
     public String deleteBill(@RequestParam long id) {
         Bill bill = billRepo.getOne(id);
         billRepo.delete(bill);
