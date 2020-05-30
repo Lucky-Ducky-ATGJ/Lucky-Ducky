@@ -13,6 +13,9 @@
 <div> Overdue Bills</div>
 
 <div> Goal Tracker</div>
+
+<div><a th:href="@{'/profile/'+${user.id}+'/profile-edit'}">Edit Profile</a><div>
+
     <a th:href="@{'/profile/'+${user.id}+'/delete'}">Delete Profile</a>
 
 </div>
@@ -21,6 +24,7 @@
 <div th:if="${param.logout}">
     You have been logged out.
 </div>
+
 
 <div th:replace="partials/partial :: footer_nav"></div>
 <div th:replace="partials/partial :: footer"></div>

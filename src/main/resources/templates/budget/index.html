@@ -6,7 +6,33 @@
 <div th:replace="partials/partial :: top_banner"></div>
 <div th:replace="partials/partial :: standard_nav"></div>
 
-<h1>Budget page</h1>
+<h1 class="text-center">Budget page</h1>
+<br>
+<br>
+<div class="row d-flex justify-content-center">
+    <div class="number-input text-center">
+        <label for="income"></label><input type="number" id="income" placeholder="(Enter income)">
+    </div>
+
+    <div class="ml-3 mr-3 font-weight-bold"> &mdash; </div>
+
+    <div class="number-input">
+        <label for="expenditures"></label><input type="number" id="expenditures" placeholder="(Enter expenditures)">
+    </div>
+
+    <div class="ml-3 mr-3"> = </div>
+
+    <div class="mr-1"> Balance:</div>
+
+    <div class="answer">
+        <p id="balance"></p>
+    </div>
+</div>
+<br>
+<br>
+<div class="button text-center">
+    <button onclick="calculateBalance()">Calculate</button>
+</div>
 
 <div th:replace="partials/partial :: footer_nav"></div>
 <div th:replace="partials/partial :: footer"></div>
