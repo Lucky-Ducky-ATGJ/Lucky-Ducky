@@ -1,5 +1,6 @@
 package com.luckyducky.luckyducky.controller;
 
+import com.luckyducky.luckyducky.model.Bill;
 import com.luckyducky.luckyducky.model.Category;
 import com.luckyducky.luckyducky.model.Transaction;
 import com.luckyducky.luckyducky.repositories.CategoryRepository;
@@ -9,6 +10,8 @@ import com.luckyducky.luckyducky.services.EmailService;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
+
+import java.util.Date;
 
 @Controller
 public class TransactionController {

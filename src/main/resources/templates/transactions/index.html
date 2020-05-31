@@ -6,29 +6,26 @@
 <div th:replace="partials/partial :: top_banner"></div>
 <div th:replace="partials/partial :: standard_nav"></div>
 
-<h1>Your Transactions</h1>
+<br>
+<h1 class="text-center">Your Transactions</h1>
 
-<div class="p-2">
+<div class="p-4">
     <table class="table table-hover">
-
         <thead class="thead-dark">
-        <tr>
+        <tr class="text-center">
             <th>Name</th>
             <th>Amount</th>
-            <th>Income</th>
             <th>Category</th>
             <th>Date added</th>
+            <th></th>
         </tr>
         </thead>
-
-<!--        -->
         <tbody>
-        <tr id="editTrans" th:each="transaction : ${transactions}">
-            <td th:utext="${transaction.name}"></td>
-            <td th:utext="${transaction.amountInCents}"></td>
-            <td th:utext="${transaction.income}"></td>
-            <td th:utext="${transaction.category.name}"></td>
-            <td th:utext="${transaction.createDate}"></td>
+        <tr id="editTrans" th:each="transaction : ${transactions}" class="text-center my-auto" th:style="${transaction.income} == true ? 'background-color: lightgreen; color : darkgreen' : 'background-color: pink; color : darkred'">
+            <td th:text="${transaction.name}"></td>
+            <td th:text="${transaction.amountInCents}"></td>
+            <td th:text="${transaction.category.name}"></td>
+            <td th:text="${transaction.createDate}"></td>
             <td>
                 <form th:action="@{|/transactions/${transaction.id}/delete|}" th:method="POST">
                     <button class="btn bg-transparent p-1"><i class="fas fa-trash-alt"></i></button>
@@ -41,7 +38,7 @@
 
                       <i class="fas fa-edit"></i>
                 </button>
-
+                </form>
                 <!-- Modal -->
                 <div class="modal fade" id="editPost" tabindex="-1" role="dialog"
                      aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -98,6 +95,7 @@
 
         </tbody>
     </table>
+    <button type="button" class="btn btn-sm">+</button>
 </div>
 
 <div th:replace="partials/partial :: footer_nav"></div>
