@@ -1,6 +1,5 @@
 USE thePond_db;
 
-
 INSERT INTO category (name)
 VALUES('Utilities'),
        ('Entertainment'),
@@ -14,4 +13,3 @@ VALUES('Utilities'),
        ('Groceries'),
        ('Gifts/Donations'),
        ('Personal');
-
