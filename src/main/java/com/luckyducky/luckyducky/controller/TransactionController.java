@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 
 import javax.persistence.Id;
 import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 public class TransactionController {
@@ -41,9 +42,12 @@ public class TransactionController {
 //    }
 
     @GetMapping("/transactions")
-    public String addTransaction(Model model) {
+
+        public String addTransaction (Model model){
         Transaction transaction = new Transaction();
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//       List<Transaction> myBudgetTransactions = budgetRepo.findAllById();
+//        System.out.println(myBudgetTransactions);
         model.addAttribute("transactions", transRepo.findAll());
         model.addAttribute("transaction", transaction);
         model.addAttribute("categories", catRepo.findAll());
@@ -51,12 +55,14 @@ public class TransactionController {
         return "transactions/index";
     }
 
+
     @PostMapping("/transactions/add")
     public String newTransaction(@ModelAttribute Transaction transaction) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 
        Budget userBudget = budgetRepo.findBudgetByUserAndName(user, "main");
+       transaction.setBudget(userBudget);
        userBudget.getTransactions().add(transaction);
        budgetRepo.save(userBudget);
 //       transRepo.save(transaction);
@@ -105,14 +111,22 @@ public class TransactionController {
 //    }
 
     @PostMapping("/transactions/edit")
-    public String editTransaction(@RequestParam String id, @RequestParam String name, @RequestParam int amount, @RequestParam Category category, @RequestParam(value = "isIncome", required = false) boolean isIncome, Model model) {
+    public String editTransaction(@RequestParam String id, @RequestParam String name, @RequestParam int amount, @RequestParam Category category, @RequestParam(value = "isIncome", required = false) String isIncome, Model model) {
         long parsedId = Long.parseLong(id);
         Transaction transToEdit = transRepo.getOne(parsedId);
         model.addAttribute("categories", catRepo.findAll());
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         transToEdit.setName(name);
         transToEdit.setAmountInCents(amount);
-        transToEdit.setIncome(isIncome);
+
+        if(isIncome != null)
+        {
+            transToEdit.setIncome(true);
+        }
+        else
+        {
+            transToEdit.setIncome(false);
+        }
         transToEdit.setCategory(category);
         transRepo.save(transToEdit);
         return "redirect:/transactions";
