@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 
 import javax.persistence.Id;
 import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 public class TransactionController {
@@ -43,8 +44,11 @@ public class TransactionController {
     @GetMapping("/transactions")
     public String addTransaction(Model model) {
         Transaction transaction = new Transaction();
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("transactions", transRepo.findAll());
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Budget budget = budgetRepo.findBudgetByUserAndName(user, "main");
+        List<Transaction> transactions = budget.getTransactions();
+        model.addAttribute("transactions", transactions);
+//        model.addAttribute("transactions", transRepo.findAll());
         model.addAttribute("transaction", transaction);
         model.addAttribute("categories", catRepo.findAll());
 //        model.addAttribute("isIncome", transaction.getIncome());
@@ -57,8 +61,8 @@ public class TransactionController {
 
 
        Budget userBudget = budgetRepo.findBudgetByUserAndName(user, "main");
-       userBudget.getTransactions().add(transaction);
-       budgetRepo.save(userBudget);
+       transaction.setBudget(userBudget);
+       transRepo.save(transaction);
 //       transRepo.save(transaction);
 //        transaction.setUser(transaction);
 
