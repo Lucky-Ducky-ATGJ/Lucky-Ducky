@@ -16,7 +16,6 @@
             <th>Date added</th>
             <th>Name</th>
             <th>Amount</th>
-            <th>Income</th>
             <th>Category</th>
             <th>Delete/Edit</th>
         </tr>
@@ -27,7 +26,7 @@
             <td th:text="${#dates.format(transaction.createDate, 'dd-MMM-yyyy')}"></td>
             <td th:text="${transaction.name}"></td>
             <td th:text="${#strings.replace(#numbers.formatCurrency(transaction.amountInCents), '.00', '')}"></td>
-            <td th:text="${transaction.income}"></td>
+<!--            <td th:text="${transaction.income}"></td>-->
             <td th:text="${transaction.category.name}"></td>
             <td>
                 <button type="button" class="btn bg-transparent p-1" data-toggle="modal" data-target="#deleteTransaction" th:data-i="${transaction.id}">
@@ -86,7 +85,7 @@
 
                     <div>
                         <label for="edit-amount">Amount</label>
-                        <input type="number" class="form-control" id="edit-amount" name="amount" value="amount">
+                        <input type="text" class="form-control" id="edit-amount" name="amount">
                     </div>
 
                     <div>
