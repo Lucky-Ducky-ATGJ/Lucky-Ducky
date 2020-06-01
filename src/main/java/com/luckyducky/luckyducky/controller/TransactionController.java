@@ -48,6 +48,7 @@ public class TransactionController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Budget budget = budgetRepo.findBudgetByUserAndName(user, "main");
         List<Transaction> transactions = budget.getTransactions();
+        System.out.println(transactions);
         model.addAttribute("transactions", transactions);
 //        model.addAttribute("transactions", transRepo.findAll());
         model.addAttribute("transaction", transaction);
