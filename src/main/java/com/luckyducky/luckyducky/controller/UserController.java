@@ -85,18 +85,23 @@ public class UserController {
         }
         User user = (User) obj;
         User singleUser = userRepo.getOne(id);
+
+//        User editUser = new User(); //create a new user which will allow me to hold new values
         if (user.getId() != user.getId()) {
             return "redirect:/profile/" + user.getId();
         }
         model.addAttribute("user", singleUser);
+//        model.addAttribute("editUser", editUser); //sends updated values to edited user
         return "user/profile-edit";
     }
 
     @PostMapping("/profile/{id}/profile-edit")
-    public String editProfile(@PathVariable long id, Model model) {
-        User singleUser = userRepo.getOne(id);
-        userRepo.delete(singleUser);
-        return "redirect:/login";
+    public String editProfile(@PathVariable long id, @ModelAttribute User user) {
+        User tempUser = userRepo.getOne(id);
+        user.setPassword(tempUser.getPassword());
+        user.setId(id);
+        userRepo.save(user);
+        return "redirect:/profile";
     }
-}
 
+}

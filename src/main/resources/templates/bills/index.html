@@ -20,7 +20,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="bill : ${bills}">
+        <tr th:each="bill : ${bills}" th:style="${bill.paid} == true ? 'background-color: lightgreen' : 'background-color: default'">
             <td class="bill-name" th:text="${bill.name}"></td>
             <td class="bill-date" th:text="${bill.dueDate}"></td>
             <td class="bill-amount" th:text="${bill.amountInCents}"></td>
@@ -37,7 +37,7 @@
         </tbody>
     </table>
 <!--    <button type="button" class="btn btn-sm">+</button>-->
-    <button type="button" class="btn bg-transparent p-1" data-toggle="modal" data-target="#addBill">+</button>
+    <button type="button" id="addBButton" class="btn bg-transparent border border-dark p-1" data-toggle="modal" data-target="#addBill">+</button>
 </div>
 
 <div class="modal fade" id="deleteBill" tabindex="-1" role="dialog" aria-labelledby="deleteConfirm"
