@@ -121,6 +121,8 @@ public class BillController {
         // Get bill that was paid from database and change paid status to true
         Bill bill = billRepo.getOne(id);
         bill.setPaid(true);
+        bill.setAmountInCents(payAmt);
+        billRepo.save(bill);
         // Go back to the index of Bills by the URL so that the new info loads
         return "redirect:/bills";
     }
