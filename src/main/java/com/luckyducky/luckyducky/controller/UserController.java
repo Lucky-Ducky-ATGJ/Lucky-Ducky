@@ -1,5 +1,6 @@
 package com.luckyducky.luckyducky.controller;
 
+import com.luckyducky.luckyducky.model.Bill;
 import com.luckyducky.luckyducky.model.Budget;
 import com.luckyducky.luckyducky.model.Transaction;
 import com.luckyducky.luckyducky.model.User;
@@ -43,11 +44,15 @@ public class UserController {
     public String saveUser(@ModelAttribute User user, Model model) {
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
-        Budget budget = new Budget("main", 0,user);
+
+        List<Budget> budgets = new ArrayList<>();
         List<Transaction> transactions = new ArrayList<>();
+        Budget budget = new Budget("main", 0,user);
         budget.setTransactions(transactions);
+        budgets.add(budget);
+        user.setBudgets(budgets);
+
         userRepo.save(user);
-        budgetRepo.save(budget);
 
         model.addAttribute("user",user);
         return "user/register-success";

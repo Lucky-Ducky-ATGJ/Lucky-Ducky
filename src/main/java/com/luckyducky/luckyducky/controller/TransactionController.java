@@ -51,7 +51,7 @@ public class TransactionController {
     @PostMapping("/transactions/add")
     public String newTransaction(@ModelAttribute Transaction transaction) {
 
-
+        Category cat = transaction.getCategory();
         transRepo.save(transaction);
         transaction.setUser(transaction);
         // Save the new Bill to the database

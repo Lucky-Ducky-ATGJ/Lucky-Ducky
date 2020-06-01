@@ -26,9 +26,8 @@
             <td class="bill-name" th:text="${bill.name}"></td>
             <td class="bill-date" th:text="${bill.dueDate}"></td>
             <td class="bill-amount" th:text="${bill.amountInCents}"></td>
-            <!--            <td th:text="${bill.paid}"></td>-->
             <td>
-                <button type="button" class="btn bg-primary p-1" data-toggle="modal" data-target="#payBill">
+                <button type="button" class="btn bg-primary p-1" data-toggle="modal" data-target="#payBill" th:data-pay="${bill.id}">
                     Pay Bill
                 </button>
             </td>
@@ -91,7 +90,9 @@
                     <div>
                         <label for="pay-amt">Enter the amount you want to pay.</label>
                         <br>
-                        $<input type="number" id="pay-amt" name="pay-amt">
+                        $<input type="number" id="pay-amt" name="payAmt">
+                        <input type="hidden" id="payment-name" name="payName">
+                        <input type="hidden" id="payment-id" name="id">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

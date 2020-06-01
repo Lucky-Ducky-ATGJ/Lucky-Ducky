@@ -23,13 +23,16 @@ $('#editBill').on('show.bs.modal', function (event) {
 
 $('#payBill').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget)
+    var id = button.data("pay")
     var name = button.parent().parent().children(":nth-child(1)").text()
     var amt = button.parent().parent().children(":nth-child(3)").text()
     var modal = $(this)
     console.log(name);
     console.log(amt);
-    modal.find('.modal-body input#pay-amt').val(amt)
     modal.find('.modal-title span#pay-name').html(name)
+    modal.find('.modal-body input#pay-amt').val(amt)
+    modal.find('.modal-body input#payment-name').val(name)
+    modal.find('.modal-body input#payment-id').val(id)
 });
 
 
