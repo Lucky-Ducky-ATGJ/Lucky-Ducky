@@ -46,9 +46,10 @@ public class TransactionController {
         public String addTransaction (Model model){
         Transaction transaction = new Transaction();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//       List<Transaction> myBudgetTransactions = budgetRepo.findAllById();
-//        System.out.println(myBudgetTransactions);
-        model.addAttribute("transactions", transRepo.findAll());
+        Budget budget = budgetRepo.findBudgetByUserAndName(user, "main");
+        List<Transaction> transactions = budget.getTransactions();
+        model.addAttribute("transactions", transactions);
+//        model.addAttribute("transactions", transRepo.findAll());
         model.addAttribute("transaction", transaction);
         model.addAttribute("categories", catRepo.findAll());
 //        model.addAttribute("isIncome", transaction.getIncome());
@@ -63,8 +64,7 @@ public class TransactionController {
 
        Budget userBudget = budgetRepo.findBudgetByUserAndName(user, "main");
        transaction.setBudget(userBudget);
-       userBudget.getTransactions().add(transaction);
-       budgetRepo.save(userBudget);
+       transRepo.save(transaction);
 //       transRepo.save(transaction);
 //        transaction.setUser(transaction);
 

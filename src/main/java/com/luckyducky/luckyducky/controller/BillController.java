@@ -110,19 +110,19 @@ public class BillController {
         // Get the current user and their budget
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Budget budget = budgetRepo.findBudgetByUserAndName(user, "main");
-        // Set the empty Transaction with all the data
-        payment.setName(payName);
-        payment.setAmountInCents(payAmt);
-        payment.setIncome(false);
-        payment.setCategory(cat);
-        // Add the Transaction to the current user's budget and save to the DB
-        budget.getTransactions().add(payment);
-        budgetRepo.save(budget);
         // Get bill that was paid from database and change paid status to true
         Bill bill = billRepo.getOne(id);
         bill.setPaid(true);
         bill.setAmountInCents(payAmt);
         billRepo.save(bill);
+        // Set the empty Transaction with all the data
+        payment.setName(payName);
+        payment.setAmountInCents(payAmt);
+        payment.setIncome(false);
+        payment.setCategory(cat);
+        payment.setBudget(budget);
+        payment.setBill(bill);
+        transRepo.save(payment);
         // Go back to the index of Bills by the URL so that the new info loads
         return "redirect:/bills";
     }
