@@ -26,7 +26,7 @@
             <td th:text="${transaction.name}"></td>
             <td th:text="${#strings.replace(#numbers.formatCurrency(transaction.amountInCents), '.00', '')}"></td>
             <td th:text="${transaction.category.name}"></td>
-            <td th:text="${transaction.createDate}"></td>
+            <td th:text="${#dates.format(transaction.createDate, 'dd-MMM-yyyy')}"></td>
             <td>
                 <form th:action="@{|/transactions/${transaction.id}/delete|}" th:method="POST">
                     <button class="btn bg-transparent p-1"><i class="fas fa-trash-alt"></i></button>
