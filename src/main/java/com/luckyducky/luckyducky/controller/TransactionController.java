@@ -6,11 +6,13 @@ import com.luckyducky.luckyducky.repositories.CategoryRepository;
 import com.luckyducky.luckyducky.repositories.TransactionRepository;
 import com.luckyducky.luckyducky.repositories.UserRepository;
 import com.luckyducky.luckyducky.services.EmailService;
+import javassist.runtime.Desc;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 
+import javax.persistence.Id;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -58,12 +60,14 @@ public class TransactionController {
     public String newTransaction(@ModelAttribute Transaction transaction) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+
        Budget userBudget = budgetRepo.findBudgetByUserAndName(user, "main");
        transaction.setBudget(userBudget);
        userBudget.getTransactions().add(transaction);
        budgetRepo.save(userBudget);
 //       transRepo.save(transaction);
 //        transaction.setUser(transaction);
+
         // Save the new Bill to the database
         return "redirect:/transactions";
     }

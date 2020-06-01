@@ -13,22 +13,22 @@
     <table class="table table-hover">
         <thead class="thead-dark">
         <tr class="text-center">
+            <th>Date added</th>
             <th>Name</th>
             <th>Amount</th>
             <th>Income</th>
             <th>Category</th>
-            <th>Date added</th>
             <th>Delete/Edit</th>
         </tr>
         </thead>
         <tbody>
-        <tr id="editTrans" th:each="transaction : ${transactions}" class="text-center my-auto"
+        <tr id="editTrans" th:each="transaction : ${transactions}" class="text-center"
             th:style="${transaction.income} == true ? 'background-color: lightgreen; color: black' : 'background-color: pink; color: black'">
+            <td th:text="${#dates.format(transaction.createDate, 'dd-MMM-yyyy')}"></td>
             <td th:text="${transaction.name}"></td>
             <td th:text="${#strings.replace(#numbers.formatCurrency(transaction.amountInCents), '.00', '')}"></td>
             <td th:text="${transaction.income}"></td>
             <td th:text="${transaction.category.name}"></td>
-            <td th:text="${transaction.createDate}"></td>
             <td>
                 <button type="button" class="btn bg-transparent p-1" data-toggle="modal" data-target="#deleteTransaction" th:data-i="${transaction.id}">
                     <i class="fas fa-trash-alt"></i>

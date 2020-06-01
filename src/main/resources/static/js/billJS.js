@@ -2,17 +2,17 @@
     "use strict";
 
 $('#deleteBill').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget) // Button that triggered the modal
-    var curId = button.data('i') // Current bill id
+    var button = $(event.relatedTarget)
+    var curId = button.data('i')
     var modal = $(this)
     modal.find('.modal-footer button#delete-id').val(curId)
 });
 
 $('#editBill').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget) // Button that triggered the modal
-    var name = button.parent().parent().children(":nth-child(1)").text() // Current bill name
-    var date = button.parent().parent().children(":nth-child(2)").text() // Current bill date
-    var amount = button.parent().parent().children(":nth-child(3)").text() // Current bill amount
+    var button = $(event.relatedTarget)
+    var name = button.parent().parent().children(":nth-child(1)").text()
+    var date = button.parent().parent().children(":nth-child(2)").text()
+    var amount = button.parent().parent().children(":nth-child(3)").text()
     var id = button.data("id")
     var modal = $(this)
     modal.find(".modal-body input#edit-name").val(name);
@@ -21,7 +21,19 @@ $('#editBill').on('show.bs.modal', function (event) {
     modal.find(".modal-body input#edit-id").val(id);
 });
 
-
+$('#payBill').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+    var id = button.data("pay")
+    var name = button.parent().parent().children(":nth-child(1)").text()
+    var amt = button.parent().parent().children(":nth-child(3)").text()
+    var modal = $(this)
+    console.log(name);
+    console.log(amt);
+    modal.find('.modal-title span#pay-name').html(name)
+    modal.find('.modal-body input#pay-amt').val(amt)
+    modal.find('.modal-body input#payment-name').val(name)
+    modal.find('.modal-body input#payment-id').val(id)
+});
 
 
 

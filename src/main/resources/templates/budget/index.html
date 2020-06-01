@@ -5,34 +5,34 @@
 <body>
 <div th:replace="partials/partial :: top_banner"></div>
 <div th:replace="partials/partial :: standard_nav"></div>
-
+<br>
 <h1 class="text-center">Calculate Balance</h1>
 <br>
 <br>
 <div class="row d-flex justify-content-center">
     <div class="number-input text-center">
-        <label for="income"></label><input type="number" id="income" placeholder="(Enter income)">
+        <label for="income" class="mr-1 large-font">Income: </label><input type="number" id="income" placeholder="(Enter income)">
         <button onclick="importIncome()">Import</button>
     </div>
 
-    <div class="ml-3 mr-3 font-weight-bold"> &mdash; </div>
+    <div class="ml-3 mr-3 font-weight-bold large-font"> &mdash; </div>
 
     <div class="number-input">
-        <label for="expenditures"></label><input type="number" id="expenditures" placeholder="(Enter expenditures)">
+        <label for="expenditures" class="mr-1 large-font">Expenditures: </label><input type="number" id="expenditures" placeholder="(Enter expenditures)">
         <button onclick="importExpenditures()">Import</button>
     </div>
 
-    <div class="ml-3 mr-3"> = </div>
+    <div class="ml-3 mr-3 large-font"> = </div>
 
-    <div class="mr-1"> Balance:</div>
+    <div class="mr-1 large-font"> Balance:</div>
 
-    <div class="answer">
+    <div class="answer large-font">
         <p id="balance"></p>
     </div>
 </div>
 <br>
 <br>
-<div class="button text-center">
+<div class="button text-center large-font">
     <button onclick="calculateBalance()">Calculate</button>
 </div>
 

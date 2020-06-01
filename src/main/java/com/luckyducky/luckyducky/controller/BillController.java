@@ -1,12 +1,7 @@
 package com.luckyducky.luckyducky.controller;
 
-import com.luckyducky.luckyducky.model.Bill;
-import com.luckyducky.luckyducky.model.Transaction;
-import com.luckyducky.luckyducky.model.User;
-import com.luckyducky.luckyducky.repositories.BillRepository;
-import com.luckyducky.luckyducky.repositories.CategoryRepository;
-import com.luckyducky.luckyducky.repositories.TransactionRepository;
-import com.luckyducky.luckyducky.repositories.UserRepository;
+import com.luckyducky.luckyducky.model.*;
+import com.luckyducky.luckyducky.repositories.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,12 +22,14 @@ public class BillController {
     private final TransactionRepository transRepo;
     private final BillRepository billRepo;
     private final CategoryRepository cateRepo;
+    private final BudgetRepository budgetRepo;
 
-    public BillController(UserRepository userRepo, TransactionRepository transRepo, BillRepository billRepo, CategoryRepository cateRepo) {
+    public BillController(UserRepository userRepo, TransactionRepository transRepo, BillRepository billRepo, CategoryRepository cateRepo, BudgetRepository budgetRepo) {
         this.userRepo = userRepo;
         this.billRepo = billRepo;
         this.transRepo = transRepo;
         this.cateRepo = cateRepo;
+        this.budgetRepo = budgetRepo;
     }
 
 /////////////////  Show Bills  //////////////////////////
@@ -56,7 +53,7 @@ public class BillController {
     @PostMapping("/bills/add")
     // Using the object from the bills/index HTML in the add Modal
     public String newBill(@ModelAttribute Bill bill) {
-        // Get the current user and an empty List for the Transactions
+        // Get the current user and their list of Transactions
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Transaction> transactions = new ArrayList<>();
         // Set the bill isPaid, User and Transaction properties
@@ -101,4 +98,33 @@ public class BillController {
         // Go back to the index of Bills by the URL so that the new info loads
         return "redirect:/bills";
     }
+
+/////////////////  Pay Bill  /////////////////////////
+    @PostMapping("/bills/payment")
+    // Use the params from the bills/index HTML in the payBill modal
+    public String payBill(@RequestParam int payAmt, @RequestParam String payName, @RequestParam long id) {
+        // Create a empty Transaction
+        Transaction payment = new Transaction();
+        // Get the Category object for Bills
+        Category cat = cateRepo.getOne(1L);
+        // Get the current user and their budget
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Budget budget = budgetRepo.findBudgetByUserAndName(user, "main");
+        // Set the empty Transaction with all the data
+        payment.setName(payName);
+        payment.setAmountInCents(payAmt);
+        payment.setIncome(false);
+        payment.setCategory(cat);
+        // Add the Transaction to the current user's budget and save to the DB
+        budget.getTransactions().add(payment);
+        budgetRepo.save(budget);
+        // Get bill that was paid from database and change paid status to true
+        Bill bill = billRepo.getOne(id);
+        bill.setPaid(true);
+        bill.setAmountInCents(payAmt);
+        billRepo.save(bill);
+        // Go back to the index of Bills by the URL so that the new info loads
+        return "redirect:/bills";
+    }
+
 }
