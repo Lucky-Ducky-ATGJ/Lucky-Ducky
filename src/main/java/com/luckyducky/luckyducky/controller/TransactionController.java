@@ -6,11 +6,13 @@ import com.luckyducky.luckyducky.repositories.CategoryRepository;
 import com.luckyducky.luckyducky.repositories.TransactionRepository;
 import com.luckyducky.luckyducky.repositories.UserRepository;
 import com.luckyducky.luckyducky.services.EmailService;
+import javassist.runtime.Desc;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 
+import javax.persistence.Id;
 import java.time.LocalDate;
 
 @Controller

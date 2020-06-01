@@ -7,6 +7,7 @@
 <div th:replace="partials/partial :: standard_nav"></div>
 
 <img src="..." alt="..." class="img-thumbnail">
+<div id="donutchart" style="width: 300px; height: 300px;"></div>
 <div class="text-center">
 <div> Upcoming Bills</div>
 
@@ -17,6 +18,8 @@
 <div><a th:href="@{'/profile/'+${user.id}+'/profile-edit'}">Edit Profile</a><div>
 
     <a th:href="@{'/profile/'+${user.id}+'/delete'}">Delete Profile</a>
+
+    <script type="text/javascript" src=/js/chartsJS.js></script>
 
 </div>
 
