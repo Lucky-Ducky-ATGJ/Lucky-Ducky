@@ -20,14 +20,12 @@ public class TransactionController {
     private final CategoryRepository catRepo;
     private final EmailService emailService;
 
-
     public TransactionController(TransactionRepository transRepo, UserRepository userRepo, CategoryRepository catRepo, EmailService emailService) {
         this.transRepo = transRepo;
         this.userRepo = userRepo;
         this.catRepo = catRepo;
         this.emailService = emailService;
     }
-
 
     @GetMapping("/transactions")
     public String getAllTransactions(Model model) {
