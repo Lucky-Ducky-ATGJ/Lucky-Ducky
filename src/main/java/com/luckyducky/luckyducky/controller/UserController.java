@@ -1,6 +1,8 @@
 package com.luckyducky.luckyducky.controller;
 
+import com.luckyducky.luckyducky.model.Bill;
 import com.luckyducky.luckyducky.model.Budget;
+import com.luckyducky.luckyducky.model.Transaction;
 import com.luckyducky.luckyducky.model.User;
 import com.luckyducky.luckyducky.repositories.BudgetRepository;
 import com.luckyducky.luckyducky.repositories.UserRepository;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -39,9 +44,15 @@ public class UserController {
     public String saveUser(@ModelAttribute User user, Model model) {
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
+
+        List<Budget> budgets = new ArrayList<>();
+        List<Transaction> transactions = new ArrayList<>();
         Budget budget = new Budget("main", 0,user);
+        budget.setTransactions(transactions);
+        budgets.add(budget);
+        user.setBudgets(budgets);
+
         userRepo.save(user);
-        budgetRepo.save(budget);
 
         model.addAttribute("user",user);
         return "user/register-success";

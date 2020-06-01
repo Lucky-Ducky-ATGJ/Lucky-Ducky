@@ -17,27 +17,38 @@
             <th>Amount</th>
             <th>Paid</th>
             <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="bill : ${bills}" th:style="${bill.paid} == true ? 'background-color: lightgreen' : 'background-color: default'">
+        <tr th:each="bill : ${bills}"
+            th:style="${bill.paid} == true ? 'background-color: lightgreen' : 'background-color: default'">
             <td class="bill-name" th:text="${bill.name}"></td>
             <td class="bill-date" th:text="${bill.dueDate}"></td>
             <td class="bill-amount" th:text="${bill.amountInCents}"></td>
-            <td th:text="${bill.paid}"></td>
             <td>
-                <button type="button" class="btn bg-transparent p-1" data-toggle="modal" data-target="#deleteBill" th:data-i="${bill.id}">
+                <button type="button" class="btn bg-primary p-1" data-toggle="modal" data-target="#payBill" th:data-pay="${bill.id}">
+                    Pay Bill
+                </button>
+            </td>
+            <td></td>
+            <td>
+                <button type="button" class="btn bg-transparent p-1" data-toggle="modal" data-target="#deleteBill"
+                        th:data-i="${bill.id}">
                     <i class="fas fa-trash-alt"></i>
                 </button>
-                <button type="button" class="btn bg-transparent p-1 editIcon" data-toggle="modal" data-target="#editBill" th:data-id="${bill.id}">
+                <button type="button" class="btn bg-transparent p-1 editIcon" data-toggle="modal"
+                        data-target="#editBill" th:data-id="${bill.id}">
                     <i class="fas fa-edit"></i>
                 </button>
             </td>
         </tr>
         </tbody>
     </table>
-<!--    <button type="button" class="btn btn-sm">+</button>-->
-    <button type="button" id="addBButton" class="btn bg-transparent border border-dark p-1" data-toggle="modal" data-target="#addBill">+</button>
+    <!--    <button type="button" class="btn btn-sm">+</button>-->
+    <button type="button" id="addBButton" class="btn bg-transparent border border-dark p-1" data-toggle="modal"
+            data-target="#addBill">+
+    </button>
 </div>
 
 <div class="modal fade" id="deleteBill" tabindex="-1" role="dialog" aria-labelledby="deleteConfirm"
@@ -54,10 +65,40 @@
             <div class="modal-body">
                 <p>Doing this is permanent and you will be unable to get it back!</p>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer d-flex justify-content-around">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <form th:action="@{/bills/delete}" th:method="post">
                     <button type="submit" name="id" id="delete-id"> Confirm Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="payBill" tabindex="-1" role="dialog" aria-labelledby="payBillLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="payBillLabel">Payment for <span id="pay-name"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/bills/payment}" th:method="post">
+                    <div>
+                        <label for="pay-amt">Enter the amount you want to pay.</label>
+                        <br>
+                        $<input type="number" id="pay-amt" name="payAmt">
+                        <input type="hidden" id="payment-name" name="payName">
+                        <input type="hidden" id="payment-id" name="id">
+                    </div>
+                    <div class="modal-footer d-flex justify-content-around">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                        <button type="submit"> Confirm Payment</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -69,7 +110,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editBillLabel">Edit your bill</h5>
+                <h5 class="modal-title text-center" id="editBillLabel">Edit your bill</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -80,18 +121,18 @@
                         <label for="edit-name">Bill name</label>
                         <input type="text" class="form-control" id="edit-name" name="name">
                     </div>
-
+                    <br>
                     <div>
                         <label for="edit-due-date">Due Date</label>
                         <input type="date" class="form-control" id="edit-due-date" name="date">
                     </div>
-
+                    <br>
                     <div>
                         <label for="edit-amount">Amount</label>
-                        <input type="number" class="form-control" id="edit-amount" name="amount">
+                        $<input type="number" class="form-control" id="edit-amount" name="amount">
                         <input type="hidden" class="form-control" id="edit-id" name="id">
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer d-flex justify-content-around">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                         </button>
                         <button type="submit" class="btn btn-primary">Save changes</button>
@@ -108,7 +149,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addBillLabel">Create your bill</h5>
+                <h5 class="modal-title text-center" id="addBillLabel">Create your bill</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -119,17 +160,18 @@
                         <label for="add-name">Bill name</label>
                         <input type="text" class="form-control" id="add-name" th:field="*{name}">
                     </div>
-
+                    <br>
                     <div>
                         <label for="add-due-date">Due Date</label>
                         <input type="date" class="form-control" id="add-due-date" th:field="*{dueDate}">
                     </div>
-
+                    <br>
                     <div>
                         <label for="add-amount">Amount</label>
-                        <input type="number" class="form-control" id="add-amount" th:field="*{amountInCents}">
+                        <br>
+                        $<input type="number" class="form-control" id="add-amount" th:field="*{amountInCents}">
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer d-flex justify-content-around">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                         </button>
                         <button type="submit" class="btn btn-primary">Add bill</button>

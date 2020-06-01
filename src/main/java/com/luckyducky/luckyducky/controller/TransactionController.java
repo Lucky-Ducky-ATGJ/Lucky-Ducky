@@ -55,11 +55,13 @@ public class TransactionController {
     public String newTransaction(@ModelAttribute Transaction transaction) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+
        Budget userBudget = budgetRepo.findBudgetByUserAndName(user, "main");
        userBudget.getTransactions().add(transaction);
        budgetRepo.save(userBudget);
 //       transRepo.save(transaction);
 //        transaction.setUser(transaction);
+
         // Save the new Bill to the database
         return "redirect:/transactions";
     }
