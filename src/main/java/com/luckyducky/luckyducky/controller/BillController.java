@@ -1,6 +1,7 @@
 package com.luckyducky.luckyducky.controller;
 
 import com.luckyducky.luckyducky.model.Bill;
+import com.luckyducky.luckyducky.model.Transaction;
 import com.luckyducky.luckyducky.model.User;
 import com.luckyducky.luckyducky.repositories.BillRepository;
 import com.luckyducky.luckyducky.repositories.CategoryRepository;
@@ -12,8 +13,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 @Controller
 public class BillController {
@@ -32,15 +38,25 @@ public class BillController {
 /////////////////  Show Bills  //////////////////////////
     @GetMapping("/bills")
     public String showBill(Model model) {
+        // Creates empty Bill to send to HTML
+        Bill bill = new Bill();
+        // Get List of bills by user
+
+        // Send model with list of bills
         model.addAttribute("bills", billRepo.findAll());
         model.addAttribute("categories", cateRepo.findAll());
+        model.addAttribute("newBill", bill);
         return "bills/index";
     }
 
 /////////////////  Add Bills  ///////////////////////////
     @PostMapping("/bills/add")
     public String newBill(@ModelAttribute Bill bill) {
-        bill.setCreatedAt(new Date());
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Transaction> transactions = new ArrayList<>();
+        bill.setPaid(false);
+        bill.setUser(user);
+        bill.setTransactions(transactions);
         billRepo.save(bill);
         return "redirect:/bills";
     }
@@ -51,7 +67,7 @@ public class BillController {
         LocalDate lDate = LocalDate.parse(date);
         Bill bill = billRepo.getOne(id);
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Bill updatedBill = new Bill(id,name,amount,lDate,bill.isPaid(),bill.getCreatedAt(),bill.getModifiedAt(), user, bill.getTransactions());
+        Bill updatedBill = new Bill(id,name,amount,lDate,bill.isPaid(),bill.getCreatedAt(),user,bill.getTransactions());
         billRepo.save(updatedBill);
         return "redirect:/bills";
     }
@@ -59,8 +75,9 @@ public class BillController {
 
 /////////////////  Delete Bills  ////////////////////////
     @PostMapping("/bills/delete")
-    public String deleteBill(@RequestParam long id) {
-        Bill bill = billRepo.getOne(id);
+    public String deleteBill(@RequestParam String id) {
+        long realId = Long.parseLong(id);
+        Bill bill = billRepo.getOne(realId);
         billRepo.delete(bill);
         return "redirect:/bills";
     }
