@@ -16,6 +16,7 @@
             <th>Date added</th>
             <th>Name</th>
             <th>Amount</th>
+            <th>Income</th>
             <th>Category</th>
             <th>Delete/Edit</th>
         </tr>
@@ -26,6 +27,7 @@
             <td th:text="${#dates.format(transaction.createDate, 'dd-MMM-yyyy')}"></td>
             <td th:text="${transaction.name}"></td>
             <td th:text="${#strings.replace(#numbers.formatCurrency(transaction.amountInCents), '.00', '')}"></td>
+            <td th:text="${transaction.income}"></td>
             <td th:text="${transaction.category.name}"></td>
             <td>
                 <button type="button" class="btn bg-transparent p-1" data-toggle="modal" data-target="#deleteTransaction" th:data-i="${transaction.id}">
@@ -76,7 +78,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form th:action="@{/transactions/${transaction.id}/edit}" th:method="post">
+                <form th:action="@{/transactions/edit}" th:method="post">
                     <div>
                     <label for="edit-name">Transaction name</label>
                     <input type="text" class="form-control" id="edit-name" name="name">
@@ -89,7 +91,7 @@
 
                     <div>
                         <label for="edit-isIncome">Income</label>
-                        <input type="checkbox" class="form-control" id="edit-isIncome" name="income">
+                        <input type="checkbox" class="form-control" id="edit-isIncome" name="income" value="isIncome">
                     </div>
 
                     <div>
@@ -101,7 +103,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                         </button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="submit" id="edit-id" name="id" class="btn btn-primary">Save changes</button>
                     </div>
                 </form>
             </div>
@@ -161,6 +163,6 @@
 
 
 <div th:replace="partials/partial :: footer_nav"></div>
-<div th:replace="partials/partial :: footer"></div>
+<div th:replace="partials/partial :: footer-transactions"></div>
 </body>
 </html>

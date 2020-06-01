@@ -5,6 +5,5 @@ import com.luckyducky.luckyducky.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BudgetRepository extends JpaRepository<Budget, Long> {
-
-    public Budget findBudgetByUserAndName(User user, String name);
+    public Budget findBudgetByUserAndName(User user, String Name);
 }
