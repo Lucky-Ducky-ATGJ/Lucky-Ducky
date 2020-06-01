@@ -1,6 +1,8 @@
 package com.luckyducky.luckyducky.model;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -20,6 +22,7 @@ public class Bill{
     @Column
     private int amountInCents;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column
     private LocalDate dueDate;
 
@@ -27,9 +30,13 @@ public class Bill{
     @Value("${some.key:false}")
     private boolean isPaid;
 
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     @Column
     private Date createdAt;
 
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
     @Column
     private Date modifiedAt;
 
@@ -43,25 +50,22 @@ public class Bill{
     public Bill() {
     }
 
-    public Bill(long id, String name, int amountInCents, LocalDate dueDate, boolean isPaid, Date createdAt, Date modifiedAt, User user, List<Transaction> transactions) {
+    public Bill(long id, String name, int amountInCents, LocalDate dueDate, boolean isPaid, Date createdAt,  User user, List<Transaction> transactions) {
         this.id = id;
         this.name = name;
         this.amountInCents = amountInCents;
         this.dueDate = dueDate;
         this.isPaid = isPaid;
         this.createdAt = createdAt;
-        this.modifiedAt = modifiedAt;
         this.user = user;
         this.transactions = transactions;
     }
 
-    public Bill(String name, int amountInCents, LocalDate dueDate, boolean isPaid, Date createdAt, Date modifiedAt, User user, List<Transaction> transactions) {
+    public Bill(String name, int amountInCents, LocalDate dueDate, boolean isPaid, User user, List<Transaction> transactions) {
         this.name = name;
         this.amountInCents = amountInCents;
         this.dueDate = dueDate;
         this.isPaid = isPaid;
-        this.createdAt = createdAt;
-        this.modifiedAt = modifiedAt;
         this.user = user;
         this.transactions = transactions;
     }

@@ -21,89 +21,125 @@
         </thead>
         <tbody>
         <tr th:each="bill : ${bills}">
-            <td th:text="${bill.name}"></td>
-            <td th:text="${bill.dueDate}"></td>
-            <td th:text="${bill.amountInCents}"></td>
+            <td class="bill-name" th:text="${bill.name}"></td>
+            <td class="bill-date" th:text="${bill.dueDate}"></td>
+            <td class="bill-amount" th:text="${bill.amountInCents}"></td>
             <td th:text="${bill.paid}"></td>
             <td>
-                <button type="button" class="btn bg-transparent p-1" data-toggle="modal" data-target="#deleteBill" data-gone="${bill.id}">
+                <button type="button" class="btn bg-transparent p-1" data-toggle="modal" data-target="#deleteBill" th:data-i="${bill.id}">
                     <i class="fas fa-trash-alt"></i>
                 </button>
-                <button type="button" class="btn bg-transparent p-1" data-toggle="modal" data-target="#editBill">
+                <button type="button" class="btn bg-transparent p-1 editIcon" data-toggle="modal" data-target="#editBill" th:data-id="${bill.id}">
                     <i class="fas fa-edit"></i>
                 </button>
             </td>
         </tr>
         </tbody>
     </table>
-    <button type="button" class="btn btn-sm">+</button>
+<!--    <button type="button" class="btn btn-sm">+</button>-->
+    <button type="button" class="btn bg-transparent p-1" data-toggle="modal" data-target="#addBill">+</button>
 </div>
 
-<!--<div class="modal fade" id="deleteBill" tabindex="-1" role="dialog" aria-labelledby="deleteConfirm"-->
-<!--     aria-hidden="true">-->
-<!--    <div class="modal-dialog" role="document">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">-->
-<!--                <h5 class="modal-title" id="deleteConfirm">Are you sure you want to delete this-->
-<!--                    bill?</h5>-->
-<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--                    <span aria-hidden="true">&times;</span>-->
-<!--                </button>-->
-<!--            </div>-->
-<!--            <div class="modal-body">-->
-<!--                <p>Doing this is permanent and you will be unable to get it back!</p>-->
-<!--            </div>-->
-<!--            <div class="modal-footer">-->
-<!--                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-<!--                <form th:action="@{/bills/delete}" th:method="post">-->
-<!--                    <button type="submit" name="id" th:value="${bill.id}"> Confirm Delete</button>-->
-<!--                </form>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+<div class="modal fade" id="deleteBill" tabindex="-1" role="dialog" aria-labelledby="deleteConfirm"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirm">Are you sure you want to delete this
+                    bill?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Doing this is permanent and you will be unable to get it back!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <form th:action="@{/bills/delete}" th:method="post">
+                    <button type="submit" name="id" id="delete-id"> Confirm Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="modal fade" id="editBill" tabindex="-1" role="dialog" aria-labelledby="editBillLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editBillLabel">Edit your bill</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/bills/edit}" th:method="post">
+                    <div>
+                        <label for="edit-name">Bill name</label>
+                        <input type="text" class="form-control" id="edit-name" name="name">
+                    </div>
 
-<!--<div class="modal fade" id="editBill" tabindex="-1" role="dialog" aria-labelledby="editBillLabel"-->
-<!--     aria-hidden="true">-->
-<!--    <div class="modal-dialog" role="document">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">-->
-<!--                <h5 class="modal-title" id="editBillLabel">Edit your bill</h5>-->
-<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--                    <span aria-hidden="true">&times;</span>-->
-<!--                </button>-->
-<!--            </div>-->
-<!--            <div class="modal-body">-->
-<!--                <form th:action="@{|/bills/${bill.id}/edit|}" th:method="post">-->
-<!--                    <div>-->
-<!--                        <label for="bill-name">Bill name</label>-->
-<!--                        <input type="text" class="form-control" id="bill-name" name="name"-->
-<!--                               th:value="${bill.name}">-->
-<!--                    </div>-->
+                    <div>
+                        <label for="edit-due-date">Due Date</label>
+                        <input type="date" class="form-control" id="edit-due-date" name="date">
+                    </div>
 
-<!--                    <div>-->
-<!--                        <label for="bill-due-date">Due Date</label>-->
-<!--                        <input type="date" class="form-control" id="bill-due-date" name="date"-->
-<!--                               th:value="${bill.dueDate}">-->
-<!--                    </div>-->
+                    <div>
+                        <label for="edit-amount">Amount</label>
+                        <input type="number" class="form-control" id="edit-amount" name="amount">
+                        <input type="hidden" class="form-control" id="edit-id" name="id">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                        </button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
 
-<!--                    <div>-->
-<!--                        <label for="bill-amount">Amount</label>-->
-<!--                        <input type="number" class="form-control" id="bill-amount" name="amount"-->
-<!--                               th:value="*{bill.amountInCents}">-->
-<!--                    </div>-->
-<!--                    <div class="modal-footer">-->
-<!--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close-->
-<!--                        </button>-->
-<!--                        <button type="submit" class="btn btn-primary">Save changes</button>-->
-<!--                    </div>-->
-<!--                </form>-->
-<!--            </div>-->
+        </div>
+    </div>
+</div>
 
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+<div class="modal fade" id="addBill" tabindex="-1" role="dialog" aria-labelledby="addBillLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addBillLabel">Create your bill</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/bills/add}" th:method="post" th:object="${newBill}">
+                    <div>
+                        <label for="add-name">Bill name</label>
+                        <input type="text" class="form-control" id="add-name" th:field="*{name}">
+                    </div>
+
+                    <div>
+                        <label for="add-due-date">Due Date</label>
+                        <input type="date" class="form-control" id="add-due-date" th:field="*{dueDate}">
+                    </div>
+
+                    <div>
+                        <label for="add-amount">Amount</label>
+                        <input type="number" class="form-control" id="add-amount" th:field="*{amountInCents}">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                        </button>
+                        <button type="submit" class="btn btn-primary">Add bill</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 
 <div th:replace="partials/partial :: footer_nav"></div>
