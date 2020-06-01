@@ -21,7 +21,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr id="editTrans" th:each="transaction : ${transactions}" class="text-center my-auto"
+        <tr id="editTrans" th:each="transaction : ${transactions}" class="text-center
+         my-auto"
             th:style="${transaction.income} == true ? 'background-color: lightgreen; color: black' : 'background-color: pink; color: black'">
             <td th:text="${#dates.format(transaction.createDate, 'dd-MMM-yyyy')}"></td>
             <td th:text="${transaction.name}"></td>
