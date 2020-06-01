@@ -21,7 +21,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr id="editTrans" th:each="transaction : ${transactions}" class="text-center my-auto"
+        <tr id="editTrans" th:each="transaction : ${transactions}" class="text-center"
             th:style="${transaction.income} == true ? 'background-color: lightgreen; color: black' : 'background-color: pink; color: black'">
             <td th:text="${#dates.format(transaction.createDate, 'dd-MMM-yyyy')}"></td>
             <td th:text="${transaction.name}"></td>
@@ -29,9 +29,9 @@
             <td th:text="${transaction.category.name}"></td>
             <td>
                 <form th:action="@{|/transactions/${transaction.id}/delete|}" th:method="POST">
-                    <button class="btn bg-transparent p-1"><i class="fas fa-trash-alt"></i></button>
+                    <button class="btn bg-transparent"><i class="fas fa-trash-alt"></i></button>
                     <form th:action="@{|/transactions/${transaction.id}/edit|}" th:method="POST">
-                        <button type="button" class="btn bg-transparent p-1" data-toggle="modal"
+                        <button type="button" class="btn bg-transparent" data-toggle="modal"
                                 data-target="#editPost">
                             <i class="fas fa-edit"></i>
                         </button>
