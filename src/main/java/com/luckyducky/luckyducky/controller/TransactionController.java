@@ -42,7 +42,8 @@ public class TransactionController {
 //    }
 
     @GetMapping("/transactions")
-    public String addTransaction(Model model) {
+
+        public String addTransaction (Model model){
         Transaction transaction = new Transaction();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Budget budget = budgetRepo.findBudgetByUserAndName(user, "main");
@@ -54,6 +55,7 @@ public class TransactionController {
 //        model.addAttribute("isIncome", transaction.getIncome());
         return "transactions/index";
     }
+
 
     @PostMapping("/transactions/add")
     public String newTransaction(@ModelAttribute Transaction transaction) {
@@ -109,14 +111,22 @@ public class TransactionController {
 //    }
 
     @PostMapping("/transactions/edit")
-    public String editTransaction(@RequestParam String id, @RequestParam String name, @RequestParam int amount, @RequestParam Category category, @RequestParam(value = "isIncome", required = false) boolean isIncome, Model model) {
+    public String editTransaction(@RequestParam String id, @RequestParam String name, @RequestParam int amount, @RequestParam Category category, @RequestParam(value = "isIncome", required = false) String isIncome, Model model) {
         long parsedId = Long.parseLong(id);
         Transaction transToEdit = transRepo.getOne(parsedId);
         model.addAttribute("categories", catRepo.findAll());
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         transToEdit.setName(name);
         transToEdit.setAmountInCents(amount);
-        transToEdit.setIncome(isIncome);
+
+        if(isIncome != null)
+        {
+            transToEdit.setIncome(true);
+        }
+        else
+        {
+            transToEdit.setIncome(false);
+        }
         transToEdit.setCategory(category);
         transRepo.save(transToEdit);
         return "redirect:/transactions";
