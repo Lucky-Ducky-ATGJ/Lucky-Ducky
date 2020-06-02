@@ -57,4 +57,10 @@ public class BudgetController {
         int viewAllExpendituresInJSONFormat() {
         return transRepo.getTotalExpenditures();
     }
+
+    @GetMapping("/spentbycategory.json")
+    public @ResponseBody
+    int viewSpentByCategoryInJSONFormat() {
+        return transRepo.getTotalExpendituresByCategory();
+    }
 }
