@@ -22,8 +22,4 @@ $('#editTransaction').on('show.bs.modal', function (event) {
     modal.find(".modal-body input#edit-id").val(id);
 });
 
-
-
-
-
 // })();
