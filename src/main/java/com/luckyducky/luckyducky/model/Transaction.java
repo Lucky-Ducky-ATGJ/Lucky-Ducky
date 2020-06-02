@@ -1,13 +1,14 @@
 package com.luckyducky.luckyducky.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Transaction{
@@ -32,20 +33,22 @@ public class Transaction{
     @Column(name = "modify_date")
     private Date modifyDate;
 
-
     @Column(nullable = false)
     @Value("${some.key:false}")
     private Boolean isIncome;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name= "category_id")
     private Category category;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "bill_id")
     private Bill bill;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "budget_id")
     private Budget budget;
 
@@ -67,11 +70,13 @@ public class Transaction{
         this.category = category;
     }
 
+    public static List<Transaction> findAll() {
+        return null;
+    }
 
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
@@ -79,7 +84,6 @@ public class Transaction{
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -87,7 +91,6 @@ public class Transaction{
     public int getAmountInCents() {
         return amountInCents;
     }
-
     public void setAmountInCents(int amountInCents) {
         this.amountInCents = amountInCents;
     }
@@ -95,7 +98,6 @@ public class Transaction{
     public Date getCreateDate() {
         return createDate;
     }
-
     public void setCreateDate(Date dateCreated) {
         this.createDate = createDate;
     }
@@ -103,7 +105,6 @@ public class Transaction{
     public Boolean getIncome() {
         return isIncome;
     }
-
     public void setIncome(Boolean income) {
         isIncome = income;
     }
@@ -111,7 +112,6 @@ public class Transaction{
     public Category getCategory() {
         return category;
     }
-
     public void setCategory(Category category) {
         this.category = category;
     }
@@ -119,7 +119,6 @@ public class Transaction{
     public Bill getBill() {
         return bill;
     }
-
     public void setBill(Bill bill) {
         this.bill = bill;
     }
@@ -127,7 +126,6 @@ public class Transaction{
     public Budget getBudget() {
         return budget;
     }
-
     public void setBudget(Budget budget) {
         this.budget = budget;
     }

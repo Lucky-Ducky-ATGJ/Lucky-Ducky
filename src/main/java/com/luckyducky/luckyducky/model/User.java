@@ -1,5 +1,7 @@
 package com.luckyducky.luckyducky.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
@@ -29,6 +31,7 @@ public class User {
     private String phone_num;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
 
     @Column(nullable = false)
@@ -36,6 +39,7 @@ public class User {
     private boolean isAdmin;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonBackReference
     private List<Budget> budgets;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")

@@ -11,15 +11,21 @@
 <br>
 <div class="row d-flex justify-content-center">
     <div class="number-input text-center">
-        <label for="income" class="mr-1 large-font">Income: </label><input type="number" id="income" placeholder="(Enter income)">
-        <button onclick="importIncome()">Import</button>
+<!--        <form th:action="@{/BudgetController/incomeImport}">-->
+            <label for="income" class="mr-1 large-font">Income: </label>
+            <input type="number" id="income" placeholder="(Enter income)">
+            <button id="importIncome">Import</button>
+<!--        </form>-->
     </div>
 
     <div class="ml-3 mr-3 font-weight-bold large-font"> &mdash; </div>
 
     <div class="number-input">
-        <label for="expenditures" class="mr-1 large-font">Expenditures: </label><input type="number" id="expenditures" placeholder="(Enter expenditures)">
-        <button onclick="importExpenditures()">Import</button>
+<!--        <form th:action="@{/BudgetController/expenditureImport}">-->
+            <label for="expenditures" class="mr-1 large-font">Expenditures: </label>
+            <input type="number" id="expenditures" placeholder="(Enter expenditures)">
+            <button id="importExpenditures">Import</button>
+<!--        </form>-->
     </div>
 
     <div class="ml-3 mr-3 large-font"> = </div>
