@@ -6,31 +6,32 @@
 <div th:replace="partials/partial :: top_banner"></div>
 <div th:replace="partials/partial :: standard_nav"></div>
 
-<img src="..." alt="..." class="img-thumbnail">
-<div id="donutchart" style="width: 300px; height: 300px;"></div>
-<div class="text-center">
-<div> Upcoming Bills</div>
+<div class="container">
+    <div class="row">
+        <div class="col-6 col-md-4">
+        <img src="..." alt="..." class="img-thumbnail">
+        </div>
+        <div class="col-6 col-md-4">
+            <div> Upcoming Bills</div>
+            <div> Overdue Bills</div>
+            <div> Goal Tracker</div>
+            <div><a th:href="@{'/profile/'+${user.id}+'/profile-edit'}">Edit Profile</a></div>
+            <div><a th:href="@{'/profile/'+${user.id}+'/delete'}">Delete Profile</a></div>
 
-<div> Overdue Bills</div>
-
-<div> Goal Tracker</div>
-
-<div><a th:href="@{'/profile/'+${user.id}+'/profile-edit'}">Edit Profile</a><div>
-
-    <a th:href="@{'/profile/'+${user.id}+'/delete'}">Delete Profile</a>
-
-    <script type="text/javascript" src=/js/chartsJS.js></script>
-
-</div>
-
-
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-
+            <div th:if="${param.logout}">
+                You have been logged out.
+            </div>
+        </div>
+        <div class="col-6 col-md-4">
+            <div id="donutchart" style="width: 300px; height: 300px;"></div>
+        </div>
+    </div>
+</div> <!-- end of container -->
 
 <div th:replace="partials/partial :: footer_nav"></div>
 <div th:replace="partials/partial :: footer"></div>
+
+<script type="text/javascript" src=/js/chartsJS.js></script>
 
 </body>
 </html>
