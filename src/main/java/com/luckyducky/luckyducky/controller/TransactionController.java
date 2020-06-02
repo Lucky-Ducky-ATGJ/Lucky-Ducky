@@ -34,12 +34,6 @@ public class TransactionController {
         this.emailService = emailService;
     }
 
-//    @GetMapping("/transactions")
-//    public String getAllTransactions(Model model) {
-//        model.addAttribute("transactions", transRepo.findAll());
-//        model.addAttribute("categories", catRepo.findAll());
-//        return "transactions/index";
-//    }
 
     @GetMapping("/transactions")
 
@@ -66,18 +60,9 @@ public class TransactionController {
        Budget userBudget = budgetRepo.findBudgetByUserAndName(user, "main");
        transaction.setBudget(userBudget);
        transRepo.save(transaction);
-//       transRepo.save(transaction);
-//        transaction.setUser(transaction);
-
-        // Save the new Bill to the database
         return "redirect:/transactions";
     }
 
-//    @PostMapping("/transactions/{id}/delete")
-//    public String deleteTransaction(@PathVariable long id) {
-//        transRepo.deleteById(id);
-//        return "redirect:/transactions";
-//    }
 
     @PostMapping("/transactions/delete")
     public String deleteTransaction(@RequestParam String id) {
@@ -87,29 +72,6 @@ public class TransactionController {
         return "redirect:/transactions";
     }
 
-//    @GetMapping("/transactions/{id}/edit")
-//    public String showEditPost(@PathVariable long id, Model model) {
-//        Transaction editedTransaction = transRepo.getOne(id);
-//        model.addAttribute("categories", catRepo.findAll());
-//        model.addAttribute("transaction", editedTransaction);
-//        return ("/transactions/transactions");
-//    }
-
-//    @PostMapping("/transactions/{id}/edit")
-//    public String editPost(@PathVariable long id, @RequestParam String name, @RequestParam int amount,  @RequestParam Category category,@RequestParam(value = "isIncome", required = false) boolean isIncome,  Model model  ) {
-//        Transaction transToEdit = transRepo.getOne(id);
-//        System.out.println(transToEdit);
-//        model.addAttribute("categories", catRepo.findAll());
-//
-//        transToEdit.setName(name);
-//        transToEdit.setAmountInCents(amount);
-//        transToEdit.setIncome(isIncome);
-//        transToEdit.setCategory(category);
-//
-//        transRepo.save(transToEdit);
-//
-//        return ("redirect:/transactions");
-//    }
 
     @PostMapping("/transactions/edit")
     public String editTransaction(@RequestParam String id, @RequestParam String name, @RequestParam int amount, @RequestParam Category category, @RequestParam(value = "isIncome", required = false) String isIncome, Model model) {
@@ -133,19 +95,6 @@ public class TransactionController {
         return "redirect:/transactions";
     }
 
-//    @PostMapping("/transactions/edit")
-//    // Use the params from the bills/index HTML in the edit modal
-//    public String editTransaction(@RequestParam String id, @RequestParam String name, @RequestParam int amount, @RequestParam Category category, @RequestParam(value = "isIncome", required = false) boolean isIncome, Model model) {
-//
-//        Transaction transToEdit = transRepo.getOne(id);
-////        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//
-//        Transaction updatedTransaction = new Transaction(id,name,amount, category, isIncome);
-//        // Save and override the bill in the database based on the Id
-//        transRepo.save(transToEdit);
-//        // Go back to the index of Bills by the URL so that the new info loads
-//        return "redirect:/transactions";
-//    }
 }
 
 
