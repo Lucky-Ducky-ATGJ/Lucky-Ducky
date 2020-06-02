@@ -15,6 +15,14 @@ body {
     margin: 0 0 100px;
 }
 
+.data-center {
+    padding-top: 16px;
+}
+
+.data-icons-center {
+    padding-top: 9px;
+}
+
 /* Add button for the Bills page */
 #addBButton {
     width: 35px;
