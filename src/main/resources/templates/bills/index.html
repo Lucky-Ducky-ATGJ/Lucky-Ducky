@@ -22,15 +22,15 @@
         <tbody>
         <tr th:each="bill : ${bills}"
             th:style="${bill.paid} == true ? 'background-color: lightgreen' : 'background-color: default'">
-            <td class="bill-name" th:text="${bill.name}"></td>
-            <td class="bill-date" th:text="${bill.dueDate}"></td>
-            <td class="bill-amount" th:text="${bill.amountInCents}"></td>
-            <td>
+            <td class="bill-name data-center" th:text="${bill.name}"></td>
+            <td class="bill-date data-center" th:text="${bill.dueDate}"></td>
+            <td class="bill-amount data-center" th:text="${bill.amountInCents}"></td>
+            <td class="data-icons-center">
                 <button type="button" class="btn bg-primary p-1" data-toggle="modal" data-target="#payBill" th:data-pay="${bill.id}">
                     Pay Bill
                 </button>
             </td>
-            <td>
+            <td class="data-icons-center">
                 <button type="button" class="btn bg-transparent p-1" data-toggle="modal" data-target="#deleteBill"
                         th:data-i="${bill.id}">
                     <i class="fas fa-trash-alt"></i>
