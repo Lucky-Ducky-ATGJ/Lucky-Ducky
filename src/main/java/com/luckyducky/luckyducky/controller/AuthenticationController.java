@@ -13,10 +13,10 @@ public class AuthenticationController {
         return "user/login";
     }
 
-    @PostMapping("/login")
-    public String loginForm() {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return "redirect:/login";
-    }
+//    @PostMapping("/login")
+//    public String loginForm() {
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        return "redirect:/login";
+//    }
 }
 

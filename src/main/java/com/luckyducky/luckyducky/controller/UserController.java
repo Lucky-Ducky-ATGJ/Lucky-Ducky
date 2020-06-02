@@ -1,11 +1,16 @@
 package com.luckyducky.luckyducky.controller;
 
-import com.luckyducky.luckyducky.model.Bill;
+
 import com.luckyducky.luckyducky.model.Budget;
 import com.luckyducky.luckyducky.model.Transaction;
 import com.luckyducky.luckyducky.model.User;
 import com.luckyducky.luckyducky.repositories.BudgetRepository;
 import com.luckyducky.luckyducky.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,8 +21,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.springframework.security.web.context.HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY;
 
 @Controller
 public class UserController {
@@ -41,21 +50,31 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String saveUser(@ModelAttribute User user, Model model) {
-        String hash = passwordEncoder.encode(user.getPassword());
+    public String saveUser(@ModelAttribute User user, Model model, HttpServletRequest req) {
+        String pass = user.getPassword();
+        String hash = passwordEncoder.encode(pass);
         user.setPassword(hash);
 
-        List<Budget> budgets = new ArrayList<>();
-        List<Transaction> transactions = new ArrayList<>();
+//        List<Budget> budgets = new ArrayList<>();
+//        List<Transaction> transactions = new ArrayList<>();
         Budget budget = new Budget("main", 0,user);
-        budget.setTransactions(transactions);
-        budgets.add(budget);
-        user.setBudgets(budgets);
+//        budget.setTransactions(transactions);
+//        budgets.add(budget);
+//        user.setBudgets(budgets);
 
         userRepo.save(user);
 
-        model.addAttribute("user",user);
-        return "user/register-success";
+//        UsernamePasswordAuthenticationToken authReq
+//                = new UsernamePasswordAuthenticationToken(user.getUsername(), pass);
+////        Authentication auth = authManager.authenticate(authReq);
+//        Authentication auth = ;
+//
+//        SecurityContext sc = SecurityContextHolder.getContext();
+//        sc.setAuthentication(auth);
+//        HttpSession session = req.getSession(true);
+//        session.setAttribute(SPRING_SECURITY_CONTEXT_KEY, sc);
+
+        return "redirect:/profile";
     }
 
     @GetMapping("/profile")
