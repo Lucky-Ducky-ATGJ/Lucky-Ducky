@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -42,7 +43,7 @@ public class User {
     private List<Budget> budgets;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Bill> bill;
+    private List<Bill> bills;
 
     public User(){};
 
@@ -130,5 +131,19 @@ public class User {
     }
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public List<Budget> getBudgets() {
+        return budgets;
+    }
+    public void setBudgets(List<Budget> budgets) {
+        this.budgets = budgets;
+    }
+
+    public List<Bill> getBill() {
+        return bills;
+    }
+    public void setBill(List<Bill> bill) {
+        this.bills = bill;
     }
 }

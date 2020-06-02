@@ -1,9 +1,7 @@
 package com.luckyducky.luckyducky.controller;
 
-import com.luckyducky.luckyducky.model.Bill;
-import com.luckyducky.luckyducky.model.Category;
-import com.luckyducky.luckyducky.model.Transaction;
-import com.luckyducky.luckyducky.model.User;
+import com.luckyducky.luckyducky.model.*;
+import com.luckyducky.luckyducky.repositories.BudgetRepository;
 import com.luckyducky.luckyducky.repositories.CategoryRepository;
 import com.luckyducky.luckyducky.repositories.TransactionRepository;
 import com.luckyducky.luckyducky.repositories.UserRepository;
@@ -16,19 +14,23 @@ import org.springframework.stereotype.Controller;
 
 import javax.persistence.Id;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.List;
 
 @Controller
 public class TransactionController {
     private final TransactionRepository transRepo;
     private final UserRepository userRepo;
     private final CategoryRepository catRepo;
+    private final BudgetRepository budgetRepo;
     private final EmailService emailService;
 
-    public TransactionController(TransactionRepository transRepo, UserRepository userRepo, CategoryRepository catRepo, EmailService emailService) {
+    public TransactionController(TransactionRepository transRepo, UserRepository userRepo, CategoryRepository catRepo, BudgetRepository budgetRepo, EmailService emailService) {
         this.transRepo = transRepo;
         this.userRepo = userRepo;
         this.catRepo = catRepo;
+        this.budgetRepo = budgetRepo;
+
+
         this.emailService = emailService;
     }
 
@@ -40,24 +42,34 @@ public class TransactionController {
 //    }
 
     @GetMapping("/transactions")
-    public String addTransaction(Model model) {
+
+        public String addTransaction (Model model){
         Transaction transaction = new Transaction();
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("transactions", transRepo.findAll());
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Budget budget = budgetRepo.findBudgetByUserAndName(user, "main");
+        List<Transaction> transactions = budget.getTransactions();
+        System.out.println(transactions);
+        model.addAttribute("transactions", transactions);
+//        model.addAttribute("transactions", transRepo.findAll());
         model.addAttribute("transaction", transaction);
         model.addAttribute("categories", catRepo.findAll());
 //        model.addAttribute("isIncome", transaction.getIncome());
         return "transactions/index";
     }
 
+
     @PostMapping("/transactions/add")
     public String newTransaction(@ModelAttribute Transaction transaction) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 
-        transRepo.save(transaction);
-        transaction.setUser(transaction);
+       Budget userBudget = budgetRepo.findBudgetByUserAndName(user, "main");
+       transaction.setBudget(userBudget);
+       transRepo.save(transaction);
+//       transRepo.save(transaction);
+//        transaction.setUser(transaction);
+
         // Save the new Bill to the database
-        transRepo.save(transaction);
         return "redirect:/transactions";
     }
 
@@ -83,31 +95,57 @@ public class TransactionController {
 //        return ("/transactions/transactions");
 //    }
 
-    @PostMapping("/transactions/{id}/edit")
-    public String editPost(@PathVariable long id, @RequestParam String name, @RequestParam int amount,  @RequestParam Category category,@RequestParam(value = "isIncome", required = false) boolean isIncome,  Model model  ) {
-        Transaction transToEdit = transRepo.getOne(id);
-        System.out.println(transToEdit);
-        model.addAttribute("categories", catRepo.findAll());
-
-        transToEdit.setName(name);
-        transToEdit.setAmountInCents(amount);
-        transToEdit.setIncome(isIncome);
-        transToEdit.setCategory(category);
-
-        transRepo.save(transToEdit);
-
-        return ("redirect:/transactions");
-    }
+//    @PostMapping("/transactions/{id}/edit")
+//    public String editPost(@PathVariable long id, @RequestParam String name, @RequestParam int amount,  @RequestParam Category category,@RequestParam(value = "isIncome", required = false) boolean isIncome,  Model model  ) {
+//        Transaction transToEdit = transRepo.getOne(id);
+//        System.out.println(transToEdit);
+//        model.addAttribute("categories", catRepo.findAll());
+//
+//        transToEdit.setName(name);
+//        transToEdit.setAmountInCents(amount);
+//        transToEdit.setIncome(isIncome);
+//        transToEdit.setCategory(category);
+//
+//        transRepo.save(transToEdit);
+//
+//        return ("redirect:/transactions");
+//    }
 
     @PostMapping("/transactions/edit")
-    public String editTransaction(@RequestParam long id, @RequestParam String name, @RequestParam int amount, @RequestParam Category category, @RequestParam(value = "isIncome", required = false) boolean isIncome, Model model) {
+    public String editTransaction(@RequestParam String id, @RequestParam String name, @RequestParam int amount, @RequestParam Category category, @RequestParam(value = "isIncome", required = false) String isIncome, Model model) {
+        long parsedId = Long.parseLong(id);
+        Transaction transToEdit = transRepo.getOne(parsedId);
         model.addAttribute("categories", catRepo.findAll());
-        Transaction transaction = transRepo.getOne(id);
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Transaction updatedTransaction = new Transaction(id, name, amount, isIncome, category);
-        transRepo.save(updatedTransaction);
-        return "redirect:/bills";
+        transToEdit.setName(name);
+        transToEdit.setAmountInCents(amount);
+
+        if(isIncome != null)
+        {
+            transToEdit.setIncome(true);
+        }
+        else
+        {
+            transToEdit.setIncome(false);
+        }
+        transToEdit.setCategory(category);
+        transRepo.save(transToEdit);
+        return "redirect:/transactions";
     }
+
+//    @PostMapping("/transactions/edit")
+//    // Use the params from the bills/index HTML in the edit modal
+//    public String editTransaction(@RequestParam String id, @RequestParam String name, @RequestParam int amount, @RequestParam Category category, @RequestParam(value = "isIncome", required = false) boolean isIncome, Model model) {
+//
+//        Transaction transToEdit = transRepo.getOne(id);
+////        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//
+//        Transaction updatedTransaction = new Transaction(id,name,amount, category, isIncome);
+//        // Save and override the bill in the database based on the Id
+//        transRepo.save(transToEdit);
+//        // Go back to the index of Bills by the URL so that the new info loads
+//        return "redirect:/transactions";
+//    }
 }
 
 
