@@ -75,6 +75,8 @@ public class User {
         email = copy.email;
         password = copy.password;
         isAdmin = copy.isAdmin;
+        budgets = copy.budgets;
+        bills = copy.bills;
     }
 
     public long getId() {
