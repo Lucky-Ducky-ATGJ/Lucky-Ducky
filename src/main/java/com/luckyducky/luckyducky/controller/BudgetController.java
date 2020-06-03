@@ -70,7 +70,7 @@ public class BudgetController {
         transRepo.save(transaction);
         return "redirect:/budget";
     }
-}
+
 
 @GetMapping("/spentbycategory.json")
     public @ResponseBody
