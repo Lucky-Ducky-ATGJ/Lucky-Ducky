@@ -124,7 +124,7 @@ public class BillController {
         payment.setBill(bill);
         transRepo.save(payment);
         // Go back to the index of Bills by the URL so that the new info loads
-        return "redirect:/bills";
+        return "redirect:/transactions";
     }
 
 }
