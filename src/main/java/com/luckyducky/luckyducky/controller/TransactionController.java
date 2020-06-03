@@ -88,15 +88,11 @@ public class TransactionController {
 
     public List<Transaction> combineTransactions(List<Budget> budgets) {
         List<Transaction> transactions = new ArrayList<>();
-
         for (Budget budget : budgets) {
             List<Transaction> temp = budget.getTransactions();
-
-            if (temp.size() == 0) {
-                transactions = temp;
-            } else {
-                for (int i = 0; i < temp.size(); i++) {
-                    transactions.add(0, temp.get(i));
+            if (temp.size() != 0) {
+                for (Transaction transaction : temp) {
+                    transactions.add(0, transaction);
                 }
             }
         }
