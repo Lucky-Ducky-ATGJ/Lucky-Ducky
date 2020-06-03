@@ -36,16 +36,51 @@ public class TransactionController {
 
     @GetMapping("/transactions")
 
-    public String showTransaction(Model model) {
+
+        public String addTransaction (Model model){
+//        Transaction transaction = new Transaction();
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        Budget budget = budgetRepo.findBudgetByUserAndName(user, "main");
+//        List<Transaction> transactions = budget.getTransactions();
+//        System.out.println(transactions);
+//        model.addAttribute("transactions", transactions);
+////        model.addAttribute("transactions", transRepo.findAll());
+//        model.addAttribute("transaction", transaction);
+//        model.addAttribute("categories", catRepo.findAll());
+////        model.addAttribute("isIncome", transaction.getIncome());
+//        return "transactions/index";
+
+
         Transaction transaction = new Transaction();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Budget budget = budgetRepo.findBudgetByUserAndName(user, "main");
         List<Transaction> transactions = budget.getTransactions();
-        model.addAttribute("transactions", transactions);
+
+        List<Transaction> ordered = new ArrayList<>();
+        if (transactions.size() == 0) {
+            ordered = transactions;
+        } else {
+            for (int i = 0; i < transactions.size() ; i++) {
+                System.out.println(transactions.get(i));
+                if(i > 0) {
+                    if (transactions.get(i).getId() > transactions.get(i - 1).getId()) {
+                        ordered.add(0,transactions.get(i));
+
+                    }
+                } else{
+                    ordered.add(0,transactions.get(i));
+
+                }
+            }
+        }
+        model.addAttribute("transactions", ordered);
+
         model.addAttribute("transaction", transaction);
         model.addAttribute("categories", catRepo.findAll());
         return "transactions/index";
-    }
+
+
+}
 
 
     @PostMapping("/transactions/add")
@@ -85,6 +120,35 @@ public class TransactionController {
         transRepo.save(transToEdit);
         return "redirect:/transactions";
     }
+
+//    @GetMapping("/transactionsss")
+//    public String showTransaction(Model model) {
+//        Transaction transaction = new Transaction();
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        Budget budget = budgetRepo.findBudgetByUserAndName(user, "main");
+//        List<Transaction> transactions = budget.getTransactions();
+//        List<Transaction> ordered = new ArrayList<>();
+//        if (transactions.size() == 0) {
+//            ordered = transactions;
+//        } else {
+//            for (int i = 0; i < transactions.size() ; i++) {
+//                System.out.println(transactions.get(i));
+//                if(i > 0) {
+//                    if (transactions.get(i).getId() > transactions.get(i - 1).getId()) {
+//                    ordered.add(0,transactions.get(i));
+//
+//                    }
+//                } else{
+//                    ordered.add(0,transactions.get(i));
+//
+//                }
+//            }
+//        }
+//        model.addAttribute("transactions", ordered);
+//        model.addAttribute("transaction", transaction);
+//        model.addAttribute("categories", catRepo.findAll());
+//        return "transactions/transactions";
+//    }
 
 }
 
