@@ -1,39 +1,47 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="partials/partial :: head('Adding Transaction')"></head>
+<head th:replace="partials/partial :: head('Transaction Page')"></head>
 <body>
 <div th:replace="partials/partial :: top_banner"></div>
 <div th:replace="partials/partial :: standard_nav"></div>
 
-<div class="container">
-    <form th:action="@{/transactions/add}" method="POST" th:object="${transaction}">
-        <div>
-            <br>
-            <label for="name">Name</label>
-            <input type="text" id="name" th:field="*{name}" class="form-control" placeholder="(Enter name)">
-        </div>
-        <br>
-        <div>
-            <label for="amountInCents">Amount</label>
-            <input type="text" id="amountInCents" th:field="*{amountInCents}" class="form-control" placeholder="(Enter amount)">
-        </div>
-        <br>
-        <div>
-            <label for="isIncome">Income</label>
-            <input type="checkbox" id="isIncome" th:field="*{income}" class="form-control">
-        </div>
-        <br>
-        <div>
-            <label for="category">Category</label>
-            <select type="text" id="category" class="form-control" th:field="*{category}">
-                <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
-            </select>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">Add Transaction</button>
-    </form>
+<br>
+<h1 class="text-center">Your Transactions</h1>
+<div id="transactions"></div>
+
+<div class="p-4">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr class="text-center">
+            <th>Date added</th>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Delete/Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr id="editTrans" th:each="transaction : ${transactions}" class="text-center"
+            th:style="${transaction.income} == true ? 'background-color: lightgreen; color: black' : 'background-color: pink; color: black'">
+            <td class="data-center" th:text="${#dates.format(transaction.createDate, 'dd-MMM-yyyy')}"></td>
+            <td class="data-center" th:text="${transaction.name}"></td>
+            <td class="data-center" th:text="${#strings.replace(#numbers.formatCurrency(transaction.amountInCents), '.00', '')}"></td>
+            <!--            <td th:text="${transaction.income}"></td>-->
+            <td class="data-center" th:text="${transaction.category.name}"></td>
+            <td class="data-icons-center">
+                <button type="button" class="btn bg-transparent p-1" data-toggle="modal" data-target="#deleteTransaction" th:data-i="${transaction.id}">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+                <button type="button" class="btn bg-transparent p-1 editIcon" data-toggle="modal" data-target="#editTransaction" th:data-id="${transaction.id}">
+                    <i class="fas fa-edit"></i>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:replace="partials/partial :: footer_nav"></div>
+    <div th:replace="partials/partial :: footer-transactions"></div>
 </div>
-<div th:replace="partials/partial :: footer_nav"></div>
-<div th:replace="partials/partial :: footer"></div>
 </body>
 </html>

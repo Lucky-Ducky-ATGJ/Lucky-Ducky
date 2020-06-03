@@ -71,3 +71,10 @@ public class BudgetController {
         return "redirect:/budget";
     }
 }
+
+@GetMapping("/spentbycategory.json")
+    public @ResponseBody
+    int viewSpentByCategoryInJSONFormat() {
+        return transRepo.getTotalExpendituresByCategory();
+    }
+}

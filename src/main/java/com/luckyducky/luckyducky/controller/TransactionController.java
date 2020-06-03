@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 
 import javax.persistence.Id;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -34,19 +35,51 @@ public class TransactionController {
 
     @GetMapping("/transactions")
 
+
         public String addTransaction (Model model){
+//        Transaction transaction = new Transaction();
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        Budget budget = budgetRepo.findBudgetByUserAndName(user, "main");
+//        List<Transaction> transactions = budget.getTransactions();
+//        System.out.println(transactions);
+//        model.addAttribute("transactions", transactions);
+////        model.addAttribute("transactions", transRepo.findAll());
+//        model.addAttribute("transaction", transaction);
+//        model.addAttribute("categories", catRepo.findAll());
+////        model.addAttribute("isIncome", transaction.getIncome());
+//        return "transactions/index";
+
+
         Transaction transaction = new Transaction();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Budget budget = budgetRepo.findBudgetByUserAndName(user, "main");
         List<Transaction> transactions = budget.getTransactions();
-        System.out.println(transactions);
-        model.addAttribute("transactions", transactions);
-//        model.addAttribute("transactions", transRepo.findAll());
+
+        List<Transaction> ordered = new ArrayList<>();
+        if (transactions.size() == 0) {
+            ordered = transactions;
+        } else {
+            for (int i = 0; i < transactions.size() ; i++) {
+                System.out.println(transactions.get(i));
+                if(i > 0) {
+                    if (transactions.get(i).getId() > transactions.get(i - 1).getId()) {
+                        ordered.add(0,transactions.get(i));
+
+                    }
+                } else{
+                    ordered.add(0,transactions.get(i));
+
+                }
+            }
+        }
+        model.addAttribute("transactions", ordered);
+
         model.addAttribute("transaction", transaction);
         model.addAttribute("categories", catRepo.findAll());
-//        model.addAttribute("isIncome", transaction.getIncome());
         return "transactions/index";
-    }
+
+
+}
 
     @PostMapping("/transactions/add")
     public String newTransaction(@ModelAttribute Transaction transaction) {
@@ -54,7 +87,7 @@ public class TransactionController {
        Budget userBudget = budgetRepo.findBudgetByUserAndName(user, "main");
        transaction.setBudget(userBudget);
        transRepo.save(transaction);
-        return "redirect:/transactions";
+       return "redirect:/transactions";
     }
 
     @PostMapping("/transactions/delete")
@@ -74,7 +107,7 @@ public class TransactionController {
         transToEdit.setName(name);
         transToEdit.setAmountInCents(amount);
 
-        if(isIncome != null) {
+        if (isIncome != null) {
             transToEdit.setIncome(true);
         } else {
             transToEdit.setIncome(false);
@@ -83,4 +116,34 @@ public class TransactionController {
         transRepo.save(transToEdit);
         return "redirect:/transactions";
     }
+
+//    @GetMapping("/transactionsss")
+//    public String showTransaction(Model model) {
+//        Transaction transaction = new Transaction();
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        Budget budget = budgetRepo.findBudgetByUserAndName(user, "main");
+//        List<Transaction> transactions = budget.getTransactions();
+//        List<Transaction> ordered = new ArrayList<>();
+//        if (transactions.size() == 0) {
+//            ordered = transactions;
+//        } else {
+//            for (int i = 0; i < transactions.size() ; i++) {
+//                System.out.println(transactions.get(i));
+//                if(i > 0) {
+//                    if (transactions.get(i).getId() > transactions.get(i - 1).getId()) {
+//                    ordered.add(0,transactions.get(i));
+//
+//                    }
+//                } else{
+//                    ordered.add(0,transactions.get(i));
+//
+//                }
+//            }
+//        }
+//        model.addAttribute("transactions", ordered);
+//        model.addAttribute("transaction", transaction);
+//        model.addAttribute("categories", catRepo.findAll());
+//        return "transactions/transactions";
+//    }
+
 }
