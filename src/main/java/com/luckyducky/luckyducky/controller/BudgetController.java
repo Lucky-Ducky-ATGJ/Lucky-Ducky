@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class BudgetController {
     private final UserRepository userRepo;
@@ -70,11 +72,12 @@ public class BudgetController {
         transRepo.save(transaction);
         return "redirect:/budget";
     }
-}
+
 
 @GetMapping("/spentbycategory.json")
     public @ResponseBody
-    int viewSpentByCategoryInJSONFormat() {
+    List<Integer> viewSpentByCategoryInJSONFormat() {
+        List<Integer> listOfTotals = transRepo.getTotalExpendituresByCategory();
         return transRepo.getTotalExpendituresByCategory();
     }
 }
