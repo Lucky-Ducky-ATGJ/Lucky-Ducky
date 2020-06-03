@@ -14,8 +14,7 @@ import org.springframework.stereotype.Controller;
 
 import javax.persistence.Id;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class TransactionController {
@@ -33,48 +32,25 @@ public class TransactionController {
         this.emailService = emailService;
     }
 
-    @GetMapping("/transactions")
-
-
-        public String addTransaction (Model model){
+    @GetMapping("/transactions")        
+    public String showTransaction(Model model) {
         Transaction transaction = new Transaction();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Budget budget = budgetRepo.findBudgetByUserAndName(user, "main");
-        List<Transaction> transactions = budget.getTransactions();
-
-        List<Transaction> ordered = new ArrayList<>();
-        if (transactions.size() == 0) {
-            ordered = transactions;
-        } else {
-            for (int i = 0; i < transactions.size() ; i++) {
-                System.out.println(transactions.get(i));
-                if(i > 0) {
-                    if (transactions.get(i).getId() > transactions.get(i - 1).getId()) {
-                        ordered.add(0,transactions.get(i));
-
-                    }
-                } else{
-                    ordered.add(0,transactions.get(i));
-
-                }
-            }
-        }
+        List<Budget> budgets = budgetRepo.findBudgetsByUser(user);
+        List<Transaction> ordered = combineTransactions(budgets);
         model.addAttribute("transactions", ordered);
-
         model.addAttribute("transaction", transaction);
         model.addAttribute("categories", catRepo.findAll());
         return "transactions/index";
-
-
-}
+    }
 
     @PostMapping("/transactions/add")
     public String newTransaction(@ModelAttribute Transaction transaction) {
-       User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-       Budget userBudget = budgetRepo.findBudgetByUserAndName(user, "main");
-       transaction.setBudget(userBudget);
-       transRepo.save(transaction);
-       return "redirect:/transactions";
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Budget userBudget = budgetRepo.findBudgetByUserAndName(user, "main");
+        transaction.setBudget(userBudget);
+        transRepo.save(transaction);
+        return "redirect:/transactions";
     }
 
     @PostMapping("/transactions/delete")
@@ -109,33 +85,23 @@ public class TransactionController {
         return "redirect:/transactions/edit";
     }
 
-//    @GetMapping("/transactionsss")
-//    public String showTransaction(Model model) {
-//        Transaction transaction = new Transaction();
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        Budget budget = budgetRepo.findBudgetByUserAndName(user, "main");
-//        List<Transaction> transactions = budget.getTransactions();
-//        List<Transaction> ordered = new ArrayList<>();
-//        if (transactions.size() == 0) {
-//            ordered = transactions;
-//        } else {
-//            for (int i = 0; i < transactions.size() ; i++) {
-//                System.out.println(transactions.get(i));
-//                if(i > 0) {
-//                    if (transactions.get(i).getId() > transactions.get(i - 1).getId()) {
-//                    ordered.add(0,transactions.get(i));
-//
-//                    }
-//                } else{
-//                    ordered.add(0,transactions.get(i));
-//
-//                }
-//            }
-//        }
-//        model.addAttribute("transactions", ordered);
-//        model.addAttribute("transaction", transaction);
-//        model.addAttribute("categories", catRepo.findAll());
-//        return "transactions/transactions";
-//    }
 
+    public List<Transaction> combineTransactions(List<Budget> budgets) {
+        List<Transaction> transactions = new ArrayList<>();
+
+        for (Budget budget : budgets) {
+            List<Transaction> temp = budget.getTransactions();
+
+            if (temp.size() == 0) {
+                transactions = temp;
+            } else {
+                for (int i = 0; i < temp.size(); i++) {
+                    transactions.add(0, temp.get(i));
+                }
+            }
+        }
+        Comparator<Transaction> compareById = (Transaction t1, Transaction t2) -> (int) (t1.getId() - t2.getId());
+        transactions.sort(compareById.reversed());
+        return transactions;
+    }
 }

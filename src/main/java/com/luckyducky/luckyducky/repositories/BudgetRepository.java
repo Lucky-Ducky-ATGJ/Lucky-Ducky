@@ -9,4 +9,5 @@ import java.util.List;
 public interface BudgetRepository extends JpaRepository<Budget, Long> {
     public Budget findBudgetByUserAndName(User user, String Name);
     public List<Budget> findBudgetsByUserAndNameIsNot(User user, String Name);
+    public List<Budget> findBudgetsByUser(User user);
 }
