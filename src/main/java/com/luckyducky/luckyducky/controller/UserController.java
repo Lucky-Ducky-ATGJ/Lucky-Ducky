@@ -48,28 +48,26 @@ public class UserController {
         String pass = user.getPassword();
         String confirm = user.getConfirmPass();
         if (confirm.equals(pass)) {
-
-        String hash = passwordEncoder.encode(pass);
+            String hash = passwordEncoder.encode(pass);
             user.setPassword(pass);
             userRepo.save(user);
             authenticate(user);
             Budget budget = new Budget("main", 0, user);
             budgetRepo.save(budget);
-
             return "redirect:/profile";
         }
-return "redirect:/register";
+        return "redirect:/register";
     }
 
     @GetMapping("/profile")
-    public String viewProfile(Model model){
+    public String viewProfile(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
         return "user/profile";
     }
 
     @GetMapping("/profile/{id}/delete")
-    public String getDeleteProfileForm(@PathVariable long id, Model model){
+    public String getDeleteProfileForm(@PathVariable long id, Model model) {
         Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (obj == null || !(obj instanceof UserDetails)) {
             return "redirect:/login";
@@ -90,9 +88,9 @@ return "redirect:/register";
         return "redirect:/login";
     }
 
-//    I added the part below, remove it if it doesn't work.
+    //    I added the part below, remove it if it doesn't work.
     @GetMapping("/profile/{id}/profile-edit")
-    public String getEditProfileForm(@PathVariable long id, Model model){
+    public String getEditProfileForm(@PathVariable long id, Model model) {
         Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (obj == null || !(obj instanceof UserDetails)) {
             return "redirect:/login";
