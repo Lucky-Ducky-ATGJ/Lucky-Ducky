@@ -30,13 +30,12 @@ public class TransactionController {
         this.userRepo = userRepo;
         this.catRepo = catRepo;
         this.budgetRepo = budgetRepo;
-
-
         this.emailService = emailService;
     }
 
 
     @GetMapping("/transactions")
+
 
         public String addTransaction (Model model){
 //        Transaction transaction = new Transaction();
@@ -51,10 +50,12 @@ public class TransactionController {
 ////        model.addAttribute("isIncome", transaction.getIncome());
 //        return "transactions/index";
 
+
         Transaction transaction = new Transaction();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Budget budget = budgetRepo.findBudgetByUserAndName(user, "main");
         List<Transaction> transactions = budget.getTransactions();
+
         List<Transaction> ordered = new ArrayList<>();
         if (transactions.size() == 0) {
             ordered = transactions;
@@ -73,6 +74,7 @@ public class TransactionController {
             }
         }
         model.addAttribute("transactions", ordered);
+
         model.addAttribute("transaction", transaction);
         model.addAttribute("categories", catRepo.findAll());
         return "transactions/index";
@@ -84,11 +86,9 @@ public class TransactionController {
     @PostMapping("/transactions/add")
     public String newTransaction(@ModelAttribute Transaction transaction) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-
-       Budget userBudget = budgetRepo.findBudgetByUserAndName(user, "main");
-       transaction.setBudget(userBudget);
-       transRepo.save(transaction);
+        Budget userBudget = budgetRepo.findBudgetByUserAndName(user, "main");
+        transaction.setBudget(userBudget);
+        transRepo.save(transaction);
         return "redirect:/transactions";
     }
 
@@ -111,12 +111,9 @@ public class TransactionController {
         transToEdit.setName(name);
         transToEdit.setAmountInCents(amount);
 
-        if(isIncome != null)
-        {
+        if (isIncome != null) {
             transToEdit.setIncome(true);
-        }
-        else
-        {
+        } else {
             transToEdit.setIncome(false);
         }
         transToEdit.setCategory(category);
