@@ -46,17 +46,13 @@ public class UserController {
     @PostMapping("/register")
     public String saveUser(@ModelAttribute User user, HttpServletRequest req, BindingResult bindingResult) {
         String pass = user.getPassword();
-        String confirm = user.getConfirmPass();
-        if (confirm.equals(pass)) {
             String hash = passwordEncoder.encode(pass);
-            user.setPassword(pass);
+            user.setPassword(hash);
             userRepo.save(user);
             authenticate(user);
             Budget budget = new Budget("main", 0, user);
             budgetRepo.save(budget);
             return "redirect:/profile";
-        }
-        return "redirect:/register";
     }
 
     @GetMapping("/profile")
