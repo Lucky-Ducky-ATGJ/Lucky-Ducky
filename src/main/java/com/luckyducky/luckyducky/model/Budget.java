@@ -19,12 +19,16 @@ public class Budget {
     @Value("${some.key:0}")
     private int balance_in_cents;
 
+    @Column
+    private int goal_funds;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "budget")
     private List<Transaction> transactions;
+
 
     public Budget(){}
 
@@ -74,5 +78,12 @@ public class Budget {
     }
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
+    }
+
+    public int getGoal_funds() {
+        return goal_funds;
+    }
+    public void setGoal_funds(int goal_funds) {
+        this.goal_funds = goal_funds;
     }
 }

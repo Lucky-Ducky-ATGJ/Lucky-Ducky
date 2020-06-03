@@ -32,9 +32,10 @@ public class BudgetController {
     public String showBudget(Model model) { // Moves data from back-end to front-end
         Budget budget = new Budget();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Budget> temp = budgetRepo.findBudgetsByUserAndNameIsNot(user, "main");
         model.addAttribute("budget", budget); // model.attribute ("variable name", "variable value")
         model.addAttribute("transactions", transRepo.findAll());
-        model.addAttribute("newGoal", budgetRepo.findBudgetsByUserAndNameIsNot(user, "main"));
+        model.addAttribute("newGoal", updatedGoalAmounts(temp));
         return "budget/index"; // Sends a Model over page to HTML that contains both "budget" and "transactions" with values
     }
 
@@ -79,10 +80,25 @@ public class BudgetController {
         return "redirect:/budget";
     }
 
-@GetMapping("/spentbycategory.json")
+    @GetMapping("/spentbycategory.json")
     public @ResponseBody
     List<Integer> viewSpentByCategoryInJSONFormat() {
         List<Integer> listOfTotals = transRepo.getTotalExpendituresByCategory();
         return transRepo.getTotalExpendituresByCategory();
     }
+
+    public List<Budget> updatedGoalAmounts(List<Budget> budgetList){
+        for(Budget budget : budgetList){
+            List<Transaction> transactionList = budget.getTransactions(); // Grab all transactions for each budget object (e.g. goal)
+            int bucket = 0;
+            if(transactionList.size() != 0){
+                for(Transaction transaction : transactionList){
+                    bucket += transaction.getAmountInCents();
+                }
+            }
+            budget.setGoal_funds(bucket);
+        }
+        return budgetList;
+    }
+
 }
