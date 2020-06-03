@@ -29,11 +29,8 @@ public class TransactionController {
         this.userRepo = userRepo;
         this.catRepo = catRepo;
         this.budgetRepo = budgetRepo;
-
-
         this.emailService = emailService;
     }
-
 
     @GetMapping("/transactions")
 
@@ -51,18 +48,14 @@ public class TransactionController {
         return "transactions/index";
     }
 
-
     @PostMapping("/transactions/add")
     public String newTransaction(@ModelAttribute Transaction transaction) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-
+       User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
        Budget userBudget = budgetRepo.findBudgetByUserAndName(user, "main");
        transaction.setBudget(userBudget);
        transRepo.save(transaction);
         return "redirect:/transactions";
     }
-
 
     @PostMapping("/transactions/delete")
     public String deleteTransaction(@RequestParam String id) {
@@ -71,7 +64,6 @@ public class TransactionController {
         transRepo.delete(transaction);
         return "redirect:/transactions";
     }
-
 
     @PostMapping("/transactions/edit")
     public String editTransaction(@RequestParam String id, @RequestParam String name, @RequestParam int amount, @RequestParam Category category, @RequestParam(value = "isIncome", required = false) String isIncome, Model model) {
@@ -82,20 +74,13 @@ public class TransactionController {
         transToEdit.setName(name);
         transToEdit.setAmountInCents(amount);
 
-        if(isIncome != null)
-        {
+        if(isIncome != null) {
             transToEdit.setIncome(true);
-        }
-        else
-        {
+        } else {
             transToEdit.setIncome(false);
         }
         transToEdit.setCategory(category);
         transRepo.save(transToEdit);
         return "redirect:/transactions";
     }
-
 }
-
-
-

@@ -11,21 +11,17 @@
 <br>
 <div class="row d-flex justify-content-center">
     <div class="number-input text-center">
-<!--        <form th:action="@{/BudgetController/incomeImport}">-->
             <label for="income" class="mr-1 large-font">Income: </label>
             <input type="number" id="income" placeholder="(Enter income)">
             <button id="importIncome">Import</button>
-<!--        </form>-->
     </div>
 
     <div class="ml-3 mr-3 font-weight-bold large-font"> &mdash; </div>
 
     <div class="number-input">
-<!--        <form th:action="@{/BudgetController/expenditureImport}">-->
             <label for="expenditures" class="mr-1 large-font">Expenditures: </label>
             <input type="number" id="expenditures" placeholder="(Enter expenditures)">
             <button id="importExpenditures">Import</button>
-<!--        </form>-->
     </div>
 
     <div class="ml-3 mr-3 large-font"> = </div>
@@ -38,7 +34,7 @@
 </div>
 <br>
 <br>
-<div class="button text-center large-font">
+<div class="button text-center">
     <button onclick="calculateBalance()">Calculate</button>
 </div>
 
@@ -47,7 +43,83 @@
 
 <h1 class="text-center">Goals</h1>
 <br>
-<h4 class="text-center">(Feature coming soon)</h4>
+<div th:each="budget : ${newGoal}" class="row mb-4" style="margin-left: 300px">
+
+    <h4 th:text="${budget.name}" class="mr-3 my-auto"></h4>
+
+    <progress id="progressBar" value="0" th:max="${budget.balance_in_cents}" class="w-50 mt-2"></progress>
+
+    <h4 th:text="${'Goal: $' + budget.balance_in_cents}" class="ml-3 my-auto"></h4>
+
+    <button type="button" id="addFundsButton" class="button text-center ml-3" data-toggle="modal" data-target="#addFundsModal" th:data-goal="${budget.name}">Add Funds</button>
+</div>
+
+<div class="row d-flex justify-content-center mb-5">
+    <button type="button" id="addGoalButton" class="button text-center mb-5" data-toggle="modal" data-target="#addGoalModal">Add a Goal</button>
+</div>
+
+<!--ADD GOAL MODAL-->
+<div class="modal fade" id="addGoalModal" tabindex="-1" role="dialog" aria-labelledby="addGoalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="addGoalLabel">Create a Goal</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/addGoal}" th:method="post" th:object="${budget}">
+                    <div>
+                        <label for="add-goal-name">Goal Name</label>
+                        <input type="text" class="form-control" id="add-goal-name" th:field="*{name}">
+                    </div>
+                    <br>
+                    <div>
+                        <label for="add-balance">Balance</label>
+                        <input type="number" class="form-control" id="add-balance" th:field="*{balance_in_cents}">
+                    </div>
+                    <div class="modal-footer d-flex justify-content-around">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                        </button>
+                        <button type="submit" class="btn btn-primary">Add Goal</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--ADD FUNDS MODAL-->
+<div class="modal fade" id="addFundsModal" tabindex="-1" role="dialog" aria-labelledby="addFundsLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="addFundsLabel">Add Funds Towards This Goal</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/addFunds}" method="post">
+                    <div>
+                        <label for="add-funds">Amount</label>
+                        <input type="number" class="form-control" id="add-funds" name="addedFunds">
+                        <input type="hidden" id="goalName" name="goalName">
+                    </div>
+                    <div class="modal-footer d-flex justify-content-around">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                        </button>
+                        <button type="submit" class="btn btn-primary">Add Goal</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <div th:replace="partials/partial :: footer_nav"></div>
 <div th:replace="partials/partial :: footer"></div>

@@ -20,8 +20,6 @@ function incomeButton() {
     });
 
     request.done(function (totalIncome) {
-        console.log(totalIncome);
-        console.log(typeof totalIncome);
         $("#income").val(totalIncome)
     });
 
@@ -57,5 +55,33 @@ function incomeButton() {
             console.log(error);
         });
     }
+
+    $("#importIncome").click(function (event) {
+        event.preventDefault()
+        incomeButton();
+    });
+
+    function incomeButton() {
+        let request = $.ajax({
+            url: '/transactions.json',
+            type: "get",
+            dataType: "text"
+        });
+
+        request.done(function (totalIncome) {
+            $("#income").val(totalIncome)
+        });
+    }
 }
 
+function goalContribution() {
+    let x = document.getElementById("progressBar");
+    x.value = document.getElementById("goalContributions").value;
+}
+
+$('#addFundsModal').on('show.bs.modal', function (event) {
+    let button = $(event.relatedTarget)
+    let name = button.data('goal')
+    let modal = $(this)
+    modal.find('.modal-body input#goalName').val(name)
+});
