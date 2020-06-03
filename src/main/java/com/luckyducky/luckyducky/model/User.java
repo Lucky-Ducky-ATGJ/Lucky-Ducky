@@ -2,6 +2,7 @@ package com.luckyducky.luckyducky.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.luckyducky.luckyducky.controller.ValidPassword;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
@@ -32,6 +33,7 @@ public class User {
 
     @Column(nullable = false)
     @JsonIgnore
+
     private String password;
 
     @Column(nullable = false)

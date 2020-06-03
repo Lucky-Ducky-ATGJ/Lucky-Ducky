@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,26 +44,26 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String saveUser(@ModelAttribute User user, HttpServletRequest req) {
+    public String saveUser(@ModelAttribute User user, HttpServletRequest req, BindingResult bindingResult) {
         String pass = user.getPassword();
-        String hash = passwordEncoder.encode(pass);
-        user.setPassword(hash);
-        userRepo.save(user);
-        authenticate(user);
-        Budget budget = new Budget("main", 0,user);
-        budgetRepo.save(budget);
-        return "redirect:/profile";
+            String hash = passwordEncoder.encode(pass);
+            user.setPassword(hash);
+            userRepo.save(user);
+            authenticate(user);
+            Budget budget = new Budget("main", 0, user);
+            budgetRepo.save(budget);
+            return "redirect:/profile";
     }
 
     @GetMapping("/profile")
-    public String viewProfile(Model model){
+    public String viewProfile(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
         return "user/profile";
     }
 
     @GetMapping("/profile/{id}/delete")
-    public String getDeleteProfileForm(@PathVariable long id, Model model){
+    public String getDeleteProfileForm(@PathVariable long id, Model model) {
         Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (obj == null || !(obj instanceof UserDetails)) {
             return "redirect:/login";
@@ -83,9 +84,9 @@ public class UserController {
         return "redirect:/login";
     }
 
-//    I added the part below, remove it if it doesn't work.
+    //    I added the part below, remove it if it doesn't work.
     @GetMapping("/profile/{id}/profile-edit")
-    public String getEditProfileForm(@PathVariable long id, Model model){
+    public String getEditProfileForm(@PathVariable long id, Model model) {
         Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (obj == null || !(obj instanceof UserDetails)) {
             return "redirect:/login";

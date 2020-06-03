@@ -6,8 +6,8 @@
 <div th:replace="partials/partial :: top_banner"></div>
 <div th:replace="partials/partial :: standard_nav"></div>
 <h1>Log In</h1>
-<div th:if="${param.error}">
-    Invalid Username and Password.
+<div th:if="${param.error}" class="alert alert-danger">
+    Invalid username or password.
 </div>
 <div th:if="${param.logout}">
     You have been logged out.
