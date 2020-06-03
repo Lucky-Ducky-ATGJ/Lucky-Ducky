@@ -8,13 +8,10 @@
     <script src="https://kit.fontawesome.com/5811016069.js" crossorigin="anonymous"></script>
     <link th:href="@{/css/style.css}" rel="stylesheet">
     <title th:text="${title}"></title>
-
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
 </head>
 
 <body>
-
 
 <top_banner th:fragment="top_banner">
     <div class="top_banner nav-top-margin">Quacker Tracker</div>
@@ -22,7 +19,6 @@
 
 <standard_nav>
     <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
-        <!--    <a class="navbar-brand" href="#">Navbar</a>-->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -81,7 +77,6 @@
     </div>
 </footer_nav>
 
-
 <div th:fragment="footer">
     <script src="/webjars/jquery/jquery.min.js"></script>
     <script src="/webjars/popper.js/popper.min.js"></script>
@@ -96,6 +91,7 @@
     <script src="/webjars/popper.js/popper.min.js"></script>
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
     <script src="js/billJS.js"></script>
+    <script src="js/budgetJS.js"></script>
     <script src="js/transactionJs.js"></script>
 </div>
 

@@ -33,7 +33,6 @@ public class TransactionController {
         this.emailService = emailService;
     }
 
-
     @GetMapping("/transactions")
 
 
@@ -82,16 +81,14 @@ public class TransactionController {
 
 }
 
-
     @PostMapping("/transactions/add")
     public String newTransaction(@ModelAttribute Transaction transaction) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Budget userBudget = budgetRepo.findBudgetByUserAndName(user, "main");
-        transaction.setBudget(userBudget);
-        transRepo.save(transaction);
-        return "redirect:/transactions";
+       User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+       Budget userBudget = budgetRepo.findBudgetByUserAndName(user, "main");
+       transaction.setBudget(userBudget);
+       transRepo.save(transaction);
+       return "redirect:/transactions";
     }
-
 
     @PostMapping("/transactions/delete")
     public String deleteTransaction(@RequestParam String id) {
@@ -100,7 +97,6 @@ public class TransactionController {
         transRepo.delete(transaction);
         return "redirect:/transactions";
     }
-
 
     @PostMapping("/transactions/edit")
     public String editTransaction(@RequestParam String id, @RequestParam String name, @RequestParam int amount, @RequestParam Category category, @RequestParam(value = "isIncome", required = false) String isIncome, Model model) {
@@ -151,6 +147,3 @@ public class TransactionController {
 //    }
 
 }
-
-
-

@@ -15,7 +15,6 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 //        This is a query for getting the total for the Expenditures
     @Query("SELECT SUM(t.amountInCents) FROM Transaction t WHERE t.isIncome = false")
     int getTotalExpenditures();
-//    List<Transaction> findTransactionsByUser(User user);
 
 //      Query to get total of expenditures by category
     @Query("SELECT SUM(t.amountInCents) FROM Transaction t WHERE t.isIncome = false GROUP BY t.category")

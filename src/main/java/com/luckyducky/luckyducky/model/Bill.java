@@ -74,7 +74,6 @@ public class Bill{
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
@@ -82,7 +81,6 @@ public class Bill{
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -90,7 +88,6 @@ public class Bill{
     public int getAmountInCents() {
         return amountInCents;
     }
-
     public void setAmountInCents(int amountInCents) {
         this.amountInCents = amountInCents;
     }
@@ -98,7 +95,6 @@ public class Bill{
     public LocalDate getDueDate() {
         return dueDate;
     }
-
     public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
@@ -106,7 +102,6 @@ public class Bill{
     public boolean isPaid() {
         return isPaid;
     }
-
     public void setPaid(boolean paid) {
         isPaid = paid;
     }
@@ -114,7 +109,6 @@ public class Bill{
     public Date getCreatedAt() {
         return createdAt;
     }
-
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
@@ -122,7 +116,6 @@ public class Bill{
     public Date getModifiedAt() {
         return modifiedAt;
     }
-
     public void setModifiedAt(Date modifiedAt) {
         this.modifiedAt = modifiedAt;
     }
@@ -130,7 +123,6 @@ public class Bill{
     public User getUser() {
         return user;
     }
-
     public void setUser(User user) {
         this.user = user;
     }
@@ -138,7 +130,6 @@ public class Bill{
     public List<Transaction> getTransactions() {
         return transactions;
     }
-
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
     }

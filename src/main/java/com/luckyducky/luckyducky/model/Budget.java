@@ -23,7 +23,6 @@ public class Budget {
     @JoinColumn(name = "user_id")
     private User user;
 
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "budget")
     private List<Transaction> transactions;
 
@@ -34,7 +33,6 @@ public class Budget {
         this.name = name;
         this.balance_in_cents = balance_in_cents;
         this.user = user;
-
     }
 
     public Budget(String name, int balance_in_cents, User user) {
@@ -43,11 +41,9 @@ public class Budget {
         this.user = user;
     }
 
-
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
@@ -55,7 +51,6 @@ public class Budget {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -63,7 +58,6 @@ public class Budget {
     public int getBalance_in_cents() {
         return balance_in_cents;
     }
-
     public void setBalance_in_cents(int balance_in_cents) {
         this.balance_in_cents = balance_in_cents;
     }
@@ -71,7 +65,6 @@ public class Budget {
     public User getUser() {
         return user;
     }
-
     public void setUser(User user) {
         this.user = user;
     }
@@ -79,7 +72,6 @@ public class Budget {
     public List<Transaction> getTransactions() {
         return transactions;
     }
-
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
     }

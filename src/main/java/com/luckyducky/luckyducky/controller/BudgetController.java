@@ -1,14 +1,14 @@
 package com.luckyducky.luckyducky.controller;
 
+import com.luckyducky.luckyducky.model.Budget;
+import com.luckyducky.luckyducky.model.Category;
 import com.luckyducky.luckyducky.model.Transaction;
+import com.luckyducky.luckyducky.model.User;
 import com.luckyducky.luckyducky.repositories.*;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class BudgetController {
@@ -27,17 +27,14 @@ public class BudgetController {
     }
 
     @GetMapping("/budget")
-    public String showBudget(Model model) {
+    public String showBudget(Model model) { // Moves data from back-end to front-end
+        Budget budget = new Budget();
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("budget", budget); // model.attribute ("variable name", "variable value")
         model.addAttribute("transactions", transRepo.findAll());
-        return "budget/index";
+        model.addAttribute("newGoal", budgetRepo.findBudgetsByUserAndNameIsNot(user, "main"));
+        return "budget/index"; // Sends a Model over page to HTML that contains both "budget" and "transactions" with values
     }
-
-//    @GetMapping("/budget/incomeImport.json")
-//    public String getIncomeTotal(Model model){
-//        int totalIncome = transRepo.getTotalIncome();
-//        model.addAttribute("incomeTotal", totalIncome);
-//        return "budget/index";
-//    }
 
     @GetMapping("/transactions.json")
     public @ResponseBody
@@ -45,20 +42,37 @@ public class BudgetController {
         return transRepo.getTotalIncome();
     }
 
-//    @GetMapping("/budget/expenditureImport.json")
-//    public String getExpenditureTotal(Model model){
-//        int totalExpenditures = transRepo.getTotalExpenditures();
-//        model.addAttribute("expenditureTotal", totalExpenditures);
-//        return "budget/index";
-//    }
-//
     @GetMapping("/transactions2.json")
     public @ResponseBody
         int viewAllExpendituresInJSONFormat() {
         return transRepo.getTotalExpenditures();
     }
 
-    @GetMapping("/spentbycategory.json")
+    @PostMapping("/addGoal")
+    public String addGoal(@ModelAttribute Budget budget){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal(); // Grabs current user
+        budget.setUser(user);
+        budgetRepo.save(budget);
+        return "redirect:/budget";
+    }
+
+    @PostMapping("/addFunds")
+    public String addFunds(@RequestParam String goalName, @RequestParam int addedFunds){
+        Transaction transaction = new Transaction();
+        transaction.setName(goalName);
+        transaction.setAmountInCents(addedFunds);
+        transaction.setIncome(false); // Add all applicable values for "Transaction" from model
+        Category category = cateRepo.getOne(14L); // Will grab category from Category table with id of 14 "Budget Goal"
+        transaction.setCategory(category);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal(); // Grabs current user
+        Budget budget = budgetRepo.findBudgetByUserAndName(user, transaction.getName());
+        transaction.setBudget(budget);
+        transRepo.save(transaction);
+        return "redirect:/budget";
+    }
+}
+
+@GetMapping("/spentbycategory.json")
     public @ResponseBody
     int viewSpentByCategoryInJSONFormat() {
         return transRepo.getTotalExpendituresByCategory();
