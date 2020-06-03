@@ -11,17 +11,17 @@
 <br>
 <div class="row d-flex justify-content-center">
     <div class="number-input text-center">
-            <label for="income" class="mr-1 large-font">Income: </label>
-            <input type="number" id="income" placeholder="(Enter income)">
-            <button id="importIncome">Import</button>
+        <label for="income" class="mr-1 large-font">Income: </label>
+        <input type="number" id="income" placeholder="(Enter income)">
+        <button id="importIncome">Import</button>
     </div>
 
     <div class="ml-3 mr-3 font-weight-bold large-font"> &mdash; </div>
 
     <div class="number-input">
-            <label for="expenditures" class="mr-1 large-font">Expenditures: </label>
-            <input type="number" id="expenditures" placeholder="(Enter expenditures)">
-            <button id="importExpenditures">Import</button>
+        <label for="expenditures" class="mr-1 large-font">Expenditures: </label>
+        <input type="number" id="expenditures" placeholder="(Enter expenditures)">
+        <button id="importExpenditures">Import</button>
     </div>
 
     <div class="ml-3 mr-3 large-font"> = </div>
@@ -37,7 +37,6 @@
 <div class="button text-center">
     <button onclick="calculateBalance()">Calculate</button>
 </div>
-
 <br>
 <hr>
 
@@ -45,11 +44,11 @@
 <br>
 <div th:each="budget : ${newGoal}" class="row mb-4" style="margin-left: 300px">
 
-    <h4 th:text="${budget.name}" class="mr-3 my-auto"></h4>
+    <label th:text="${budget.name}" class="mr-3 my-auto large-font"></label>
 
     <progress id="progressBar" value="0" th:max="${budget.balance_in_cents}" class="w-50 mt-2"></progress>
 
-    <h4 th:text="${'Goal: $' + budget.balance_in_cents}" class="ml-3 my-auto"></h4>
+    <label th:text="${'Goal: $' + budget.balance_in_cents}" class="ml-3 my-auto large-font"></label>
 
     <button type="button" id="addFundsButton" class="button text-center ml-3" data-toggle="modal" data-target="#addFundsModal" th:data-goal="${budget.name}">Add Funds</button>
 </div>
@@ -86,7 +85,6 @@
                     </div>
                 </form>
             </div>
-
         </div>
     </div>
 </div>
@@ -112,11 +110,10 @@
                     <div class="modal-footer d-flex justify-content-around">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                         </button>
-                        <button type="submit" class="btn btn-primary">Add Goal</button>
+                        <button type="submit" class="btn btn-primary">Add Funds</button>
                     </div>
                 </form>
             </div>
-
         </div>
     </div>
 </div>
