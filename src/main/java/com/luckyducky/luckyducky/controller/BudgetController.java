@@ -50,6 +50,12 @@ public class BudgetController {
         return transRepo.getTotalExpenditures();
     }
 
+    @GetMapping("/goals.json")
+    public @ResponseBody
+    int viewAllGoalsInJSONFormat() {
+        return transRepo.getGoalTotal();
+    }
+
     @PostMapping("/addGoal")
     public String addGoal(@ModelAttribute Budget budget){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal(); // Grabs current user
@@ -72,7 +78,6 @@ public class BudgetController {
         transRepo.save(transaction);
         return "redirect:/budget";
     }
-
 
 @GetMapping("/spentbycategory.json")
     public @ResponseBody
