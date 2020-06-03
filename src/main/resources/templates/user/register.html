@@ -43,6 +43,16 @@
                         <div class="form-label-group d-flex">
                             <label for="password">Password</label>
                             <input class="ml-auto mt-2" id="password" type="password" th:field="*{password}"/>
+                            <ul class="text-danger" th:each="error: ${#fields.errors('password')}">
+                                <li th:each="message : ${error.split(',')}">
+                                    <p class="error-message" th:text="${message}"></p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="form-label-group d-flex">
+                            <label for="password-confirm">Confirm Password</label>
+                            <input class="ml-auto mt-2" id="password-confirm" type="password" th:field="*{confirmPass}"/>
                         </div>
 
                         <button class="btn btn-lg btn-primary btn-block text-uppercase mt-3" type="submit">REGISTER</button>
