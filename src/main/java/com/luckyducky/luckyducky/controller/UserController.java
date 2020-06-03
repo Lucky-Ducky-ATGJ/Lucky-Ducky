@@ -1,13 +1,10 @@
 package com.luckyducky.luckyducky.controller;
 
-
 import com.luckyducky.luckyducky.model.Budget;
-import com.luckyducky.luckyducky.model.Transaction;
 import com.luckyducky.luckyducky.model.User;
+import com.luckyducky.luckyducky.model.UserWithRoles;
 import com.luckyducky.luckyducky.repositories.BudgetRepository;
 import com.luckyducky.luckyducky.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -22,11 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 
-import static org.springframework.security.web.context.HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY;
 
 @Controller
 public class UserController {
@@ -50,30 +43,14 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String saveUser(@ModelAttribute User user, Model model, HttpServletRequest req) {
+    public String saveUser(@ModelAttribute User user, HttpServletRequest req) {
         String pass = user.getPassword();
         String hash = passwordEncoder.encode(pass);
         user.setPassword(hash);
-
-//        List<Budget> budgets = new ArrayList<>();
-//        List<Transaction> transactions = new ArrayList<>();
-        Budget budget = new Budget("main", 0,user);
-//        budget.setTransactions(transactions);
-//        budgets.add(budget);
-//        user.setBudgets(budgets);
-
         userRepo.save(user);
-
-//        UsernamePasswordAuthenticationToken authReq
-//                = new UsernamePasswordAuthenticationToken(user.getUsername(), pass);
-////        Authentication auth = authManager.authenticate(authReq);
-//        Authentication auth = ;
-//
-//        SecurityContext sc = SecurityContextHolder.getContext();
-//        sc.setAuthentication(auth);
-//        HttpSession session = req.getSession(true);
-//        session.setAttribute(SPRING_SECURITY_CONTEXT_KEY, sc);
-
+        authenticate(user);
+        Budget budget = new Budget("main", 0,user);
+        budgetRepo.save(budget);
         return "redirect:/profile";
     }
 
@@ -134,4 +111,15 @@ public class UserController {
         return "redirect:/profile";
     }
 
+    private void authenticate(User user) {
+        // Notice how we're using an empty list for the roles
+        UserDetails userDetails = new UserWithRoles(user);
+        Authentication auth = new UsernamePasswordAuthenticationToken(
+                userDetails,
+                userDetails.getPassword(),
+                userDetails.getAuthorities()
+        );
+        SecurityContext context = SecurityContextHolder.getContext();
+        context.setAuthentication(auth);
+    }
 }

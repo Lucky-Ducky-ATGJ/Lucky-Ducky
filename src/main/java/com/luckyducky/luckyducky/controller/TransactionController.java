@@ -41,15 +41,7 @@ public class TransactionController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Budget budget = budgetRepo.findBudgetByUserAndName(user, "main");
         List<Transaction> transactions = budget.getTransactions();
-        List<Transaction> ordered = new ArrayList<>();
-
-        for (int i = transactions.size()-1; i <= 0 ; i--) {
-            ordered.add(transactions.get(i));
-        }
-
-
-
-        model.addAttribute("transactions", ordered);
+        model.addAttribute("transactions", transactions);
         model.addAttribute("transaction", transaction);
         model.addAttribute("categories", catRepo.findAll());
         return "transactions/index";
