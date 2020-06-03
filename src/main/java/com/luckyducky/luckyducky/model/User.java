@@ -33,11 +33,8 @@ public class User {
 
     @Column(nullable = false)
     @JsonIgnore
-    @ValidPassword
-    private String password;
 
-    @Transient
-    private String confirmPass;
+    private String password;
 
     @Column(nullable = false)
     @Value("${some.key:false}")
@@ -62,14 +59,13 @@ public class User {
         this.password = password;
     }
 
-    public User(String first_name, String last_name, String username, String email, String phone_num, String password, String confirmPass) {
+    public User(String first_name, String last_name, String username, String email, String phone_num, String password) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.username = username;
         this.email = email;
         this.phone_num = phone_num;
         this.password = password;
-        this.confirmPass = confirmPass;
     }
 
     public User(User copy) {
@@ -83,7 +79,6 @@ public class User {
         isAdmin = copy.isAdmin;
         budgets = copy.budgets;
         bills = copy.bills;
-        confirmPass = copy.confirmPass;
     }
 
     public long getId() {
@@ -133,10 +128,6 @@ public class User {
     }
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getConfirmPass() {
-        return password;
     }
 
     public boolean isAdmin() {

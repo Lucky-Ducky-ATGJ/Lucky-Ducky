@@ -37,19 +37,6 @@ public class TransactionController {
 
 
         public String addTransaction (Model model){
-//        Transaction transaction = new Transaction();
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        Budget budget = budgetRepo.findBudgetByUserAndName(user, "main");
-//        List<Transaction> transactions = budget.getTransactions();
-//        System.out.println(transactions);
-//        model.addAttribute("transactions", transactions);
-////        model.addAttribute("transactions", transRepo.findAll());
-//        model.addAttribute("transaction", transaction);
-//        model.addAttribute("categories", catRepo.findAll());
-////        model.addAttribute("isIncome", transaction.getIncome());
-//        return "transactions/index";
-
-
         Transaction transaction = new Transaction();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Budget budget = budgetRepo.findBudgetByUserAndName(user, "main");
@@ -104,17 +91,22 @@ public class TransactionController {
         Transaction transToEdit = transRepo.getOne(parsedId);
         model.addAttribute("categories", catRepo.findAll());
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        transToEdit.setName(name);
-        transToEdit.setAmountInCents(amount);
+        try {
+            transToEdit.setName(name);
+            transToEdit.setAmountInCents(amount);
 
-        if (isIncome != null) {
-            transToEdit.setIncome(true);
-        } else {
-            transToEdit.setIncome(false);
+            if (isIncome != null) {
+                transToEdit.setIncome(true);
+            } else {
+                transToEdit.setIncome(false);
+            }
+            transToEdit.setCategory(category);
+            transRepo.save(transToEdit);
+            return "redirect:/transactions";
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        transToEdit.setCategory(category);
-        transRepo.save(transToEdit);
-        return "redirect:/transactions";
+        return "redirect:/transactions/edit";
     }
 
 //    @GetMapping("/transactionsss")
