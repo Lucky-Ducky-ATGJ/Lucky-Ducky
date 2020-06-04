@@ -1,9 +1,9 @@
 package com.luckyducky.luckyducky.controller;
 
-import com.luckyducky.luckyducky.model.Budget;
-import com.luckyducky.luckyducky.model.User;
-import com.luckyducky.luckyducky.model.UserWithRoles;
+import com.luckyducky.luckyducky.model.*;
 import com.luckyducky.luckyducky.repositories.BudgetRepository;
+import com.luckyducky.luckyducky.repositories.CategoryRepository;
+import com.luckyducky.luckyducky.repositories.TransactionRepository;
 import com.luckyducky.luckyducky.repositories.UserRepository;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -29,12 +31,16 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepo;
     private final BudgetRepository budgetRepo;
+    private final TransactionRepository transRepo;
+    private final CategoryRepository catRepo;
 
     // Springs version of DaoFactory that uses the Repo(interface as a Dao)
-    public UserController(PasswordEncoder passwordEncoder, UserRepository userRepo, BudgetRepository budgetRepo) {
+    public UserController(PasswordEncoder passwordEncoder, UserRepository userRepo, BudgetRepository budgetRepo, TransactionRepository transRepo, CategoryRepository catRepo) {
         this.passwordEncoder = passwordEncoder;
         this.userRepo = userRepo;
         this.budgetRepo = budgetRepo;
+        this.transRepo = transRepo;
+        this.catRepo = catRepo;
     }
 
     @GetMapping("/register")
@@ -55,10 +61,51 @@ public class UserController {
             return "redirect:/profile";
     }
 
+    class TxPerCategory{
+        public Category cat;
+        public int catTotal;
+    }
+
     @GetMapping("/profile")
     public String viewProfile(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
+        // get transactions with categories
+        List<Budget> theseBudgets = budgetRepo.findBudgetsByUser(user);
+        List<Transaction> thisUsersTransactions = new ArrayList<>();
+        List<Category> thisUsersCategories = new ArrayList<>();
+        List<TxPerCategory> categoryTotals = new ArrayList<>();
+        for ( Budget budget : theseBudgets) {
+            List<Transaction> allTx = transRepo.findAllByBudget(budget);
+            if (allTx.size() != 0) {
+                // at this point we should have results
+                for( Transaction currentTx : allTx ) {
+
+                    thisUsersTransactions.add(currentTx);
+
+                    if(!thisUsersCategories.contains(currentTx.getCategory())) {
+                        thisUsersCategories.add(currentTx.getCategory());
+                    }
+                }
+            }
+        }
+        // split transactions into arrays for each category that exists
+        for ( Category thisCategory : thisUsersCategories ) {
+            // iterate through each category this user has assigned to transactions
+            TxPerCategory thisOne = new TxPerCategory();
+            thisOne.cat = thisCategory;
+            thisOne.catTotal = 0;
+
+            for (Transaction thisTx : thisUsersTransactions ) {
+                // iterating through all of THIS user's transactions from all categorie
+                if (thisTx.getCategory().getId() == thisCategory.getId() ) {
+                    thisOne.catTotal += thisTx.getAmountInCents();
+                }
+
+            } // done adding all the matching Txs
+            categoryTotals.add(thisOne);
+        }
+        model.addAttribute("categoryTotals", categoryTotals);
         return "user/profile";
     }
 
