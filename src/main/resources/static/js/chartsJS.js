@@ -1,4 +1,3 @@
-
 "use strict";
 
 google.charts.load("current", {packages:["corechart"]});  //this loads visualization API and corechart package
@@ -26,12 +25,21 @@ function drawChart() {
     });
 
     var data = google.visualization.arrayToDataTable([
-        ['Task', 'Hours per Day'],
-        ['Bills', 10],
-        ['Food & Dining', 2],
-        ['Entertainment', 2],
-        ['Utilities', 2],
-        ['Other', 20]
+        ['Categories', '% of spending'],
+        ['Bills', 25],
+        ['Utilities', 15],
+        ['Entertainment', 19],
+        ['Food/Dining', 21],
+        ['Fuel', 16],
+        ['Lodging', 0],
+        ['Loans', 0],
+        ['Bills', 39],
+        ['Miscellaneous', 20],
+        ['Shopping', 0],
+        ['Groceries', 12],
+        ['Gifts/Donations', 1],
+        ['Personal', 3],
+        ['Budget Goal', 28]
     ]);
 
     //below is possibly code I may use to create a new array with imported data from database
