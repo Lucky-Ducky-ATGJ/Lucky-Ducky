@@ -12,7 +12,7 @@ $('#editBill').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget)
     var name = button.parent().parent().children(":nth-child(1)").text()
     var date = button.parent().parent().children(":nth-child(2)").text()
-    var amount = button.parent().parent().children(":nth-child(3)").text()
+    var amount = button.parent().parent().children(":nth-child(3)").text().substring(1)
     var id = button.data("id")
     var modal = $(this)
     modal.find(".modal-body input#edit-name").val(name);
