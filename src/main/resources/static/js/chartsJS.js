@@ -11,9 +11,12 @@ function drawChart() {
         dataType: "text"
     });
 
+    let totalByCategory;
   request.done(function (spentByCategory) {
         console.log(spentByCategory);
         console.log(typeof spentByCategory);
+        totalByCategory = spentByCategory;
+        console.log("totalByCategory --> " + totalByCategory);
         // $("#expenditures").val(totalExpenditures)
       return spentByCategory
     });
@@ -23,6 +26,9 @@ function drawChart() {
         console.log(parameter2);
         console.log(error);
     });
+
+    console.log("This is totalByCategory second console log--> " + totalByCategory);
+    console.log(typeof totalByCategory);
 
     var data = google.visualization.arrayToDataTable([
         ['Categories', '% of spending'],

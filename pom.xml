@@ -48,6 +48,12 @@
             <version>4.4.1-1</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+
 <!--Does something, I dont know yet-->
         <dependency>
             <groupId>org.webjars</groupId>
