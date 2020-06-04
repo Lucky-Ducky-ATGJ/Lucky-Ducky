@@ -70,7 +70,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editTransactionLabel">Edit your bill</h5>
+                <h5 class="modal-title" id="editTransactionLabel">Edit your transaction</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -78,27 +78,27 @@
             <div class="modal-body my-auto align-items-center">
                 <form th:action="@{/transactions/edit}" th:method="post">
                     <div>
-                    <label for="edit-name">Transaction name</label>
-                    <input type="text" class="form-control" id="edit-name" name="name">
-                </div>
+                        <label for="edit-name">Transaction name</label>
+                        <input type="text" class="form-control" id="edit-name" name="name">
+                    </div>
 
                     <div>
-                        <label for="edit-amount">Amount</label>
+                        <label for="edit-amount">Transaction Amount</label>
                         <input type="number" class="form-control" id="edit-amount" name="amount">
                     </div>
 
                     <div>
-                        <label for="edit-isIncome">Income</label>
+                        <label for="edit-isIncome">Is this transaction income?</label><br>
                         <input type="checkbox" class="form-control" id="edit-isIncome" name="isIncome" value="true">
                     </div>
 
                     <div>
-                        <label for="edit-category">Category</label>
+                        <label for="edit-category">Transaction Category</label>
                         <select type="text" id="edit-category" class="form-control" name="category">
                             <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
                         </select>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer mr-4">
                         <button type="submit" id="edit-id" name="id" class="btn btn-primary">Save changes</button>
                     </div>
                 </form>
@@ -115,7 +115,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addTransactionLabel">Create your bill</h5>
+                <h5 class="modal-title" id="addTransactionLabel">Add Transaction</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -128,17 +128,17 @@
                     </div>
 
                     <div>
-                        <label for="add-amount">Amount</label>
+                        <label for="add-amount">Transaction Amount</label>
                         <input type="number" class="form-control" id="add-amount" th:field="*{amountInCents}">
                     </div>
 
                     <div>
-                        <label for="add-amount">Income</label>
+                        <label for="add-amount">Transaction Income</label>
                         <input type="checkbox" class="form-control" id="add-isIncome" th:field="*{income}">
                     </div>
 
                     <div>
-                        <label for="category">Category</label>
+                        <label for="category">Transaction Category</label>
                         <select type="text" id="category" class="form-control" name="category">
                             <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
                         </select>
