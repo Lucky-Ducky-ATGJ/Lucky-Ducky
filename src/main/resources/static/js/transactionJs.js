@@ -13,7 +13,6 @@ $('#editTransaction').on('show.bs.modal', function (event) {
     var name = button.parent().parent().children(":nth-child(2)").text() // Current bill name
     var amount = button.parent().parent().children(":nth-child(3)").text().substring(1)// Current bill amount
 
-    console.log(amount);
     // var income = button.parent().parent().children(":nth-child()").text() // Current bill amount
     var category = button.parent().parent().children(":nth-child(4)").text() // category
     var id = button.data("id")

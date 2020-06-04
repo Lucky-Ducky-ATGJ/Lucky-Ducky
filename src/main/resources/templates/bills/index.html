@@ -14,21 +14,25 @@
         <tr>
             <th onclick="sortTable(0)">Name</th>
             <th onclick="sortTable(1)">Due Date</th>
-            <th onclick="sortTable(2)">Amount</th>
-            <th onclick="sortTable(3)">Paid</th>
-            <th></th>
+            <th onclick="sortTable(2)">Min Amt</th>
+            <th onclick="sortTable(3)">Last Amt Paid</th>
+            <th onclick="sortTable(4)">Paid</th>
+            <th>Delete/Edit</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="bill : ${bills}"
-            th:style="${bill.paid} == true ? 'background-color: lightgreen' : 'background-color: default'">
+        <tr th:each="bill : ${bills}">
             <td class="bill-name data-center" th:text="${bill.name}"></td>
             <td class="bill-date data-center" th:text="${bill.dueDate}"></td>
-            <td class="bill-amount data-center" th:text="${bill.amountInCents}"></td>
-            <td class="data-icons-center">
-                <button type="button" class="btn bg-primary p-1" data-toggle="modal" data-target="#payBill" th:data-pay="${bill.id}">
-                    Pay Bill
+            <td class="bill-amount data-center" th:text="'$' + ${bill.amountInCents}"></td>
+            <td class="bill-payment data-center" th:text="'$' + ${bill.lastAmt}"></td>
+            <td class="data-icons-center" th:if="${bill.paid == false}">
+                <button type="button" class="btn bg-primary p-1" data-toggle="modal" data-target="#payBill"
+                        th:data-pay="${bill.id}">Pay Bill
                 </button>
+            </td>
+            <td class="data-icons-center" th:if="${bill.paid == true}">
+                Paid
             </td>
             <td class="data-icons-center">
                 <button type="button" class="btn bg-transparent p-1" data-toggle="modal" data-target="#deleteBill"
@@ -88,7 +92,7 @@
                     <div>
                         <label for="pay-amt">Enter the amount you want to pay.</label>
                         <br>
-                        $<input type="number" id="pay-amt" name="payAmt">
+                        <input type="number" id="pay-amt" name="payAmt">
                         <input type="hidden" id="payment-name" name="payName">
                         <input type="hidden" id="payment-id" name="id">
                     </div>
@@ -121,12 +125,12 @@
                     </div>
                     <br>
                     <div>
-                        <label for="edit-due-date">Due Date</label>
+                        <label for="edit-due-date">Bill Due Date</label>
                         <input type="date" class="form-control" id="edit-due-date" name="date">
                     </div>
                     <br>
                     <div>
-                        <label for="edit-amount">Amount</label>
+                        <label for="edit-amount">Bill Amount</label>
                         $<input type="number" class="form-control" id="edit-amount" name="amount">
                         <input type="hidden" class="form-control" id="edit-id" name="id">
                     </div>
@@ -160,14 +164,14 @@
                     </div>
                     <br>
                     <div>
-                        <label for="add-due-date">Due Date</label>
+                        <label for="add-due-date">Bill Due Date</label>
                         <input type="date" class="form-control" id="add-due-date" th:field="*{dueDate}">
                     </div>
                     <br>
                     <div>
-                        <label for="add-amount">Amount</label>
+                        <label for="add-amount">Bill Min. Amount</label>
                         <br>
-                        $<input type="number" class="form-control" id="add-amount" th:field="*{amountInCents}">
+                        $<input type="number" class="form-control" id="add-amount" th:field="*{amountInCents}" placeholder="Can be zero">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close

@@ -31,6 +31,8 @@ public class Bill{
     @Value("${some.key:false}")
     private boolean isPaid;
 
+    private int lastAmt;
+
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column
@@ -134,4 +136,10 @@ public class Bill{
         this.transactions = transactions;
     }
 
+    public int getLastAmt() {
+        return lastAmt;
+    }
+    public void setLastAmt(int lastAmt) {
+        this.lastAmt = lastAmt;
+    }
 }

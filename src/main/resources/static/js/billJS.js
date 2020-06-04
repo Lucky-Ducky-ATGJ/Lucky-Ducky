@@ -25,7 +25,9 @@ $('#payBill').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget)
     var id = button.data("pay")
     var name = button.parent().parent().children(":nth-child(1)").text()
-    var amt = button.parent().parent().children(":nth-child(3)").text()
+    console.log(name);
+    var amt = button.parent().parent().children(":nth-child(3)").text().substring(1)
+    console.log(amt);
     var modal = $(this)
     modal.find('.modal-title span#pay-name').html(name)
     modal.find('.modal-body input#pay-amt').val(amt)
