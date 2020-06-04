@@ -12,10 +12,11 @@ function drawChart() {
         dataType: "text"
     });
 
-    request.done(function (spentByCategory) {
+  request.done(function (spentByCategory) {
         console.log(spentByCategory);
         console.log(typeof spentByCategory);
         // $("#expenditures").val(totalExpenditures)
+      return spentByCategory
     });
 
     request.fail(function (parameter1, parameter2, error) {
