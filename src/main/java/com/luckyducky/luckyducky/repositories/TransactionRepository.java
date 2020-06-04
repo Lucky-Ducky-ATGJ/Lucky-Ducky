@@ -18,8 +18,8 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     int getTotalExpenditures();
 
 //  Query to get total of expenditures by category
+//      This is the query that works in SequelPro -->>  ("SELECT SUM(amount_in_cents) FROM Transaction WHERE is_income = false GROUP BY category_id")
     @Query("SELECT SUM(t.amountInCents) FROM Transaction t WHERE t.isIncome = false GROUP BY t.category")
-//        ("SELECT SUM('amount_in_cents') FROM Transaction WHERE is_income = false GROUP BY category_id")
     List<Integer> getTotalExpendituresByCategory();
 
 //  This is a query for getting the total for a Goal
