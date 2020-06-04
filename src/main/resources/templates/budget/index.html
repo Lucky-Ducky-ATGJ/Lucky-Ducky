@@ -46,6 +46,8 @@
 
     <label th:text="${budget.name}" class="mr-3 my-auto large-font" style="margin-left: 95px"></label>
 
+    <input type="hidden" id="grabGoalTotalBalance" th:value="${budget.balance_in_cents}">
+
     <div class="progress border border-dark mt-1" style="height: 25px; width: 400px; background-color: white">
         <div class="progress-bar" role="progressbar" th:style="'width:' + ((${budget.goal_funds} * 100) / ${budget.balance_in_cents}) + '%'" th:text="'$' + ${budget.goal_funds}"></div>
     </div>
@@ -53,6 +55,15 @@
     <label th:text="${'Goal: $' + (budget.balance_in_cents - budget.goal_funds)}" class="ml-3 my-auto large-font"></label>
 
     <button type="button" id="addFundsButton" class="button text-center ml-3" data-toggle="modal" data-target="#addFundsModal" th:data-goal="${budget.name}">Add Funds</button>
+
+    <button type="button" class="btn bg-transparent p-1" data-toggle="modal" data-target="#deleteGoal" th:data-i="${budget.id}">
+        <i class="fas fa-trash-alt"></i>
+    </button>
+
+<!--    <button type="button" class="btn bg-transparent p-1 editIcon" data-toggle="modal" data-target="#editGoal" th:data-id="${budget.id}">-->
+<!--        <i class="fas fa-edit"></i>-->
+<!--    </button>-->
+
 </div>
 
 <div class="row d-flex justify-content-center mb-5">
@@ -119,6 +130,65 @@
         </div>
     </div>
 </div>
+
+<!-- DELETE GOAL MODAL-->
+<div class="modal fade" id="deleteGoal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirm"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirm">Delete this goal?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>This is a permanent action and cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <form th:action="@{|/goals/delete|}" th:method="POST">
+                    <button type="submit" class="btn bg-transparent p-1" name="id" id="delete-goal-id">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- EDIT GOAL MODAL-->
+<!--<div class="modal fade" id="editGoal" tabindex="-1" role="dialog" aria-labelledby="editGoalLabel"-->
+<!--     aria-hidden="true">-->
+<!--    <div class="modal-dialog" role="document">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title text-center" id="editGoalLabel">Edit this goal</h5>-->
+<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                    <span aria-hidden="true">&times;</span>-->
+<!--                </button>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <form th:action="@{/goals/edit}" th:method="post">-->
+<!--                    <div>-->
+<!--                        <label for="edit-goal-name">Goal name</label>-->
+<!--                        <input type="text" class="form-control" id="edit-goal-name" name="name">-->
+<!--                    </div>-->
+<!--                    <br>-->
+<!--                    <div>-->
+<!--                        <label for="edit-goal-amount">Amount</label>-->
+<!--                        $<input type="number" class="form-control" id="edit-goal-amount" name="amount">-->
+<!--                        <input type="hidden" class="form-control" id="edit-goal-id" name="id">-->
+<!--                        <input type="hidden" class="form-control" id="edit-goal-category" name="category">-->
+<!--                    </div>-->
+<!--                    <div class="modal-footer d-flex justify-content-around">-->
+<!--                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close-->
+<!--                        </button>-->
+<!--                        <button type="submit" class="btn btn-primary">Save changes</button>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 <div th:replace="partials/partial :: footer_nav"></div>
 <div th:replace="partials/partial :: footer"></div>
