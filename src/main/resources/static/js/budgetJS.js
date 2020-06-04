@@ -1,4 +1,5 @@
 "use strict";
+
 $("document").ready(function () {
     setTimeout(function calculateBalanceAutomatically() {
         let remainingBalance = document.getElementById('income').value - document.getElementById('expenditures').value;

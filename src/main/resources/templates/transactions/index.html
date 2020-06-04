@@ -22,11 +22,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr id="editTrans" th:each="transaction : ${transactions}" class="text-center"
-            th:style="${transaction.income} == true ? 'background-color: lightgreen; color: black' : 'background-color: pink; color: black'">
+        <tr id="editTrans" th:each="transaction : ${transactions}" class="text-center">
             <td class="data-center" th:text="${#dates.format(transaction.createDate, 'dd-MMM-yyyy')}"></td>
             <td class="data-center" th:text="${transaction.name}"></td>
-            <td class="data-center" th:text="${#strings.replace(#numbers.formatCurrency(transaction.amountInCents), '.00', '')}"></td>
+            <td class="data-center" th:text="${#strings.replace(#numbers.formatCurrency(transaction.amountInCents), '', '.00')}"
+                th:style="${transaction.income} == true ? 'color: green' : 'color: red'"></td>
             <td class="data-center" th:text="${transaction.category.name}"></td>
             <td class="data-icons-center">
                 <button type="button" class="btn bg-transparent p-1" data-toggle="modal" data-target="#deleteTransaction" th:data-i="${transaction.id}">
