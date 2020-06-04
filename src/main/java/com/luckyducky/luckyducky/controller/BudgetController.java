@@ -1,15 +1,13 @@
 package com.luckyducky.luckyducky.controller;
 
-import com.luckyducky.luckyducky.model.Budget;
-import com.luckyducky.luckyducky.model.Category;
-import com.luckyducky.luckyducky.model.Transaction;
-import com.luckyducky.luckyducky.model.User;
+import com.luckyducky.luckyducky.model.*;
 import com.luckyducky.luckyducky.repositories.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -101,4 +99,21 @@ public class BudgetController {
         return budgetList;
     }
 
+//    @PostMapping("/goals/edit")
+//    public String editGoal(@RequestParam long id, @RequestParam String name, @RequestParam int amount){
+//        Budget budget = budgetRepo.getOne(id);
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        Budget updatedBudget = new Budget(id,name,amount,user);
+//        budgetRepo.save(updatedBudget);
+//        return "redirect:/budget";
+//    }
+
+
+    @PostMapping("/goals/delete")
+    public String deleteGoal(@RequestParam String id) {
+        long realId = Long.parseLong(id);
+        Budget budget = budgetRepo.getOne(realId);
+        budgetRepo.delete(budget);
+        return "redirect:/budget";
+    }
 }
