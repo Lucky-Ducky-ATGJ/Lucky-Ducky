@@ -12,29 +12,29 @@
     <table class="table table-hover" id="bill-table">
         <thead class="thead-dark">
         <tr>
-            <th onclick="sortTable(0)">Name</th>
-            <th onclick="sortTable(1)">Due Date</th>
-            <th onclick="sortTable(2)">Min Amt</th>
-            <th onclick="sortTable(3)">Last Amt Paid</th>
-            <th onclick="sortTable(4)">Paid</th>
-            <th>Delete/Edit</th>
+            <th onclick="sortTable(0)" class="text-center">Name</th>
+            <th onclick="sortTable(1)" class="text-center">Due Date</th>
+            <th onclick="sortTable(2)" class="text-center">Min Amt</th>
+            <th onclick="sortTable(3)" class="text-center">Last Amt Paid</th>
+            <th onclick="sortTable(4)" class="text-center">Paid</th>
+            <th class="text-center">Delete/Edit</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="bill : ${bills}">
-            <td class="bill-name data-center" th:text="${bill.name}"></td>
-            <td class="bill-date data-center" th:text="${bill.dueDate}"></td>
-            <td class="bill-amount data-center" th:text="'$' + ${bill.amountInCents}"></td>
-            <td class="bill-payment data-center" th:text="'$' + ${bill.lastAmt}"></td>
-            <td class="data-icons-center" th:if="${bill.paid == false}">
+            <td class="bill-name text-center" th:text="${bill.name}"></td>
+            <td class="bill-date text-center" th:text="${bill.dueDate}"></td>
+            <td class="bill-amount text-center" th:text="'$' + ${bill.amountInCents}"></td>
+            <td class="bill-payment text-center" th:text="'$' + ${bill.lastAmt}"></td>
+            <td class="text-center" th:if="${bill.paid == false}">
                 <button type="button" class="btn bg-primary p-1" data-toggle="modal" data-target="#payBill"
                         th:data-pay="${bill.id}">Pay Bill
                 </button>
             </td>
-            <td class="data-icons-center" th:if="${bill.paid == true}">
+            <td class="text-center" th:if="${bill.paid == true}">
                 Paid
             </td>
-            <td class="data-icons-center">
+            <td class="text-center">
                 <button type="button" class="btn bg-transparent p-1" data-toggle="modal" data-target="#deleteBill"
                         th:data-i="${bill.id}">
                     <i class="fas fa-trash-alt"></i>
@@ -47,7 +47,6 @@
         </tr>
         </tbody>
     </table>
-    <!--    <button type="button" class="btn btn-sm">+</button>-->
     <button type="button" id="addBButton" class="btn bg-transparent border border-dark p-1" data-toggle="modal"
             data-target="#addBill">+
     </button>
