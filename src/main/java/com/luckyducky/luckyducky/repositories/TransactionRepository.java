@@ -1,5 +1,6 @@
 package com.luckyducky.luckyducky.repositories;
 
+import com.luckyducky.luckyducky.model.Budget;
 import com.luckyducky.luckyducky.model.Transaction;
 import com.luckyducky.luckyducky.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,4 +26,8 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 //  This is a query for getting the total for a Goal
     @Query("SELECT SUM(t.amountInCents) FROM Transaction t WHERE t.budget = '2'")
     int getGoalTotal();
+
+// get all transactions by budget ID - used for the code Casey advised to use to get db info as objects
+    public List<Transaction> findAllByBudget(Budget budget);
   }
+
