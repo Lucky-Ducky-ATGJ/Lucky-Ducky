@@ -31,8 +31,8 @@ public class BudgetController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Budget> temp = budgetRepo.findBudgetsByUserAndNameIsNot(user, "main");
         List<Budget> theseBudgets = budgetRepo.findBudgetsByUser(user);
-        int thisUsersTransIncome = 0;
-        int thisUsersTransExpenses = 0;
+        double thisUsersTransIncome = 0;
+        double thisUsersTransExpenses = 0;
         model.addAttribute("budget", budget); // model.attribute ("variable name", "variable value")
         model.addAttribute("transactions", transRepo.findAll());
         model.addAttribute("newGoal", updatedGoalAmounts(temp));
@@ -65,19 +65,19 @@ public class BudgetController {
 
     @GetMapping("/transactions.json")
     public @ResponseBody
-        int viewAllTransactionsInJSONFormat() {
+        double viewAllTransactionsInJSONFormat() {
         return transRepo.getTotalIncome();
     }
 
     @GetMapping("/transactions2.json")
     public @ResponseBody
-        int viewAllExpendituresInJSONFormat() {
+        double viewAllExpendituresInJSONFormat() {
         return transRepo.getTotalExpenditures();
     }
 
     @GetMapping("/goals.json")
     public @ResponseBody
-    int viewAllGoalsInJSONFormat() {
+    double viewAllGoalsInJSONFormat() {
         return transRepo.getGoalTotal();
     }
 
@@ -90,7 +90,7 @@ public class BudgetController {
     }
 
     @PostMapping("/addFunds")
-    public String addFunds(@RequestParam String goalName, @RequestParam int addedFunds){
+    public String addFunds(@RequestParam String goalName, @RequestParam double addedFunds){
         Transaction transaction = new Transaction();
         transaction.setName(goalName);
         transaction.setAmountInCents(addedFunds);
@@ -106,15 +106,15 @@ public class BudgetController {
 
     @GetMapping("/spentbycategory.json")
     public @ResponseBody
-    List<Integer> viewSpentByCategoryInJSONFormat() {
-        List<Integer> listOfTotals = transRepo.getTotalExpendituresByCategory();
+    List<Double> viewSpentByCategoryInJSONFormat() {
+        List<Double> listOfTotals = transRepo.getTotalExpendituresByCategory();
         return transRepo.getTotalExpendituresByCategory();
     }
 
     public List<Budget> updatedGoalAmounts(List<Budget> budgetList){
         for(Budget budget : budgetList){
             List<Transaction> transactionList = budget.getTransactions(); // Grab all transactions for each budget object (e.g. goal)
-            int bucket = 0;
+            double bucket = 0;
             if(transactionList.size() != 0){
                 for(Transaction transaction : transactionList){
                     bucket += transaction.getAmountInCents();
@@ -126,7 +126,7 @@ public class BudgetController {
     }
 
     @PostMapping("/goals/edit")
-    public String editGoal(@RequestParam long id, @RequestParam String name, @RequestParam int amount){
+    public String editGoal(@RequestParam long id, @RequestParam String name, @RequestParam double amount){
         Budget budget = budgetRepo.getOne(id);
         budget.setName(name);
         budget.setBalance_in_cents(amount);

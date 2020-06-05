@@ -91,7 +91,7 @@
                     <div>
                         <label for="pay-amt">Enter the amount you want to pay.</label>
                         <br>
-                        <input type="number" id="pay-amt" name="payAmt">
+                        <input type="number" step="any" id="pay-amt" name="payAmt">
                         <input type="hidden" id="payment-name" name="payName">
                         <input type="hidden" id="payment-id" name="id">
                     </div>
@@ -130,7 +130,7 @@
                     <br>
                     <div>
                         <label for="edit-amount">Bill Amount</label>
-                        $<input type="number" class="form-control" id="edit-amount" name="amount">
+                        $<input type="number" step="any" class="form-control" id="edit-amount" name="amount">
                         <input type="hidden" class="form-control" id="edit-id" name="id">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
@@ -170,7 +170,7 @@
                     <div>
                         <label for="add-amount">Bill Min. Amount</label>
                         <br>
-                        $<input type="number" class="form-control" id="add-amount" th:field="*{amountInCents}" placeholder="Can be zero">
+                        $<input type="number" step="any" class="form-control" id="add-amount" th:field="*{amountInCents}" placeholder="Can be zero">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close

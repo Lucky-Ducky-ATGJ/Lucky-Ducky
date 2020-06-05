@@ -38,7 +38,7 @@ $("document").ready(function () {
         });
 
         request.done(function (totalIncome) {
-            $("#income").val(totalIncome)
+            $("#income").val(totalIncome/100)
         });
     }
 
@@ -59,7 +59,7 @@ $("document").ready(function () {
         request.done(function (totalExpenditures) {
             console.log(totalExpenditures);
             console.log(typeof totalExpenditures);
-            $("#expenditures").val(totalExpenditures)
+            $("#expenditures").val(totalExpenditures/100)
         });
     }
 

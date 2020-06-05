@@ -38,6 +38,8 @@ public class TransactionController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Budget> budgets = budgetRepo.findBudgetsByUser(user);
         List<Transaction> ordered = combineTransactions(budgets);
+        double amount = transaction.getAmountInCents();
+        model.addAttribute("amount", amount);
         model.addAttribute("transactions", ordered);
         model.addAttribute("transaction", transaction);
         model.addAttribute("categories", catRepo.findAll());
@@ -62,7 +64,7 @@ public class TransactionController {
     }
 
     @PostMapping("/transactions/edit")
-    public String editTransaction(@RequestParam String id, @RequestParam String name, @RequestParam int amount, @RequestParam Category category, @RequestParam(value = "isIncome", required = false) String isIncome, Model model) {
+    public String editTransaction(@RequestParam String id, @RequestParam String name, @RequestParam double amount, @RequestParam Category category, @RequestParam(value = "isIncome", required = false) String isIncome, Model model) {
         long parsedId = Long.parseLong(id);
         Transaction transToEdit = transRepo.getOne(parsedId);
         model.addAttribute("categories", catRepo.findAll());
