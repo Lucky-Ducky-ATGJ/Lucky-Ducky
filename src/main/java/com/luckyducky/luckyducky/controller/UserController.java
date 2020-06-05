@@ -103,46 +103,58 @@ public class UserController {
             }
         }
 
-        // get transactions with categories
+        // Get all budgets for the current user
         List<Budget> theseBudgets = budgetRepo.findBudgetsByUser(user);
+        // Create empty buckets for the transactions, categories and TxPerCategory objects
         List<Transaction> thisUsersTransactions = new ArrayList<>();
         List<Category> thisUsersCategories = new ArrayList<>();
         List<TxPerCategory> categoryTotals = new ArrayList<>();
-        for (
-                Budget budget : theseBudgets) {
+        // Cycle thru the list of budgets that belong to current user
+        for (Budget budget : theseBudgets) {
+            // For the curretn budget get all the transactions associated with it
             List<Transaction> allTx = transRepo.findAllByBudget(budget);
+            // Check to make sure Transaction list is not empty
             if (allTx.size() != 0) {
-                // at this point we should have results
+                // If not empty then cycle thru all the transactions in the list
                 for (Transaction currentTx : allTx) {
-
+                    // For every Transaction add to bucket list of Transactions (Line 104)
                     thisUsersTransactions.add(currentTx);
-
+                    // For every Transaction check if Associated Category is in the
+                        // Bucket list of Categories (Line 105)
                     if (!thisUsersCategories.contains(currentTx.getCategory())) {
+                        // If Category is not in bucket list then add it
                         thisUsersCategories.add(currentTx.getCategory());
                     }
                 }
             }
         }
-        // split transactions into arrays for each category that exists
-        for (
-                Category thisCategory : thisUsersCategories) {
-            // iterate through each category this user has assigned to transactions
+
+        // Cycle thru Bucket list of Categories (Line 105)
+        for (Category thisCategory : thisUsersCategories) {
+            // Create a new TransCat object
             TxPerCategory thisOne = new TxPerCategory();
+            // Add Category to TransCat object and set catTotal to 0
             thisOne.cat = thisCategory;
             thisOne.catTotal = 0;
 
+            // Cycle thru the bucket list of Tranactions
             for (Transaction thisTx : thisUsersTransactions) {
-                // iterating through all of THIS user's transactions from all categorie
+                // Check current Tranaction's category to Current Category id
                 if (thisTx.getCategory().getId() == thisCategory.getId()) {
+                    // If true then add Transaction amount to catTotal;
                     thisOne.catTotal += thisTx.getAmountInCents();
                 }
-
-            } // done adding all the matching Txs
+            }
+            // Add Transobject ( Line 130 ) to the bucket list of TransCat objects ( Line 106)
             categoryTotals.add(thisOne);
-        }
+        } // End of loop
+
+        // add Full bucket list of TransCat objects, list of all upcoming bills, list of all overdue bills
+            // to HTML via model
         model.addAttribute("categoryTotals", categoryTotals);
         model.addAttribute("upcomingBills", upcomingBills);
         model.addAttribute("overdueBills", overdueBills);
+        // Go to HTML
         return "user/profile";
     }
 
