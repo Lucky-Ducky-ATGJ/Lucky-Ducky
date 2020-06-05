@@ -8,15 +8,32 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-6 col-md-4">
-        <img src="..." alt="..." class="img-thumbnail">
-        </div>
-        <div class="col-6 col-md-4">
-            <div> Upcoming Bills</div>
-            <div> Overdue Bills</div>
-            <div> Goal Tracker</div>
+        <div class="col-6 col-md-3">
+            <img src="..." alt="..." class="img-thumbnail">
             <div><a th:href="@{'/profile/'+${user.id}+'/profile-edit'}">Edit Profile</a></div>
             <div><a th:href="@{'/profile/'+${user.id}+'/delete'}">Delete Profile</a></div>
+        </div>
+
+        <div class="col-6 col-md-5">
+            <h2> Upcoming Bills</h2>
+            <div th:each="bill : ${upcomingBills}">
+                <span th:text="${bill.name} + ' is due on ' + ${bill.dueDate}"></span>
+            </div>
+
+            <h2> Overdue Bills</h2>
+            <div th:each="bill : ${overdueBills}">
+                <span th:text="${bill.name} + ' was due on ' + ${bill.dueDate}"></span>
+            </div>
+
+            <h2> Goal Tracker</h2>
+            <div th:each="budget : ${newGoal}">
+                <label th:text="${budget.name}" class="mr-3 my-auto large-font" style="margin-left: 95px"></label>
+                <div class="progress border border-dark mt-1" style="height: 25px; width: 400px; background-color: white">
+                    <div class="progress-bar" role="progressbar" th:style="'width:' + ((${budget.goal_funds} * 100) / ${budget.balance_in_cents}) + '%'" th:text="'$' + ${budget.goal_funds}"></div>
+                </div>
+
+                <label th:text="${'Goal: $' + (budget.balance_in_cents - budget.goal_funds)}" class="ml-3 my-auto large-font"></label>
+            </div>
 
             <div th:if="${param.logout}">
                 You have been logged out.
