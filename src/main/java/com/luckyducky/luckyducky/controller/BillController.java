@@ -69,12 +69,12 @@ public class BillController {
 /////////////////  Edit Bills  //////////////////////////
     @PostMapping("/bills/edit")
     // Use the params from the bills/index HTML in the edit modal
-    public String editBill(@RequestParam long id, @RequestParam String name, @RequestParam String date, @RequestParam int amount){
+    public String editBill(@RequestParam long id, @RequestParam String name, @RequestParam String date, @RequestParam double amount){
         // Parse the date string to a LocalDate type
         LocalDate lDate = LocalDate.parse(date);
         // using Id get the current Bill with that Id
         Bill bill = billRepo.getOne(id);
-        int last = 0;
+        double last = 0;
         if (bill.getLastAmt() != 0) {
             last = bill.getLastAmt();
         }
@@ -107,7 +107,7 @@ public class BillController {
 /////////////////  Pay Bill  /////////////////////////
     @PostMapping("/bills/payment")
     // Use the params from the bills/index HTML in the payBill modal
-    public String payBill(@RequestParam int payAmt, @RequestParam String payName, @RequestParam long id) {
+    public String payBill(@RequestParam double payAmt, @RequestParam String payName, @RequestParam long id) {
         // Create a empty Transaction
         Transaction payment = new Transaction();
         // Get the Category object for Bills

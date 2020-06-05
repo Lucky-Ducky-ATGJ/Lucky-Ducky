@@ -45,7 +45,7 @@
 <div class="container">
     <div th:each="budget : ${newGoal}" class="row mb-4 d-flex justify-content-center ml-5">
 
-            <label th:text="${budget.name}" class="mr-3 my-auto large-font" style="margin-left: 95px"></label>
+            <label th:text="${budget.name}" class="mr-3 my-auto large-font" style="margin-lef: 95px"></label>
 
             <input type="hidden" id="grabGoalTotalBalance" th:value="${budget.balance_in_cents/100}">
 
@@ -69,7 +69,7 @@
 
         <div class="row d-flex justify-content-center">
             <div class="col">
-                <p th:text="${(budget.balance_in_cents - budget.goal_funds)/100 + ' Left to Go!'}" class="my-auto large-font"></p>
+                <p th:text="'$' + ${(budget.balance_in_cents - budget.goal_funds)/100 + ' Left to Go!'}" class="my-auto large-font"></p>
             </div>
         </div>
 

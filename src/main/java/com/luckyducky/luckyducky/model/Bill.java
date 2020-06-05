@@ -21,7 +21,7 @@ public class Bill{
     private String name;
 
     @Column
-    private int amountInCents;
+    private double amountInCents;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column
@@ -31,7 +31,7 @@ public class Bill{
     @Value("${some.key:false}")
     private boolean isPaid;
 
-    private int lastAmt;
+    private double lastAmt;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -53,7 +53,7 @@ public class Bill{
     public Bill() {
     }
 
-    public Bill(long id, String name, int amountInCents, LocalDate dueDate, boolean isPaid, Date createdAt,  User user, List<Transaction> transactions) {
+    public Bill(long id, String name, double amountInCents, LocalDate dueDate, boolean isPaid, Date createdAt,  User user, List<Transaction> transactions) {
         this.id = id;
         this.name = name;
         this.amountInCents = amountInCents;
@@ -64,7 +64,7 @@ public class Bill{
         this.transactions = transactions;
     }
 
-    public Bill(String name, int amountInCents, LocalDate dueDate, boolean isPaid, User user, List<Transaction> transactions) {
+    public Bill(String name, double amountInCents, LocalDate dueDate, boolean isPaid, User user, List<Transaction> transactions) {
         this.name = name;
         this.amountInCents = amountInCents;
         this.dueDate = dueDate;
@@ -87,10 +87,10 @@ public class Bill{
         this.name = name;
     }
 
-    public int getAmountInCents() {
+    public double getAmountInCents() {
         return amountInCents;
     }
-    public void setAmountInCents(int amountInCents) {
+    public void setAmountInCents(double amountInCents) {
         this.amountInCents = amountInCents;
     }
 
@@ -136,10 +136,10 @@ public class Bill{
         this.transactions = transactions;
     }
 
-    public int getLastAmt() {
+    public double getLastAmt() {
         return lastAmt;
     }
-    public void setLastAmt(int lastAmt) {
+    public void setLastAmt(double lastAmt) {
         this.lastAmt = lastAmt;
     }
 }
