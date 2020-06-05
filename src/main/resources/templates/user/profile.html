@@ -56,7 +56,33 @@
 <div th:replace="partials/partial :: footer_nav"></div>
 <div th:replace="partials/partial :: footer"></div>
 
-<script type="text/javascript" src=/js/chartsJS.js></script>
+<script th:inline="javascript" type="text/javascript">
+    $(document).ready(function () {
+        google.charts.load("current", {packages:["corechart"]});  //this loads visualization API and corechart package
+        google.charts.setOnLoadCallback(drawChart); //this sets callback to run when the Google Visualization API is loaded
 
+        function drawChart() {
+
+            /*<![CDATA[*/
+            var chartArray = [];
+            chartArray.push(['Categories', '% of spending']);
+            /*[# th:each="categoryTotal : ${categoryTotals}"]*/
+            chartArray.push([ [[${categoryTotal.cat.name}]], [[${categoryTotal.catTotal}]] ]);
+            /*[/]*/
+            /*]]>*/
+            console.log(chartArray);
+            var data = google.visualization.arrayToDataTable(chartArray);
+
+            var options = {
+                title: 'Summary Of Expenditures',
+                pieHole: 0.3,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+            chart.draw(data, options);
+        }
+    });
+</script>
+<!--<script type="text/javascript" src=/js/chartsJS.js></script>-->
 </body>
 </html>
