@@ -99,15 +99,14 @@ public class BudgetController {
         return budgetList;
     }
 
-//    @PostMapping("/goals/edit")
-//    public String editGoal(@RequestParam long id, @RequestParam String name, @RequestParam int amount){
-//        Budget budget = budgetRepo.getOne(id);
-//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        Budget updatedBudget = new Budget(id,name,amount,user);
-//        budgetRepo.save(updatedBudget);
-//        return "redirect:/budget";
-//    }
-
+    @PostMapping("/goals/edit")
+    public String editGoal(@RequestParam long id, @RequestParam String name, @RequestParam int amount){
+        Budget budget = budgetRepo.getOne(id);
+        budget.setName(name);
+        budget.setBalance_in_cents(amount);
+        budgetRepo.save(budget);
+        return "redirect:/budget";
+    }
 
     @PostMapping("/goals/delete")
     public String deleteGoal(@RequestParam String id) {

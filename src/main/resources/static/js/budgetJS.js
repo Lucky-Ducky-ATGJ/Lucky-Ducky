@@ -93,19 +93,16 @@ $('#deleteGoal').on('show.bs.modal', function (event) {
     modal.find('.modal-footer button#delete-goal-id').val(curId)
 });
 
-// $('#editGoal').on('show.bs.modal', function (event) {
-//     let button = $(event.relatedTarget)
-//     let name = button.parent().children(":nth-child(1)").text()
-//     console.log(name);
-//     let amount = button.parent().children(":nth-child(2)").val()
-//     console.log(amount);
-//     let id = button.data("edit-goal-id")
-//     console.log(id);
-//     let category = button.data("edit-goal-category")
-//     console.log(category);
-//     let modal = $(this)
-//     modal.find(".modal-body input#edit-goal-name").val(name);
-//     modal.find(".modal-body input#edit-goal-amount").val(amount);
-//     modal.find(".modal-body button#edit-id").val(id);
-//     modal.find(".modal-body button#edit-goal-category").val(category);
-// });
+$('#editGoal').on('show.bs.modal', function (event) {
+    let button = $(event.relatedTarget)
+    let name = button.parent().children(":nth-child(1)").text()
+    console.log(name);
+    let amount = button.parent().children(":nth-child(2)").val()
+    console.log(amount);
+    let id = button.data("id") // Reads as "th:data-id"
+    console.log(id);
+    let modal = $(this)
+    modal.find(".modal-body input#edit-goal-name").val(name);
+    modal.find(".modal-body input#edit-goal-amount").val(amount);
+    modal.find(".modal-body input#edit-goal-id").val(id);
+});
