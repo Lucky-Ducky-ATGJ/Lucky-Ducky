@@ -77,11 +77,6 @@ body {
     position: absolute;
 }
 
-/*#greeting{*/
-/*    font-size: 40px;*/
-/*    color: darkblue;*/
-/*}*/
-
 #warped {position: relative; display: block; width:470px; height:470px; transform: translateX(-53%);
     left: 53%;}
 
@@ -193,25 +188,7 @@ body {
 #warped .w33 { transform: rotate(5.22rad); width: 11px; height: 25px;
     left: 409.68px; top: 297.26px;}
 
-/*#quackulator {*/
-/*    height: 313px;*/
-/*    width: 953px;*/
-/*}*/
-
-/*.box {*/
-/*    position: relative;*/
-/*    overflow: hidden;*/
-/*}*/
-
-/*.jumbotron {*/
-/*    position: absolute;*/
-/*    padding: 0;*/
-/*    margin-bottom: 0;*/
-/*    background-color: transparent;*/
-/*    width: 100%;*/
-/*}*/
-
-#quackulator_container{
+.quackulator_container_start{
     background-image: url("../img/quackulator_start.png");
     background-size: cover;
     height: 485px;
@@ -228,6 +205,17 @@ body {
 
 #quackulator_equals{
     padding-left: 106px;
+}
+
+.quackulator_container_end{
+    background-image: url("../img/quackulator_end.png");
+    background-size: cover;
+    height: 485px;
+    width: 1263px;
+    margin: auto;
+    padding-top: 285px;
+    padding-left: 20px;
+    alignment: center;
 }
 
 .footer > .navbar-nav > li > a {padding-top:5px !important; padding-bottom:5px !important;}
