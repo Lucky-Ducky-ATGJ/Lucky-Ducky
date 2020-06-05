@@ -112,3 +112,10 @@ $('#editGoal').on('show.bs.modal', function (event) {
     modal.find(".modal-body input#edit-goal-amount").val(amount);
     modal.find(".modal-body input#edit-goal-id").val(id);
 });
+
+$('#quackulator_calculate').click(function(){
+    $('.quackulator_container_start').css("background-image", 'url("../img/quackulator_end.png")')
+    setTimeout(function(){
+        $('.quackulator_container_start').css("background-image", 'url("../img/quackulator_start.png")')
+    }, 1300)
+});
