@@ -16,20 +16,15 @@ import java.util.List;
 
 @Controller
 public class BudgetController {
-    private final UserRepository userRepo;
     private final TransactionRepository transRepo;
-    private final BillRepository billRepo;
     private final CategoryRepository cateRepo;
     private final BudgetRepository budgetRepo;
 
-    public BudgetController(UserRepository userRepo, TransactionRepository transRepo, BillRepository billRepo, CategoryRepository cateRepo, BudgetRepository budgetRepo) {
-        this.userRepo = userRepo;
-        this.billRepo = billRepo;
+    public BudgetController(TransactionRepository transRepo, CategoryRepository cateRepo, BudgetRepository budgetRepo) {
         this.transRepo = transRepo;
         this.cateRepo = cateRepo;
         this.budgetRepo = budgetRepo;
     }
-
     @GetMapping("/budget")
     public String showBudget(Model model) { // Moves data from back-end to front-end
         Budget budget = new Budget();

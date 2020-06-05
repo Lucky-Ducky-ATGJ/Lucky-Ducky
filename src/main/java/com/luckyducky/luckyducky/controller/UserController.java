@@ -1,10 +1,8 @@
 package com.luckyducky.luckyducky.controller;
 
 import com.luckyducky.luckyducky.model.*;
-import com.luckyducky.luckyducky.repositories.BudgetRepository;
-import com.luckyducky.luckyducky.repositories.CategoryRepository;
-import com.luckyducky.luckyducky.repositories.TransactionRepository;
-import com.luckyducky.luckyducky.repositories.UserRepository;
+import com.luckyducky.luckyducky.repositories.*;
+import org.springframework.cglib.core.Local;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -20,7 +18,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -33,14 +33,16 @@ public class UserController {
     private final BudgetRepository budgetRepo;
     private final TransactionRepository transRepo;
     private final CategoryRepository catRepo;
+    private final BillRepository billRepo;
 
     // Springs version of DaoFactory that uses the Repo(interface as a Dao)
-    public UserController(PasswordEncoder passwordEncoder, UserRepository userRepo, BudgetRepository budgetRepo, TransactionRepository transRepo, CategoryRepository catRepo) {
+    public UserController(PasswordEncoder passwordEncoder, UserRepository userRepo, BudgetRepository budgetRepo, TransactionRepository transRepo, CategoryRepository catRepo, BillRepository billRepo) {
         this.passwordEncoder = passwordEncoder;
         this.userRepo = userRepo;
         this.budgetRepo = budgetRepo;
         this.transRepo = transRepo;
         this.catRepo = catRepo;
+        this.billRepo = billRepo;
     }
 
     @GetMapping("/register")
@@ -52,53 +54,81 @@ public class UserController {
     @PostMapping("/register")
     public String saveUser(@ModelAttribute User user, HttpServletRequest req, BindingResult bindingResult) {
         String pass = user.getPassword();
-            String hash = passwordEncoder.encode(pass);
-            user.setPassword(hash);
-            userRepo.save(user);
-            authenticate(user);
-            Budget budget = new Budget("main", 0, user);
-            budgetRepo.save(budget);
-            return "redirect:/profile";
+        String hash = passwordEncoder.encode(pass);
+        user.setPassword(hash);
+        userRepo.save(user);
+        authenticate(user);
+        Budget budget = new Budget("main", 0, user);
+        budgetRepo.save(budget);
+        return "redirect:/profile";
     }
 
-    class TxPerCategory{
+    class TxPerCategory {
         public Category cat;
         public int catTotal;
     }
 
     @GetMapping("/profile")
     public String viewProfile(Model model) {
+        // Get Current user and store to model to be sent to HTML
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
+        // Get a list of the budgets for the current user that isn't their main one (i.e their goal budgets)
+        List<Budget> temp = budgetRepo.findBudgetsByUserAndNameIsNot(user, "main");
+        model.addAttribute("newGoal", updatedGoalAmounts(temp));
+        // Get a list of bills for the current user
+        List<Bill> usersBills = billRepo.findBillsByUser(user);
+        // Create two empty arrays for the upcoming and overdue bills
+        List<Bill> upcomingBills = new ArrayList<>();
+        List<Bill> overdueBills = new ArrayList<>();
+        // Cycle thru the list of bills for the current user
+        for (Bill bill : usersBills) {
+            // Get bill's due date and store to a variable
+            LocalDate dDate = bill.getDueDate();
+            // Get current date and store to a variable
+            LocalDate now = LocalDate.now();
+            // If the bill is past its due date and is not paid
+            // store in overdueBills list
+            if (dDate.isBefore(now) && !bill.isPaid()) {
+                overdueBills.add(bill);
+                // If the bill is not paid and not past the due date
+                // store in upcomingBills list
+            } else if (dDate.isAfter(now) && !bill.isPaid()) {
+                upcomingBills.add(bill);
+            }
+        }
+
         // get transactions with categories
         List<Budget> theseBudgets = budgetRepo.findBudgetsByUser(user);
         List<Transaction> thisUsersTransactions = new ArrayList<>();
         List<Category> thisUsersCategories = new ArrayList<>();
         List<TxPerCategory> categoryTotals = new ArrayList<>();
-        for ( Budget budget : theseBudgets) {
+        for (
+                Budget budget : theseBudgets) {
             List<Transaction> allTx = transRepo.findAllByBudget(budget);
             if (allTx.size() != 0) {
                 // at this point we should have results
-                for( Transaction currentTx : allTx ) {
+                for (Transaction currentTx : allTx) {
 
                     thisUsersTransactions.add(currentTx);
 
-                    if(!thisUsersCategories.contains(currentTx.getCategory())) {
+                    if (!thisUsersCategories.contains(currentTx.getCategory())) {
                         thisUsersCategories.add(currentTx.getCategory());
                     }
                 }
             }
         }
         // split transactions into arrays for each category that exists
-        for ( Category thisCategory : thisUsersCategories ) {
+        for (
+                Category thisCategory : thisUsersCategories) {
             // iterate through each category this user has assigned to transactions
             TxPerCategory thisOne = new TxPerCategory();
             thisOne.cat = thisCategory;
             thisOne.catTotal = 0;
 
-            for (Transaction thisTx : thisUsersTransactions ) {
+            for (Transaction thisTx : thisUsersTransactions) {
                 // iterating through all of THIS user's transactions from all categorie
-                if (thisTx.getCategory().getId() == thisCategory.getId() ) {
+                if (thisTx.getCategory().getId() == thisCategory.getId()) {
                     thisOne.catTotal += thisTx.getAmountInCents();
                 }
 
@@ -106,6 +136,8 @@ public class UserController {
             categoryTotals.add(thisOne);
         }
         model.addAttribute("categoryTotals", categoryTotals);
+        model.addAttribute("upcomingBills", upcomingBills);
+        model.addAttribute("overdueBills", overdueBills);
         return "user/profile";
     }
 
@@ -169,5 +201,19 @@ public class UserController {
         );
         SecurityContext context = SecurityContextHolder.getContext();
         context.setAuthentication(auth);
+    }
+
+    public List<Budget> updatedGoalAmounts(List<Budget> budgetList) {
+        for (Budget budget : budgetList) {
+            List<Transaction> transactionList = budget.getTransactions(); // Grab all transactions for each budget object (e.g. goal)
+            int bucket = 0;
+            if (transactionList.size() != 0) {
+                for (Transaction transaction : transactionList) {
+                    bucket += transaction.getAmountInCents();
+                }
+            }
+            budget.setGoal_funds(bucket);
+        }
+        return budgetList;
     }
 }
