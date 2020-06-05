@@ -28,11 +28,15 @@
             <h2> Goal Tracker</h2>
             <div th:each="budget : ${newGoal}">
                 <label th:text="${budget.name}" class="mr-3 my-auto large-font" style="margin-left: 95px"></label>
-                <div class="progress border border-dark mt-1" style="height: 25px; width: 400px; background-color: white">
-                    <div class="progress-bar" role="progressbar" th:style="'width:' + ((${budget.goal_funds} * 100) / ${budget.balance_in_cents}) + '%'" th:text="'$' + ${budget.goal_funds}"></div>
+                <div class="progress border border-dark mt-1"
+                     style="height: 25px; width: 400px; background-color: white">
+                    <div class="progress-bar" role="progressbar"
+                         th:style="'width:' + ((${budget.goal_funds} * 100) / ${budget.balance_in_cents}) + '%'"
+                         th:text="'$' + ${budget.goal_funds}"></div>
                 </div>
 
-                <label th:text="${'Goal: $' + (budget.balance_in_cents - budget.goal_funds)}" class="ml-3 my-auto large-font"></label>
+                <label th:text="${'Goal: $' + (budget.balance_in_cents - budget.goal_funds)}"
+                       class="ml-3 my-auto large-font"></label>
             </div>
 
             <div th:if="${param.logout}">
