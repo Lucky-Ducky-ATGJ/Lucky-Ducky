@@ -91,3 +91,24 @@ $("document").ready(function () {
         });
     })
 });
+
+$('#deleteGoal').on('show.bs.modal', function (event) {
+    let button = $(event.relatedTarget) // Button that triggered the modal
+    let curId = button.data('i') // Current bill id
+    let modal = $(this)
+    modal.find('.modal-footer button#delete-goal-id').val(curId)
+});
+
+$('#editGoal').on('show.bs.modal', function (event) {
+    let button = $(event.relatedTarget)
+    let name = button.parent().children(":nth-child(1)").text()
+    console.log(name);
+    let amount = button.parent().children(":nth-child(2)").val()
+    console.log(amount);
+    let id = button.data("id") // Reads as "th:data-id"
+    console.log(id);
+    let modal = $(this)
+    modal.find(".modal-body input#edit-goal-name").val(name);
+    modal.find(".modal-body input#edit-goal-amount").val(amount);
+    modal.find(".modal-body input#edit-goal-id").val(id);
+});
