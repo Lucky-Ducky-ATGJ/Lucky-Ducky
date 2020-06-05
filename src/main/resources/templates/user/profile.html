@@ -32,7 +32,7 @@
                     <div class="progress-bar" role="progressbar" th:style="'width:' + ((${budget.goal_funds} * 100) / ${budget.balance_in_cents}) + '%'" th:text="'$' + ${budget.goal_funds}"></div>
                 </div>
 
-                <label th:text="${'Goal: $' + (budget.balance_in_cents - budget.goal_funds)}" class="ml-3 my-auto large-font"></label>
+                <label th:text="${'Goal: $' + (budget.balance_in_cents - budget.goal_funds)/100}" class="ml-3 my-auto large-font"></label>
             </div>
 
             <div th:if="${param.logout}">

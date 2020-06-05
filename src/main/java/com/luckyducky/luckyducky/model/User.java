@@ -2,11 +2,9 @@ package com.luckyducky.luckyducky.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.luckyducky.luckyducky.controller.ValidPassword;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -35,6 +33,9 @@ public class User {
     @JsonIgnore
     private String password;
 
+    @Transient
+    private String confirmPass;
+
     @Column(nullable = false)
     @Value("${some.key:false}")
     private boolean isAdmin;
@@ -48,7 +49,7 @@ public class User {
 
     public User(){};
 
-    public User(long id, String first_name, String last_name, String username, String email, String phone_num, String password) {
+    public User(long id, String first_name, String last_name, String username, String email, String phone_num, String password, String confirmPass) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -56,15 +57,25 @@ public class User {
         this.email = email;
         this.phone_num = phone_num;
         this.password = password;
+        this.confirmPass = confirmPass;
     }
 
-    public User(String first_name, String last_name, String username, String email, String phone_num, String password) {
+    public User(String first_name, String last_name, String username, String email, String phone_num, String password, String confirmPass) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.username = username;
         this.email = email;
         this.phone_num = phone_num;
         this.password = password;
+        this.confirmPass = confirmPass;
+    }
+
+    public String getConfirmPass() {
+        return confirmPass;
+    }
+
+    public void setConfirmPass(String confirmPass) {
+        this.confirmPass = confirmPass;
     }
 
     public User(User copy) {
@@ -78,6 +89,7 @@ public class User {
         isAdmin = copy.isAdmin;
         budgets = copy.budgets;
         bills = copy.bills;
+        confirmPass = copy.confirmPass;
     }
 
     public long getId() {

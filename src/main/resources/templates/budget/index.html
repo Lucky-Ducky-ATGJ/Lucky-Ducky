@@ -12,7 +12,7 @@
 <div class="row d-flex justify-content-center">
     <div class="number-input text-center">
         <label for="income" class="mr-1 large-font">Income: </label>
-        <input type="number" id="income" th:value="${income/100}" placeholder="(Enter income)">
+        <input type="number" step="0.01" id="income" th:value="${income/100}" placeholder="(Enter income)">
         <button id="importIncome">Import</button>
     </div>
 
@@ -20,7 +20,7 @@
 
     <div class="number-input">
         <label for="expenditures" class="mr-1 large-font">Expenditures: </label>
-        <input type="number" id="expenditures" th:value="${expenses/100}" placeholder="(Enter expenditures)">
+        <input type="number" step="0.01" id="expenditures" th:value="${expenses/100}" placeholder="(Enter expenditures)">
         <button id="importExpenditures">Import</button>
     </div>
 
@@ -99,7 +99,7 @@
                     <br>
                     <div>
                         <label for="add-balance">Balance</label>
-                        <input type="number" class="form-control" id="add-balance" th:field="*{balance_in_cents}">
+                        <input type="number" step= class="form-control" id="add-balance" th:field="*{balance_in_cents}">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
@@ -127,7 +127,7 @@
                 <form th:action="@{/addFunds}" method="post">
                     <div>
                         <label for="add-funds">Amount</label>
-                        <input type="number" step="any" class="form-control" id="add-funds" name="addedFunds">
+                        <input type="number" step="0.01" class="form-control" id="add-funds" name="addedFunds">
                         <input type="hidden" id="goalName" name="goalName">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
@@ -184,7 +184,7 @@
                     <br>
                     <div>
                         <label for="edit-goal-amount">Amount</label>
-                        $<input type="number" class="form-control" id="edit-goal-amount" name="amount">
+                        $<input type="number" step="0.01" class="form-control" id="edit-goal-amount" name="amount">
                         <input type="hidden" class="form-control" id="edit-goal-id" name="id">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
