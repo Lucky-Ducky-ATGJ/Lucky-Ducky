@@ -12,20 +12,20 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
 //  This is a query for getting the total for Transactions
     @Query("SELECT SUM(t.amountInCents) FROM Transaction t JOIN Budget b ON b.id = t.id WHERE t.isIncome = true")
-    int getTotalIncome();
+    double getTotalIncome();
 
 //  This is a query for getting the total for Expenditures
     @Query("SELECT SUM(t.amountInCents) FROM Transaction t WHERE t.isIncome = false")
-    int getTotalExpenditures();
+    double getTotalExpenditures();
 
 //  Query to get total of expenditures by category
 //      This is the query that works in SequelPro -->>  ("SELECT SUM(amount_in_cents) FROM Transaction WHERE is_income = false GROUP BY category_id")
     @Query("SELECT SUM(t.amountInCents) FROM Transaction t WHERE t.isIncome = false GROUP BY t.category")
-    List<Integer> getTotalExpendituresByCategory();
+    List<Double> getTotalExpendituresByCategory();
 
 //  This is a query for getting the total for a Goal
     @Query("SELECT SUM(t.amountInCents) FROM Transaction t WHERE t.budget = '2'")
-    int getGoalTotal();
+    double getGoalTotal();
 
 
 // get all transactions by budget ID - used for the code Casey advised to use to get db info as objects

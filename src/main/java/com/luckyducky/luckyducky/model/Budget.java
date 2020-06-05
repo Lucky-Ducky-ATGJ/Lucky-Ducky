@@ -17,10 +17,10 @@ public class Budget {
 
     @Column(nullable = false)
     @Value("${some.key:0}")
-    private int balance_in_cents;
+    private double balance_in_cents;
 
     @Column
-    private int goal_funds;
+    private double goal_funds;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -32,14 +32,14 @@ public class Budget {
 
     public Budget(){}
 
-    public Budget(long id, String name, int balance_in_cents, User user) {
+    public Budget(long id, String name, double balance_in_cents, User user) {
         this.id = id;
         this.name = name;
         this.balance_in_cents = balance_in_cents;
         this.user = user;
     }
 
-    public Budget(String name, int balance_in_cents, User user) {
+    public Budget(String name, double balance_in_cents, User user) {
         this.name = name;
         this.balance_in_cents = balance_in_cents;
         this.user = user;
@@ -59,11 +59,11 @@ public class Budget {
         this.name = name;
     }
 
-    public int getBalance_in_cents() {
+    public double getBalance_in_cents() {
         return balance_in_cents;
     }
-    public void setBalance_in_cents(int balance_in_cents) {
-        this.balance_in_cents = balance_in_cents;
+    public void setBalance_in_cents(double balance_in_cents) {
+        this.balance_in_cents = balance_in_cents * 100;
     }
 
     public User getUser() {
@@ -80,10 +80,10 @@ public class Budget {
         this.transactions = transactions;
     }
 
-    public int getGoal_funds() {
+    public double getGoal_funds() {
         return goal_funds;
     }
-    public void setGoal_funds(int goal_funds) {
+    public void setGoal_funds(double goal_funds) {
         this.goal_funds = goal_funds;
     }
 }

@@ -25,7 +25,7 @@
         <tr id="editTrans" th:each="transaction : ${transactions}" class="text-center">
             <td class="data-center" th:text="${#dates.format(transaction.createDate, 'dd-MMM-yyyy')}"></td>
             <td class="data-center" th:text="${transaction.name}"></td>
-            <td class="data-center" th:text="${#strings.replace(#numbers.formatCurrency(transaction.amountInCents), '', '.00')}"
+            <td class="data-center" th:text="'$' + ${transaction.amountInCents/100}"
                 th:style="${transaction.income} == true ? 'color: green' : 'color: red'"></td>
             <td class="data-center" th:text="${transaction.category.name}"></td>
             <td class="data-icons-center">
@@ -84,7 +84,7 @@
 
                     <div>
                         <label for="edit-amount">Transaction Amount</label>
-                        <input type="number" class="form-control" id="edit-amount" name="amount">
+                        <input type="number" step="0.01" class="form-control" id="edit-amount" name="amount">
                     </div>
 
                     <div>
@@ -129,7 +129,7 @@
 
                     <div>
                         <label for="add-amount">Transaction Amount</label>
-                        <input type="number" class="form-control" id="add-amount" th:field="*{amountInCents}">
+                        <input type="number" step="any" class="form-control" id="add-amount" th:field="*{amountInCents}">
                     </div>
 
                     <div>

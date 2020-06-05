@@ -21,7 +21,7 @@ public class Transaction{
 
     @Column(nullable = false)
     @Value("${some.key:0}")
-    private int amountInCents;
+    private double amountInCents;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -55,7 +55,7 @@ public class Transaction{
     public Transaction() {
     }
 
-    public Transaction(long id, String name, int amountInCents, boolean isIncome, Category category) {
+    public Transaction(long id, String name, double amountInCents, boolean isIncome, Category category) {
         this.id = id;
         this.name = name;
         this.amountInCents = amountInCents;
@@ -63,7 +63,7 @@ public class Transaction{
         this.category = category;
     }
 
-    public Transaction(String name, int amountInCents, boolean isIncome, Category category) {
+    public Transaction(String name, double amountInCents, boolean isIncome, Category category) {
         this.name = name;
         this.amountInCents = amountInCents;
         this.isIncome = isIncome;
@@ -88,11 +88,11 @@ public class Transaction{
         this.name = name;
     }
 
-    public int getAmountInCents() {
+    public double getAmountInCents() {
         return amountInCents;
     }
-    public void setAmountInCents(int amountInCents) {
-        this.amountInCents = amountInCents;
+    public void setAmountInCents(double amountInCents) {
+        this.amountInCents =  amountInCents * 100;
     }
 
     public Date getCreateDate() {
