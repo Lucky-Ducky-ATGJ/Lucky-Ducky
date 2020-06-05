@@ -6,17 +6,17 @@
 <div th:replace="partials/partial :: top_banner"></div>
 <div th:replace="partials/partial :: standard_nav"></div>
 <br>
-<h1 class="text-center">Calculate Balance</h1>
+<h1 class="text-center">The Quackulator 9000&trade;</h1>
 <br>
-<br>
-<div class="row d-flex justify-content-center">
+
+<div class="row" id="quackulator_container">
     <div class="number-input text-center">
         <label for="income" class="mr-1 large-font">Income: </label>
         <input type="number" step="0.01" id="income" th:value="${income/100}" placeholder="(Enter income)">
         <button id="importIncome">Import</button>
     </div>
 
-    <div class="ml-3 mr-3 font-weight-bold large-font"> &mdash; </div>
+    <div class="ml-3 mr-3 font-weight-bold large-font" id="quackulator_minus"> &mdash; </div>
 
     <div class="number-input">
         <label for="expenditures" class="mr-1 large-font">Expenditures: </label>
@@ -24,7 +24,7 @@
         <button id="importExpenditures">Import</button>
     </div>
 
-    <div class="ml-3 mr-3 large-font"> = </div>
+    <div class="ml-3 mr-3 large-font" id="quackulator_equals"> = </div>
 
     <div class="mr-1 large-font"> Balance:</div>
 
@@ -32,10 +32,9 @@
         <p id="balance" ></p>
     </div>
 </div>
-<br>
-<br>
+
 <div class="button text-center">
-    <button onclick="calculateBalance()">Calculate</button>
+    <button class="btn-danger" onclick="calculateBalance()">Calculate!</button>
 </div>
 <br>
 <hr>
@@ -50,7 +49,8 @@
             <input type="hidden" id="grabGoalTotalBalance" th:value="${budget.balance_in_cents/100}">
 
             <div class="progress border border-dark mt-1" style="height: 25px; width: 500px; background-color: lightblue">
-                <div class="progress-bar" role="progressbar" th:style="'width:' + ((${budget.goal_funds} * 100) / ${budget.balance_in_cents}) + '%'" th:text="${#strings.replace(#numbers.formatCurrency(budget.goal_funds), '', '.00')}"></div>
+                <div class="progress-bar" role="progressbar" th:style="'width:' + ((${budget.goal_funds} * 100) / ${budget.balance_in_cents}) + '%'" th:text="${#strings.replace(#numbers.formatCurrency(budget.goal_funds), '', '.00')}">
+                ></div>
             </div>
 
             <label th:text="${'Goal: ' + #strings.replace(#numbers.formatCurrency(budget.balance_in_cents/100), '', '.00')}" class="ml-3 my-auto large-font"></label>

@@ -14,7 +14,6 @@
 <body>
 
 <top_banner th:fragment="top_banner">
-    <div class="top_banner nav-top-margin">Quacker Tracker</div>
 </top_banner>
 
 <standard_nav>
@@ -42,6 +41,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/bills" sec:authorize="isAuthenticated()">Bills</a>
                 </li>
+                <li class="nav-item">
+                    <h2 id="navbar-title"><span style="color: goldenrod">Quacker</span> <span style="color: darkgreen">Tracker</span></h2>
+                </li>
             </ul>
 
             <!-- right side content -->
@@ -55,7 +57,7 @@
                     </form>
                 </li>
                 <li class="nav-item" sec:authorize="isAnonymous()">
-                    <a class="nav-link" href="/register" style="color:green">Sign-Up</a>
+                    <a class="nav-link" href="/register">Sign-Up</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAnonymous()">
                     <a class="nav-link" href="/login" style="color:green">Login</a>
@@ -72,7 +74,7 @@
 
         <!-- left side content -->
         <ul class="navbar-nav mr-auto" id="footer-nav">
-            <li class="nav-item"><a class="nav-link" href="/about" target="_blank">About Us</a></li>
+            <li class="nav-item">&copy; quackertracker.com</li>
         </ul>
     </div>
 </footer_nav>
@@ -94,9 +96,6 @@
     <script src="js/budgetJS.js"></script>
     <script src="js/transactionJs.js"></script>
 </div>
-
-
-
 
 </body>
 </html>

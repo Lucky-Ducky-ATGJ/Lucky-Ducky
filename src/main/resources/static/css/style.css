@@ -54,9 +54,9 @@ body {
     position: absolute;
     left: 0;
     bottom: 0;
-    height: 100px;
+    height: 56px;
     width: 100%;
-    background-color: green;
+    background-color: #f8f9fa;
     font-size: 1.3rem;
     font-weight: bold;
     text-align: center;
@@ -69,6 +69,165 @@ body {
 #jimmy {
     width: 286px;
     height: 273px;
+}
+
+#navbar-title {
+    transform: translateX(-50%);
+    left: 50%;
+    position: absolute;
+}
+
+/*#greeting{*/
+/*    font-size: 40px;*/
+/*    color: darkblue;*/
+/*}*/
+
+#warped {position: relative; display: block; width:470px; height:470px; transform: translateX(-53%);
+    left: 53%;}
+
+#warped>span[class^=w]:nth-of-type(n+0){display:block; position:absolute;
+    transform-origin:50% 100%; }
+
+#warped span{font-family:'ABeeZee';font-size:34px;font-weight:normal;font-style:normal;
+    line-height:0.75; white-space:pre; overflow:visible; padding:0px;}
+
+#warped .w0 { transform: rotate(7.18rad); width: 19px; height: 25px; left:
+        -2.66px; top: 329.94px;}
+
+#warped .w1 { transform: rotate(7.11rad); width: 15px; height: 25px; left:
+        10.39px; top: 342.86px;}
+
+#warped .w2 { transform: rotate(7.04rad); width: 17px; height: 25px; left:
+        20.57px; top: 354.3px;}
+
+#warped .w3 { transform: rotate(6.98rad); width: 15px; height: 25px; left:
+        33.47px; top: 364.99px;}
+
+#warped .w4 { transform: rotate(6.93rad); width: 9px; height: 25px; left:
+        45.84px; top: 372.49px;}
+
+#warped .w5 { transform: rotate(6.86rad); width: 25px; height: 25px; left:
+        51.7px; top: 382.32px;}
+
+#warped .w6 { transform: rotate(6.78rad); width: 17px; height: 25px; left:
+        73.72px; top: 393.11px;}
+
+#warped .w7 { transform: rotate(6.71rad); width: 17px; height: 25px; left:
+        88.93px; top: 400.69px;}
+
+#warped .w8 { transform: rotate(6.65rad); width: 11px; height: 25px; left:
+        104.82px; top: 406.14px;}
+
+#warped .w9 { transform: rotate(6.61rad); width: 9px; height: 25px; left:
+        115.21px; top: 409.58px;}
+
+#warped .w10 { transform: rotate(6.55rad); width: 19px; height: 25px;
+    left: 123.57px; top: 413.76px;}
+
+#warped .w11 { transform: rotate(6.48rad); width: 15px; height: 25px;
+    left: 142.08px; top: 417.79px;}
+
+#warped .w12 { transform: rotate(6.42rad); width: 17px; height: 25px;
+    left: 156.84px; top: 420.55px;}
+
+#warped .w13 { transform: rotate(6.35rad); width: 17px; height: 25px;
+    left: 173.74px; top: 422.36px;}
+
+#warped .w14 { transform: rotate(6.3rad); width: 9px; height: 25px; left:
+        190.72px; top: 422.95px;}
+
+#warped .w15 { transform: rotate(6.25rad); width: 15px; height: 25px;
+    left: 199.72px; top: 422.89px;}
+
+#warped .w16 { transform: rotate(6.19rad); width: 13px; height: 25px;
+    left: 214.7px; top: 422.08px;}
+
+#warped .w17 { transform: rotate(6.15rad); width: 9px; height: 25px; left:
+        227.63px; top: 420.9px;}
+
+#warped .w18 { transform: rotate(6.11rad); width: 11px; height: 25px;
+    left: 236.52px; top: 419.39px;}
+
+#warped .w19 { transform: rotate(6.05rad); width: 17px; height: 25px;
+    left: 247.24px; top: 416.62px;}
+
+#warped .w20 { transform: rotate(5.99rad); width: 11px; height: 25px;
+    left: 263.78px; top: 413.08px;}
+
+#warped .w21 { transform: rotate(5.95rad); width: 9px; height: 25px; left:
+        274.32px; top: 410.08px;}
+
+#warped .w22 { transform: rotate(5.9rad); width: 15px; height: 25px; left:
+        282.59px; top: 405.98px;}
+
+#warped .w23 { transform: rotate(5.86rad); width: 9px; height: 25px; left:
+        296.66px; top: 401.33px;}
+
+#warped .w24 { transform: rotate(5.79rad); width: 23px; height: 25px;
+    left: 304.03px; top: 394.31px;}
+
+#warped .w25 { transform: rotate(5.71rad); width: 15px; height: 25px;
+    left: 324.47px; top: 384.78px;}
+
+#warped .w26 { transform: rotate(5.67rad); width: 9px; height: 25px; left:
+        337.45px; top: 378.13px;}
+
+#warped .w27 { transform: rotate(5.61rad); width: 17px; height: 25px;
+    left: 343.89px; top: 370.38px;}
+
+#warped .w28 { transform: rotate(5.54rad); width: 17px; height: 25px;
+    left: 356.89px; top: 359.44px;}
+
+#warped .w29 { transform: rotate(5.49rad); width: 9px; height: 25px; left:
+        370.32px; top: 350.49px;}
+
+#warped .w30 { transform: rotate(5.42rad); width: 25px; height: 25px;
+    left: 373.9px; top: 338.05px;}
+
+#warped .w31 { transform: rotate(5.34rad); width: 15px; height: 25px;
+    left: 391.4px; top: 322.44px;}
+
+#warped .w32 { transform: rotate(5.28rad); width: 17px; height: 25px;
+    left: 399.46px; top: 309.26px;}
+
+#warped .w33 { transform: rotate(5.22rad); width: 11px; height: 25px;
+    left: 409.68px; top: 297.26px;}
+
+/*#quackulator {*/
+/*    height: 313px;*/
+/*    width: 953px;*/
+/*}*/
+
+/*.box {*/
+/*    position: relative;*/
+/*    overflow: hidden;*/
+/*}*/
+
+/*.jumbotron {*/
+/*    position: absolute;*/
+/*    padding: 0;*/
+/*    margin-bottom: 0;*/
+/*    background-color: transparent;*/
+/*    width: 100%;*/
+/*}*/
+
+#quackulator_container{
+    background-image: url("../img/quackulator_start.png");
+    background-size: cover;
+    height: 485px;
+    width: 1263px;
+    margin: auto;
+    padding-top: 285px;
+    padding-left: 20px;
+    alignment: center;
+}
+
+#quackulator_minus{
+    padding-left: 5px;
+}
+
+#quackulator_equals{
+    padding-left: 106px;
 }
 
 .footer > .navbar-nav > li > a {padding-top:5px !important; padding-bottom:5px !important;}
