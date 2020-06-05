@@ -52,15 +52,20 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String saveUser(@ModelAttribute User user, HttpServletRequest req, BindingResult bindingResult) {
+    public String saveUser(Model model, @ModelAttribute User user, HttpServletRequest req, BindingResult bindingResult) {
         String pass = user.getPassword();
-        String hash = passwordEncoder.encode(pass);
-        user.setPassword(hash);
-        userRepo.save(user);
-        authenticate(user);
-        Budget budget = new Budget("main", 0, user);
-        budgetRepo.save(budget);
-        return "redirect:/profile";
+        String confirmPass = user.getConfirmPass();
+        if (!pass.equals(confirmPass)) {
+            model.addAttribute("passConfirm", "passwords do not match");
+        } else {
+            String hash = passwordEncoder.encode(pass);
+            user.setPassword(hash);
+            userRepo.save(user);
+            authenticate(user);
+            Budget budget = new Budget("main", 0, user);
+            budgetRepo.save(budget);
+        }
+            return "redirect:/profile";
     }
 
     class TxPerCategory {

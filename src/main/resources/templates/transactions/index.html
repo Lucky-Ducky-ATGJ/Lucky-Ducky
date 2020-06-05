@@ -25,7 +25,7 @@
         <tr id="editTrans" th:each="transaction : ${transactions}" class="text-center">
             <td class="data-center" th:text="${#dates.format(transaction.createDate, 'dd-MMM-yyyy')}"></td>
             <td class="data-center" th:text="${transaction.name}"></td>
-            <td class="data-center" th:text="'$' + ${transaction.amountInCents/100}"
+            <td class="data-center money-td" th:text="'$' + ${transaction.amountInCents/100}"
                 th:style="${transaction.income} == true ? 'color: green' : 'color: red'"></td>
             <td class="data-center" th:text="${transaction.category.name}"></td>
             <td class="data-icons-center">
@@ -156,5 +156,18 @@
 
 <div th:replace="partials/partial :: footer_nav"></div>
 <div th:replace="partials/partial :: footer-transactions"></div>
+<script>
+    $(document).ready()
+    {
+        let moneyFormat = $(".money-td");
+        console.log(moneyFormat);
+        for (let td of moneyFormat) {
+            let moneyParsed = $(td).text();
+            console.log(td);
+            moneyParsed = parseFloat(moneyParsed.substring(1)).toFixed(2);
+            $(td).text("$" + moneyParsed);
+        }
+    }
+</script>
 </body>
 </html>

@@ -24,8 +24,8 @@
         <tr th:each="bill : ${bills}">
             <td class="bill-name text-center" th:text="${bill.name}"></td>
             <td class="bill-date text-center" th:text="${bill.dueDate}"></td>
-            <td class="bill-amount text-center" th:text="'$' + ${bill.amountInCents}"></td>
-            <td class="bill-payment text-center" th:text="'$' + ${bill.lastAmt}"></td>
+            <td class="money-td bill-amount text-center" th:text="'$' + ${bill.amountInCents}"></td>
+            <td class="money-td bill-payment text-center" th:text="'$' + ${bill.lastAmt}"></td>
             <td class="text-center" th:if="${bill.paid == false}">
                 <button type="button" class="btn bg-primary p-1" data-toggle="modal" data-target="#payBill"
                         th:data-pay="${bill.id}">Pay Bill
@@ -91,7 +91,7 @@
                     <div>
                         <label for="pay-amt">Enter the amount you want to pay.</label>
                         <br>
-                        <input type="number" step="any" id="pay-amt" name="payAmt">
+                        <input type="number" step="0.01" id="pay-amt" name="payAmt">
                         <input type="hidden" id="payment-name" name="payName">
                         <input type="hidden" id="payment-id" name="id">
                     </div>
@@ -130,7 +130,7 @@
                     <br>
                     <div>
                         <label for="edit-amount">Bill Amount</label>
-                        $<input type="number" step="any" class="form-control" id="edit-amount" name="amount">
+                        $<input type="number" step="0.01" class="form-control" id="edit-amount" name="amount">
                         <input type="hidden" class="form-control" id="edit-id" name="id">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
@@ -170,7 +170,7 @@
                     <div>
                         <label for="add-amount">Bill Min. Amount</label>
                         <br>
-                        $<input type="number" step="any" class="form-control" id="add-amount" th:field="*{amountInCents}" placeholder="Can be zero">
+                        $<input type="number" step="0.01" class="form-control" id="add-amount" th:field="*{amountInCents}" placeholder="Can be zero">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
@@ -187,5 +187,18 @@
 
 <div th:replace="partials/partial :: footer_nav"></div>
 <div th:replace="partials/partial :: footer"></div>
+<script>
+    $(document).ready()
+    {
+        let moneyFormat = $(".money-td");
+        console.log(moneyFormat);
+        for (let td of moneyFormat) {
+            let moneyParsed = $(td).text();
+            console.log(td);
+            moneyParsed = parseFloat(moneyParsed.substring(1)).toFixed(2);
+            $(td).text("$" + moneyParsed);
+        }
+    }
+</script>
 </body>
 </html>
