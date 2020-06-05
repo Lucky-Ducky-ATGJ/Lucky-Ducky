@@ -3,6 +3,12 @@
 $("document").ready(function () {
     setTimeout(function calculateBalanceAutomatically() {
         let remainingBalance = document.getElementById('income').value - document.getElementById('expenditures').value;
+        if (remainingBalance > 0) {
+            $(document.getElementById('balance').innerHTML = "$" + remainingBalance.toFixed(2).fontcolor("darkgreen"));
+        } else {
+            $(document.getElementById('balance').innerHTML = "$" + remainingBalance.toFixed(2).fontcolor("firebrick"));
+        }
+
         $(document.getElementById('balance').innerHTML = "$" + remainingBalance.toFixed(2)).trigger('click');
     }, 10);
 });
@@ -15,7 +21,7 @@ $("document").ready(function () {
         } else {
             $(document.getElementById('balance').innerHTML = "$" + remainingBalance.toFixed(2).fontcolor("firebrick"));
         }
-    }
+}
 
     // jQuery = on button click, run incomeButton function that will make a json call to database and append value to id of "#income"
 

@@ -1,5 +1,6 @@
 package com.luckyducky.luckyducky.repositories;
 
+import com.luckyducky.luckyducky.model.Budget;
 import com.luckyducky.luckyducky.model.Transaction;
 import com.luckyducky.luckyducky.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,7 +11,7 @@ import java.util.List;
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
 //  This is a query for getting the total for Transactions
-    @Query("SELECT SUM(t.amountInCents) FROM Transaction t WHERE t.isIncome = true")
+    @Query("SELECT SUM(t.amountInCents) FROM Transaction t JOIN Budget b ON b.id = t.id WHERE t.isIncome = true")
     int getTotalIncome();
 
 //  This is a query for getting the total for Expenditures
@@ -25,4 +26,6 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 //  This is a query for getting the total for a Goal
     @Query("SELECT SUM(t.amountInCents) FROM Transaction t WHERE t.budget = '2'")
     int getGoalTotal();
-  }
+
+    List<Transaction> findAllByBudget(Budget budget);
+}

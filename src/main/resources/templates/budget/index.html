@@ -12,7 +12,7 @@
 <div class="row d-flex justify-content-center">
     <div class="number-input text-center">
         <label for="income" class="mr-1 large-font">Income: </label>
-        <input type="number" id="income" placeholder="(Enter income)">
+        <input type="number" id="income" th:value="${income}" placeholder="(Enter income)">
         <button id="importIncome">Import</button>
     </div>
 
@@ -20,7 +20,7 @@
 
     <div class="number-input">
         <label for="expenditures" class="mr-1 large-font">Expenditures: </label>
-        <input type="number" id="expenditures" placeholder="(Enter expenditures)">
+        <input type="number" id="expenditures" th:value="${expenses}" placeholder="(Enter expenditures)">
         <button id="importExpenditures">Import</button>
     </div>
 
@@ -29,7 +29,7 @@
     <div class="mr-1 large-font"> Balance:</div>
 
     <div class="answer large-font">
-        <p id="balance"></p>
+        <p id="balance" ></p>
     </div>
 </div>
 <br>

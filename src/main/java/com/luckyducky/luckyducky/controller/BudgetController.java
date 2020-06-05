@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -33,11 +34,38 @@ public class BudgetController {
         Budget budget = new Budget();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Budget> temp = budgetRepo.findBudgetsByUserAndNameIsNot(user, "main");
+        List<Budget> theseBudgets = budgetRepo.findBudgetsByUser(user);
+        int thisUsersTransIncome = 0;
+        int thisUsersTransExpenses = 0;
         model.addAttribute("budget", budget); // model.attribute ("variable name", "variable value")
         model.addAttribute("transactions", transRepo.findAll());
         model.addAttribute("newGoal", updatedGoalAmounts(temp));
+        model.addAttribute("user", user);
+
+        // get transactions with categories​
+        for ( Budget userBudget : theseBudgets) {
+            List<Transaction> allTx = transRepo.findAllByBudget(userBudget);
+            if (allTx.size() != 0) {
+                // we got some results, so LET'S GOOOOOOO
+                for( Transaction currentTx :  allTx) {
+                    if (currentTx.getIncome() == true){
+                        thisUsersTransIncome += currentTx.getAmountInCents();
+                    }else{
+                        thisUsersTransExpenses += currentTx.getAmountInCents();
+                    }
+                }
+            }
+        }
+
+        model.addAttribute("income", thisUsersTransIncome);
+        model.addAttribute("expenses", thisUsersTransExpenses);
+
         return "budget/index"; // Sends a Model over page to HTML that contains both "budget" and "transactions" with values
     }
+
+
+
+
 
     @GetMapping("/transactions.json")
     public @ResponseBody
