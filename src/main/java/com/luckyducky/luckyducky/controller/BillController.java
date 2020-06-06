@@ -89,7 +89,6 @@ public class BillController {
         return "redirect:/bills";
     }
 
-
 /////////////////  Delete Bills  ////////////////////////
     @PostMapping("/bills/delete")
     // Use the Id param from the bills/index HTML in the delete modal

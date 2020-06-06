@@ -16,20 +16,21 @@
         <button id="importIncome">Import</button>
     </div>
 
-    <div class="ml-3 mr-3 font-weight-bold large-font" id="quackulator_minus"> &mdash; </div>
+    <div class="ml-3 mr-3 font-weight-bold large-font" id="quackulator_minus"> &mdash;</div>
 
     <div class="number-input">
         <label for="expenditures" class="mr-1 large-font">Expenditures: </label>
-        <input type="number" step="0.01" id="expenditures" th:value="${expenses/100}" placeholder="(Enter expenditures)">
+        <input type="number" step="0.01" id="expenditures" th:value="${expenses/100}"
+               placeholder="(Enter expenditures)">
         <button id="importExpenditures">Import</button>
     </div>
 
-    <div class="ml-3 mr-3 large-font" id="quackulator_equals"> = </div>
+    <div class="ml-3 mr-3 large-font" id="quackulator_equals"> =</div>
 
     <div class="mr-1 large-font"> Balance:</div>
 
     <div class="answer large-font">
-        <p id="balance" ></p>
+        <p id="balance"></p>
     </div>
 </div>
 
@@ -44,32 +45,39 @@
 <div class="container">
     <div th:each="budget : ${newGoal}" class="row mb-4 d-flex justify-content-center ml-5">
 
-            <label th:text="${budget.name}" class="mr-3 my-auto large-font" style="margin-lef: 95px"></label>
+        <label th:text="${budget.name}" class="mr-3 my-auto large-font" style="margin-lef: 95px"></label>
 
-            <input type="hidden" id="grabGoalTotalBalance" th:value="${budget.balance_in_cents/100}">
+        <input type="hidden" id="grabGoalTotalBalance" th:value="${budget.balance_in_cents/100}">
 
-            <div class="progress border border-dark mt-1" style="height: 25px; width: 500px; background-color: lightblue">
-                <div class="progress-bar" role="progressbar" th:style="'width:' + ((${budget.goal_funds} * 100) / ${budget.balance_in_cents}) + '%'" th:text="${#strings.replace(#numbers.formatCurrency(budget.goal_funds), '', '.00')}">
-                ></div>
+        <div class="progress border border-dark mt-1" style="height: 25px; width: 500px; background-color: lightblue">
+            <div class="progress-bar" role="progressbar"
+                 th:style="'width:' + ((${budget.goal_funds} * 100) / ${budget.balance_in_cents}) + '%'"
+                 th:text="'$' + ${budget.goal_funds/100}">
             </div>
+        </div>
 
-            <label th:text="${'Goal: ' + #strings.replace(#numbers.formatCurrency(budget.balance_in_cents/100), '', '.00')}" class="ml-3 my-auto large-font"></label>
+        <label th:text="${'Goal: ' + (budget.balance_in_cents/100)}" class="ml-3 my-auto large-font"></label>
 
-            <button type="button" id="addFundsButton" class="button text-center ml-3 mr-1" data-toggle="modal" data-target="#addFundsModal" th:data-goal="${budget.name}">Add Funds</button>
+        <button type="button" id="addFundsButton" class="button text-center ml-3 mr-1" data-toggle="modal"
+                data-target="#addFundsModal" th:data-goal="${budget.name}">Add Funds
+        </button>
 
-            <button type="button" class="btn bg-transparent p-1" data-toggle="modal" data-target="#deleteGoal" th:data-i="${budget.id}">
-                <i class="fas fa-trash-alt"></i>
-            </button>
+        <button type="button" class="btn bg-transparent p-1" data-toggle="modal" data-target="#deleteGoal"
+                th:data-i="${budget.id}">
+            <i class="fas fa-trash-alt"></i>
+        </button>
 
-            <button type="button" class="btn bg-transparent p-1 editIcon" data-toggle="modal" data-target="#editGoal" th:data-id="${budget.id}">
-                <i class="fas fa-edit"></i>
-            </button>
+        <button type="button" class="btn bg-transparent p-1 editIcon" data-toggle="modal" data-target="#editGoal"
+                th:data-id="${budget.id}">
+            <i class="fas fa-edit"></i>
+        </button>
 
         <div class="w-100"></div>
 
         <div class="row d-flex justify-content-center">
             <div class="col">
-                <p th:text="'$' + ${(budget.balance_in_cents - budget.goal_funds)/100 + ' Left to Go!'}" class="my-auto large-font"></p>
+                <p th:text="'$' + ${(budget.balance_in_cents - budget.goal_funds)/100 + ' Left to Go!'}"
+                   class="my-auto large-font"></p>
             </div>
         </div>
 
@@ -77,7 +85,9 @@
 </div>
 
 <div class="row mb-5 d-flex justify-content-center">
-    <button type="button" id="addGoalButton" class="button text-center mb-5" data-toggle="modal" data-target="#addGoalModal">Add a Goal</button>
+    <button type="button" id="addGoalButton" class="button text-center mb-5" data-toggle="modal"
+            data-target="#addGoalModal">Add a Goal
+    </button>
 </div>
 
 <!--ADD GOAL MODAL-->
@@ -99,7 +109,8 @@
                     <br>
                     <div>
                         <label for="add-balance">Balance</label>
-                        <input type="number" step= class="form-control" id="add-balance" th:field="*{balance_in_cents}">
+                        <input type="number" step="0.01" class="form-control" id="add-balance"
+                               th:field="*{balance_in_cents}">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
