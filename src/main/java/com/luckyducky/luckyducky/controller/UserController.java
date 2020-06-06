@@ -111,7 +111,7 @@ public class UserController {
         List<TxPerCategory> categoryTotals = new ArrayList<>();
         // Cycle thru the list of budgets that belong to current user
         for (Budget budget : theseBudgets) {
-            // For the curretn budget get all the transactions associated with it
+            // For the current budget get all the transactions associated with it
             List<Transaction> allTx = transRepo.findAllByBudget(budget);
             // Check to make sure Transaction list is not empty
             if (allTx.size() != 0) {
