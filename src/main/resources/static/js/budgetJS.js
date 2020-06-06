@@ -45,10 +45,10 @@ $(document).ready(function () {
 
     // jQuery = on button click, run expenditureButton function that will make a json call to database and append value to id of "#expenditures"
 
-    // $("#importExpenditures").click(function (event) {
-    //     event.preventDefault()
-    //     expenditureButton();
-    // });
+    $("#importExpenditures").click(function (event) {
+        event.preventDefault()
+        expenditureButton();
+    });
 
     function expenditureButton() {
         let request = $.ajax({

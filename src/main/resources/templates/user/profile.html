@@ -65,7 +65,7 @@
             var chartArray = [];
             chartArray.push(['Categories', '% of spending']);
             /*[# th:each="categoryTotal : ${categoryTotals}"]*/
-            chartArray.push([ [[${categoryTotal.cat.name}]], [[${categoryTotal.catTotal}]] ]);
+            chartArray.push([ [[${categoryTotal.cat.name}]], [[${categoryTotal.catTotal/100}]] ]);
             /*[/]*/
             /*]]>*/
             console.log(chartArray);

@@ -68,7 +68,7 @@ public class UserController {
             return "redirect:/profile";
     }
 
-    class TxPerCategory {
+    static class TxPerCategory {
         public Category cat;
         public int catTotal;
     }

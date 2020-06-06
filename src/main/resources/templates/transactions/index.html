@@ -10,7 +10,9 @@
 <h1 class="text-center">Your Transactions</h1>
 <div id="transactions"></div>
 
-<div class="p-4">
+<div class="container">
+<div class="p-4 row">
+    <div class="col-8">
     <table class="table table-hover">
         <thead class="thead-dark">
         <tr class="text-center">
@@ -39,6 +41,12 @@
         </tr>
         </tbody>
     </table>
+    </div>
+    <div class="col-4" id="donutchart-trans">
+    </div>
+</div>
+</div>
+
     <div class="text-center">
         <button type="button" id="addBButton" class="btn bg-transparent border border-dark p-1" data-toggle="modal"
                 data-target="#addTransaction">+
@@ -159,7 +167,9 @@
 
 <div th:replace="partials/partial :: footer_nav"></div>
 <div th:replace="partials/partial :: footer-transactions"></div>
-<script>
+
+
+    <script th:inline="javascript" type="text/javascript">
     $(document).ready()
     {
         let moneyFormat = $(".money-td");
@@ -171,6 +181,30 @@
             $(td).text("$" + moneyParsed);
         }
     }
+        $(document).ready(function () {
+            google.charts.load("current", {packages:["corechart"]});  //this loads visualization API and corechart package
+            google.charts.setOnLoadCallback(drawChart); //this sets callback to run when the Google Visualization API is loaded
+            function drawChart() {
+                /*<![CDATA[*/
+                var chartArray = [];
+                chartArray.push(['Categories', '% of spending']);
+                /*[# th:each="categoryTotal : ${categoryTotals}"]*/
+                chartArray.push([ [[${categoryTotal.cat.name}]], [[${categoryTotal.catTotal/100}]] ]);
+                /*[/]*/
+                /*]]>*/
+                console.log(chartArray);
+                var data = google.visualization.arrayToDataTable(chartArray);
+
+                var options = {
+                    title: 'Summary Of Expenditures',
+                    pieHole: 0.3,
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('donutchart-trans'));
+                chart.draw(data, options);
+            }
+        });
+
 </script>
 </body>
 </html>
