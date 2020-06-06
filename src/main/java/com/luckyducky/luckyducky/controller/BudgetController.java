@@ -95,7 +95,7 @@ public class BudgetController {
         transaction.setName(goalName);
         transaction.setAmountInCents(addedFunds);
         transaction.setIncome(false); // Add all applicable values for "Transaction" from model
-        Category category = cateRepo.getOne(14L); // Will grab category from Category table with id of 14 "Budget Goal"
+        Category category = cateRepo.getOne(2L); // Will grab category from Category table with id of 2 "Budget Goal"
         transaction.setCategory(category);
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal(); // Grabs current user
         Budget budget = budgetRepo.findBudgetByUserAndName(user, transaction.getName());
