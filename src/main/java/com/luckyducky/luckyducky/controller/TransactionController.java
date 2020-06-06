@@ -32,6 +32,11 @@ public class TransactionController {
         this.emailService = emailService;
     }
 
+    static class TxPerCategory {
+        public Category cat;
+        public int catTotal;
+    }
+
     @GetMapping("/transactions")        
     public String showTransaction(Model model) {
         Transaction transaction = new Transaction();
@@ -43,6 +48,36 @@ public class TransactionController {
         model.addAttribute("transactions", ordered);
         model.addAttribute("transaction", transaction);
         model.addAttribute("categories", catRepo.findAll());
+
+
+        List<Budget> theseBudgets = budgetRepo.findBudgetsByUser(user);
+        List<Transaction> thisUsersTransactions = new ArrayList<>();
+        List<Category> thisUsersCategories = new ArrayList<>();
+        List<UserController.TxPerCategory> categoryTotals = new ArrayList<>();
+        for (Budget budget : theseBudgets) {
+            List<Transaction> allTx = transRepo.findAllByBudget(budget);
+            if (allTx.size() != 0) {
+                for (Transaction currentTx : allTx) {
+                    thisUsersTransactions.add(currentTx);
+                    if (!thisUsersCategories.contains(currentTx.getCategory())) {
+                        thisUsersCategories.add(currentTx.getCategory());
+                    }
+                }
+            }
+        }
+        for (Category thisCategory : thisUsersCategories) {
+            UserController.TxPerCategory thisOne = new UserController.TxPerCategory();
+            thisOne.cat = thisCategory;
+            thisOne.catTotal = 0;
+            for (Transaction thisTx : thisUsersTransactions) {
+                if (thisTx.getCategory().getId() == thisCategory.getId()) {
+                    thisOne.catTotal += thisTx.getAmountInCents();
+                }
+            }
+            categoryTotals.add(thisOne);
+        }
+        model.addAttribute("categoryTotals", categoryTotals);
+
         return "transactions/index";
     }
 
