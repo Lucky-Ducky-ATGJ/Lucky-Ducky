@@ -39,7 +39,11 @@
         </tr>
         </tbody>
     </table>
-    <button type="button" class="btn bg-transparent p-1" data-toggle="modal" data-target="#addTransaction">+</button>
+    <div class="text-center">
+        <button type="button" id="addBButton" class="btn bg-transparent border border-dark p-1" data-toggle="modal"
+                data-target="#addTransaction">+
+        </button><label class="ml-2"> Add a Transaction</label>
+    </div>
 </div>
 
 <div class="modal fade" id="deleteTransaction" tabindex="-1" role="dialog" aria-labelledby="deleteConfirm"
@@ -47,18 +51,17 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteConfirm">Are you sure you want to delete this
-                    bill?</h5>
+                <h5 class="modal-title" id="deleteConfirm">Delete this transaction?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Doing this is permanent and you will be unable to get it back!</p>
+                <p>This is permanent and cannot be undone.</p>
             </div>
             <div class="modal-footer">
                 <form th:action="@{|/transactions/delete|}" th:method="POST">
-                    <button type="submit" class="btn bg-transparent p-1" name="id" id="delete-id">Delete</button>
+                    <button type="submit" class="btn btn-secondary p-1" name="id" id="delete-id">Confirm</button>
                 </form>
             </div>
         </div>
@@ -70,7 +73,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editTransactionLabel">Edit your transaction</h5>
+                <h5 class="modal-title" id="editTransactionLabel">Edit This Transaction</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -78,7 +81,7 @@
             <div class="modal-body my-auto align-items-center">
                 <form th:action="@{/transactions/edit}" th:method="post">
                     <div>
-                        <label for="edit-name">Transaction name</label>
+                        <label for="edit-name">Transaction Name</label>
                         <input type="text" class="form-control" id="edit-name" name="name">
                     </div>
 
@@ -88,7 +91,7 @@
                     </div>
 
                     <div>
-                        <label for="edit-isIncome">Is this transaction income?</label><br>
+                        <label for="edit-isIncome">Check this amount as income?</label><br>
                         <input type="checkbox" class="form-control" id="edit-isIncome" name="isIncome" value="true">
                     </div>
 
@@ -99,7 +102,7 @@
                         </select>
                     </div>
                     <div class="modal-footer mr-4">
-                        <button type="submit" id="edit-id" name="id" class="btn btn-primary">Save changes</button>
+                        <button type="submit" id="edit-id" name="id" class="btn btn-secondary">Save Changes</button>
                     </div>
                 </form>
             </div>
@@ -115,7 +118,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addTransactionLabel">Add Transaction</h5>
+                <h5 class="modal-title" id="addTransactionLabel">Add a Transaction</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -123,7 +126,7 @@
             <div class="modal-body">
                 <form th:action="@{/transactions/add}" th:method="post" th:object="${transaction}">
                     <div>
-                        <label for="add-name">Transaction name</label>
+                        <label for="add-name">Transaction Name</label>
                         <input type="text" class="form-control" id="add-name" th:field="*{name}">
                     </div>
 
@@ -133,7 +136,7 @@
                     </div>
 
                     <div>
-                        <label for="add-amount">Is this transaction income?</label>
+                        <label for="add-amount">Check this amount as income?</label>
                         <input type="checkbox" class="form-control" id="add-isIncome" th:field="*{income}">
                     </div>
 
@@ -145,7 +148,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Add Transaction</button>
+                        <button type="submit" class="btn btn-secondary">Add Transaction</button>
                     </div>
                 </form>
             </div>
