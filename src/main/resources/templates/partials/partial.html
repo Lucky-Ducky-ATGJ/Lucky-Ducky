@@ -41,7 +41,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/budget" sec:authorize="isAuthenticated()">Budget</a>
                 </li>
-                <li class="nav-item d-flex align-content-center" id="navbar-title">
+                <li class="nav-item" id="navbar-title">
                     <a class="nav-link" href="/"><span class=".appTitle" style="color: goldenrod">Quacker</span> <span class=".appTitle" style="color: darkgreen">Tracker</span></a>
                 </li>
             </ul>
@@ -49,7 +49,8 @@
             <!-- right side content -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" href="/profile">Profile &nbsp<i class="fas fa-user ml-2"></i></a>
+                    <a class="nav-link ml-5" href="/profile">Profile
+                    <i class="fas fa-user ml-3 mr-1"></i></a>
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
                     <form th:action="@{/logout}" th:method="post">
@@ -84,7 +85,7 @@
     <script src="/webjars/popper.js/popper.min.js"></script>
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
     <script src="js/billJS.js"></script>
-    <script src="js/budgetJS.js"></script>
+<!--    <script src="js/budgetJS.js"></script>-->
     <script src="/js/transactionJs.js"></script>
 </div>
 
@@ -93,7 +94,7 @@
     <script src="/webjars/popper.js/popper.min.js"></script>
     <script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
     <script src="js/billJS.js"></script>
-    <script src="js/budgetJS.js"></script>
+<!--    <script src="js/budgetJS.js"></script>-->
     <script src="js/transactionJs.js"></script>
 </div>
 
