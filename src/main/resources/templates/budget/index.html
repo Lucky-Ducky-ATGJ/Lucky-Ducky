@@ -27,7 +27,7 @@
 
     <div class="ml-3 mr-3 large-font" id="quackulator_equals"> =</div>
 
-    <div class="mr-1 large-font"> Balance:</div>
+    <div class="mr-1 large-font"> Remaining:</div>
 
     <div class="answer large-font">
         <p id="balance"></p>
@@ -40,12 +40,12 @@
 <br>
 <hr>
 
-<h1 class="text-center">Goals</h1>
+<h1 class="text-center">Your Goals</h1>
 <br>
 <div class="container">
     <div th:each="budget : ${newGoal}" class="row mb-4 d-flex justify-content-center ml-5">
 
-        <label th:text="${budget.name}" class="mr-3 my-auto large-font" style="margin-lef: 95px"></label>
+        <label th:text="${budget.name}" class="mr-3 my-auto large-font" style="margin-left: 95px"></label>
 
         <input type="hidden" id="grabGoalTotalBalance" th:value="${budget.balance_in_cents/100}">
 
@@ -56,7 +56,7 @@
             </div>
         </div>
 
-        <label th:text="${'Goal: ' + (budget.balance_in_cents/100)}" class="ml-3 my-auto large-font"></label>
+        <label th:text="${'Goal: $' + (budget.balance_in_cents/100)}" class="ml-3 my-auto large-font"></label>
 
         <button type="button" id="addFundsButton" class="button text-center ml-3 mr-1" data-toggle="modal"
                 data-target="#addFundsModal" th:data-goal="${budget.name}">Add Funds
@@ -84,10 +84,10 @@
     </div>
 </div>
 
-<div class="row mb-5 d-flex justify-content-center">
-    <button type="button" id="addGoalButton" class="button text-center mb-5" data-toggle="modal"
-            data-target="#addGoalModal">Add a Goal
-    </button>
+<div class="text-center">
+    <button type="button" id="addGoalButton" class="btn bg-transparent border border-dark p-1" data-toggle="modal"
+            data-target="#addGoalModal">+
+    </button><label class="ml-2"> Add a Goal</label>
 </div>
 
 <!--ADD GOAL MODAL-->
@@ -108,14 +108,14 @@
                     </div>
                     <br>
                     <div>
-                        <label for="add-balance">Balance</label>
+                        <label for="add-balance">Goal Total</label>
                         <input type="number" step="0.01" class="form-control" id="add-balance"
                                th:field="*{balance_in_cents}">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                         </button>
-                        <button type="submit" class="btn btn-primary">Add Goal</button>
+                        <button type="submit" class="btn btn-secondary">Add Goal</button>
                     </div>
                 </form>
             </div>
@@ -137,14 +137,14 @@
             <div class="modal-body">
                 <form th:action="@{/addFunds}" method="post">
                     <div>
-                        <label for="add-funds">Amount</label>
+                        <label for="add-funds">Amount to Contribute <br>(this will show as an expenditure in your Transactions)</label>
                         <input type="number" step="0.01" class="form-control" id="add-funds" name="addedFunds">
                         <input type="hidden" id="goalName" name="goalName">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                         </button>
-                        <button type="submit" class="btn btn-primary">Add Funds</button>
+                        <button type="submit" class="btn btn-secondary">Add Funds</button>
                     </div>
                 </form>
             </div>
@@ -164,11 +164,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>This is a permanent action and cannot be undone.</p>
+                <p>This is permanent and cannot be undone.</p>
             </div>
             <div class="modal-footer">
                 <form th:action="@{|/goals/delete|}" th:method="POST">
-                    <button type="submit" class="btn bg-transparent p-1" name="id" id="delete-goal-id">Delete</button>
+                    <button type="submit" class="btn btn-secondary p-1" name="id" id="delete-goal-id">Confirm</button>
                 </form>
             </div>
         </div>
@@ -181,7 +181,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-center" id="editGoalLabel">Edit this goal</h5>
+                <h5 class="modal-title text-center" id="editGoalLabel">Edit This Goal</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -194,14 +194,14 @@
                     </div>
                     <br>
                     <div>
-                        <label for="edit-goal-amount">Amount</label>
-                        $<input type="number" step="0.01" class="form-control" id="edit-goal-amount" name="amount">
+                        <label for="edit-goal-amount">Goal Total</label>
+                        <input type="number" step="0.01" class="form-control" id="edit-goal-amount" name="amount">
                         <input type="hidden" class="form-control" id="edit-goal-id" name="id">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                         </button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="submit" class="btn btn-secondary">Save Changes</button>
                     </div>
                 </form>
             </div>
