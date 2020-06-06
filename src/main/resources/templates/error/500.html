@@ -1,7 +1,7 @@
-
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="partials/partial :: head('Error')"></head>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="partials/partial :: head('Error Page')"></head>
 <body>
 <div th:replace="partials/partial :: top_banner"></div>
 <div th:replace="partials/partial :: standard_nav"></div>
@@ -10,19 +10,24 @@
 <!--        <h1>Page not found!!</h1>-->
 <!--    </div>-->
 <!--    <div th:case="'Forbidden'">-->
-        <h1>INTERNAL SERVER ERROR YOU FOOL!</h1>
+<br>
+    <h1 class="text-center">Whoops! Something Went Wrong...</h1>
+    <h2 class="text-center">(Contact Us and We'll Fix It!)</h2>
+<br>
+    <img src="../../static/img/gizmo_duck.png" alt="gizmo duck"/>
+
 <!--    </div>-->
 <!--</th:block>-->
 <!--<p>Watch a video instead</p>-->
-<iframe
-        width="420"
-        height="315"
-        src="https://www.youtube.com/embed/NN75im_us4k?autoplay=1"
-        frameborder="0"
-        allowfullscreen="allowfullscreen"
->
-</iframe>
+<!--<iframe-->
+<!--        width="420"-->
+<!--        height="315"-->
+<!--        src="https://www.youtube.com/embed/NN75im_us4k?autoplay=1"-->
+<!--        frameborder="0"-->
+<!--        allowfullscreen="allowfullscreen"-->
+<!--&gt;-->
+<!--</iframe>-->
 <div th:replace="partials/partial :: footer_nav"></div>
-<div th:replace="partials/partial :: footer-transactions"></div>
+<div th:replace="partials/partial :: footer"></div>
 </body>
 </html>
