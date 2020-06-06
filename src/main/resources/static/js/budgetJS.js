@@ -1,6 +1,6 @@
 "use strict";
 
-$("document").ready(function () {
+$(document).ready(function () {
     setTimeout(function calculateBalanceAutomatically() {
         let remainingBalance = document.getElementById('income').value - document.getElementById('expenditures').value;
         if (remainingBalance > 0) {
@@ -28,6 +28,7 @@ $("document").ready(function () {
     $("#importIncome").click(function (event) {
         event.preventDefault()
         incomeButton();
+        expenditureButton();
     });
 
     function incomeButton() {
@@ -44,10 +45,10 @@ $("document").ready(function () {
 
     // jQuery = on button click, run expenditureButton function that will make a json call to database and append value to id of "#expenditures"
 
-    $("#importExpenditures").click(function (event) {
-        event.preventDefault()
-        expenditureButton();
-    });
+    // $("#importExpenditures").click(function (event) {
+    //     event.preventDefault()
+    //     expenditureButton();
+    // });
 
     function expenditureButton() {
         let request = $.ajax({
@@ -117,5 +118,5 @@ $('#quackulator_calculate').click(function(){
     $('.quackulator_container_start').css("background-image", 'url("../img/quackulator_end.png")')
     setTimeout(function(){
         $('.quackulator_container_start').css("background-image", 'url("../img/quackulator_start.png")')
-    }, 500)
+    }, 1300)
 });

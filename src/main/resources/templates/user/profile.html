@@ -7,14 +7,14 @@
 <div th:replace="partials/partial :: standard_nav"></div>
 
 <div class="container">
-    <div class="row">
-        <div class="col-6 col-md-3">
-            <img src="img/Ducks/LuckyTheDuck.jpeg" alt="Personal Duck" class="img-thumbnail">
+    <div class="row mt-5">
+        <div class="col-3" style="border: 2px solid black">
+            <img src="img/Ducks/LuckyTheDuck.jpeg" alt="Personal Duck" class="img-thumbnail" style="height: 175px; width: 175px">
             <div><a th:href="@{'/profile/'+${user.id}+'/profile-edit'}">Edit Profile</a></div>
             <div><a th:href="@{'/profile/'+${user.id}+'/delete'}">Delete Profile</a></div>
         </div>
 
-        <div class="col-6 col-md-5">
+        <div class="col-5" style="border: 2px solid black">
             <h2> Upcoming Bills</h2>
             <div th:each="bill : ${upcomingBills}">
                 <span th:text="${bill.name} + ' is due on ' + ${bill.dueDate}"></span>
@@ -47,9 +47,9 @@
             </div>
         </div>
 
-        <div class="col-6 col-md-4">
-            <div id="donutchart" style="width: 500px; height: 400px;"></div>
-        </div>
+<!--        <div class="col">-->
+            <div id="donutchart" class="col-4" style="width: 500px; height: 400px; border: 2px solid black"></div>
+<!--        </div>-->
     </div>
 </div> <!-- end of container -->
 
