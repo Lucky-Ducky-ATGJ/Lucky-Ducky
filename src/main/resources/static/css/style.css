@@ -13,6 +13,7 @@ html {
 
 body {
     margin: 0 0 100px;
+    font-family: 'Roboto', sans-serif;
 }
 
 .appTitle {
@@ -80,6 +81,7 @@ body {
     left: 48%;
     position: absolute;
     font-size: 40px;
+    font-family: 'Patua One', cursive;
 }
 
 #warped {position: relative; display: block; width:470px; height:470px; transform: translateX(-53%);
