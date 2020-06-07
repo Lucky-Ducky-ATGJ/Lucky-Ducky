@@ -41,7 +41,7 @@
         <div th:if="${param.logout}">You have been logged out.</div>
     </div>
 
-    <div class="col-5" style="border: none">
+    <div class="col-5 m-0 p-0" style="border: none">
         <div id="donutchart" class="p-0 m-0" style="width: 900px; height: 700px"></div>
     </div>
 </div>
@@ -65,7 +65,7 @@
             var data = google.visualization.arrayToDataTable(chartArray);
 
             var options = {
-                title: 'Summary Of Expenditures',
+                title: 'Transaction Summary (by Category)',
                 pieHole: 0.3,
             };
 
