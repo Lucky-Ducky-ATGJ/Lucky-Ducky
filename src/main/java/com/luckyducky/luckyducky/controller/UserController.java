@@ -8,14 +8,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
@@ -181,31 +179,66 @@ public class UserController {
     }
 
     //    I added the part below, remove it if it doesn't work.
-    @GetMapping("/profile/{id}/profile-edit")
-    public String getEditProfileForm(@PathVariable long id, Model model) {
+    @GetMapping("/profile/profile-edit")
+    public String getEditProfileForm(Model model) {
         Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (obj == null || !(obj instanceof UserDetails)) {
             return "redirect:/login";
         }
-        User user = (User) obj;
-        User singleUser = userRepo.getOne(id);
-
-//        User editUser = new User(); //create a new user which will allow me to hold new values
-        if (user.getId() != user.getId()) {
-            return "redirect:/profile/" + user.getId();
-        }
-        model.addAttribute("user", singleUser);
-//        model.addAttribute("editUser", editUser); //sends updated values to edited user
+        User tempUser = (User) obj;
+        User user = userRepo.getOne(tempUser.getId());
+        model.addAttribute("user", user);
         return "user/profile-edit";
     }
 
-    @PostMapping("/profile/{id}/profile-edit")
-    public String editProfile(@PathVariable long id, @ModelAttribute User user) {
-        User tempUser = userRepo.getOne(id);
+    @PostMapping("/profile/profile-edit")
+    public String editProfile(@ModelAttribute User user) {
+        User tempUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         user.setPassword(tempUser.getPassword());
-        user.setId(id);
+        user.setId(tempUser.getId());
         userRepo.save(user);
         return "redirect:/profile";
+    }
+
+    @PostMapping("/profile/password-edit")
+    public String editPassword(@RequestParam String currentPass, @RequestParam String newPass, @RequestParam String confirmNewPass){
+        User tempUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepo.getOne(tempUser.getId());
+        if (!BCrypt.checkpw(currentPass, user.getPassword())){
+            return  "redirect:/profile/profile-edit-CCP";
+        } else if (!newPass.equals(confirmNewPass)){
+            return "redirect:/profile/profile-edit-MP";
+        }
+        String hash = passwordEncoder.encode(newPass);
+        user.setPassword(hash);
+        userRepo.save(user);
+        return "redirect:/profile";
+    }
+
+    @RequestMapping("/profile/profile-edit-CCP")
+    public String errorCCP(Model model){
+        Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (obj == null || !(obj instanceof UserDetails)) {
+            return "redirect:/login";
+        }
+        User tempUser = (User) obj;
+        User user = userRepo.getOne(tempUser.getId());
+        model.addAttribute("user", user);
+        model.addAttribute("ccp",true);
+        return "user/profile-edit";
+    }
+
+    @RequestMapping("/profile/profile-edit-MP")
+    public String errorMP(Model model){
+        Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (obj == null || !(obj instanceof UserDetails)) {
+            return "redirect:/login";
+        }
+        User tempUser = (User) obj;
+        User user = userRepo.getOne(tempUser.getId());
+        model.addAttribute("user", user);
+        model.addAttribute("mp",true);
+        return "user/profile-edit";
     }
 
     private void authenticate(User user) {
