@@ -7,14 +7,27 @@
 <div th:replace="partials/partial :: standard_nav"></div>
 
 <h1 class="text-center">Edit Profile</h1>
+<div th:if="${ccp}" class="alert alert-danger text-center mt-2">
+    Current Password Incorrect.
+</div>
+<div th:if="${mp}" class="alert alert-danger text-center mt-2">
+    Passwords Do Not Match.
+</div>
 
 <div class="container">
     <div class="row">
+        <div class="col-lg-2 px-auto mt-5">
+            <img src="../../img/Ducks/LuckyTheDuck.jpeg" alt="Lucky Duck" class="img-thumbnail" style="height: 175px; width: 175px">
+            <br>
+            <button type="button" class="btn btn-warning p-1 editIcon" data-toggle="modal" data-target="#editProPic"><i class="fas fa-edit mr-2"></i>Edit</button>
+        </div>
+
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
             <div class="card card-signin my-5">
                 <div class="card-body">
                     <h5 class="card-title text-center">Edit Profile</h5>
-                    <form class="form-signin" th:action="@{|/profile/${user.id}/profile-edit|}" method="POST" th:object="${user}">
+                    <form class="form-signin" th:action="@{|/profile/profile-edit|}" method="POST"
+                          th:object="${user}">
                         <div class="form-label-group d-flex">
                             <label for="username">Username</label>
                             <input class="ml-auto mt-2" id="username" th:field="*{username}"/>
@@ -40,13 +53,75 @@
                             <input class="ml-auto mt-2" id="email" th:field="*{email}"/>
                         </div>
 
-                        <button class="btn btn-lg btn-primary btn-block text-uppercase mt-3" type="submit">SAVE CHANGES</button>
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase mt-3" type="submit">SAVE
+                            CHANGES
+                        </button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="card card-signin my-5">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Change Password</h5>
+                    <form class="form-signin" th:action="@{|/profile/password-edit|}" method="POST">
+                        <div class="form-label-group d-flex">
+                            <label for="currentPass">Current Password</label>
+                            <input class="ml-auto mt-2" type="password" id="currentPass" name="currentPass" />
+                        </div>
+
+                        <div class="form-label-group d-flex">
+                            <label for="newPass">New Password</label>
+                            <input class="ml-auto mt-2" type="password" id="newPass" name="newPass"/>
+                        </div>
+
+                        <div class="form-label-group d-flex">
+                            <label for="confirmNewPass">Confirm New Password</label>
+                            <input class="ml-auto mt-2" type="password" id="confirmNewPass" name="confirmNewPass"/>
+                        </div>
+
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase mt-3" type="submit">Update
+                            Password
+                        </button>
 
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="editProPic" tabindex="-1" role="dialog" aria-labelledby="proPicLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="proPicLabel">Choose your Duck</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="img/Ducks/LuckyTheDuck.jpeg" alt="Personal Duck" class="img-thumbnail" style="height: 175px; width: 175px">
+                            <form th:action="@{|/goals/delete|}" th:method="POST">
+                                <button type="submit" class="btn btn-success" name="id" id="updateProfilePic"><i
+                                        class="far fa-check-circle mr-2"></i>Confirm
+                                </button>
+                            </form>
+                        </div>
+                        <div class="col-8">
+
+                            <img src="../../static/img/Ducks/Angel.jpeg" alt="Angel Duck"/></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <div th:replace="partials/partial :: footer_nav"></div>
