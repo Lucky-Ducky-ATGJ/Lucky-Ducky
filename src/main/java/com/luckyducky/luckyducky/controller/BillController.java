@@ -131,4 +131,20 @@ public class BillController {
         return "redirect:/transactions";
     }
 
+/////////////////  Pay Bill  /////////////////////////
+    @PostMapping("/bills/reset")
+    public String resetBill(@RequestParam String resetDate, @RequestParam long id){
+        // Get current bill info from database using id passed over
+        Bill bill = billRepo.getOne(id);
+        // Parse the date string to a LocalDate type
+        LocalDate lDate = LocalDate.parse(resetDate);
+        // Set new due date to bill
+        bill.setDueDate(lDate);
+        // Reset paid status
+        bill.setPaid(false);
+        // Save bill with new info
+        billRepo.save(bill);
+        return"redirect:/bills";
+    }
+
 }
