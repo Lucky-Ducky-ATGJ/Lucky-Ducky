@@ -82,11 +82,6 @@ body {
     font-size: 40px;
 }
 
-/*#about-meetquacks-subtitle {*/
-/*    background-color: #daa520;*/
-/*    color: #006400;*/
-/*}*/
-
 #warped {position: relative; display: block; width:470px; height:470px; transform: translateX(-53%);
     left: 53%;}
 

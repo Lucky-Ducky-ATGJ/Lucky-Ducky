@@ -35,7 +35,7 @@
 </div>
 
 <div class="button text-center">
-    <button class="btn-danger" onclick="calculateBalance()" id="quackulator_calculate">Calculate!</button>
+    <button class="btn btn-warning p-1" onclick="calculateBalance()" id="quackulator_calculate"><i class="fas fa-power-off mr-2"></i>Quackulate!</button>
 </div>
 <br>
 <hr>
@@ -58,19 +58,9 @@
 
         <label th:text="${'Goal: $' + (budget.balance_in_cents/100)}" class="ml-3 my-auto large-font"></label>
 
-        <button type="button" id="addFundsButton" class="button text-center ml-3 mr-1" data-toggle="modal"
-                data-target="#addFundsModal" th:data-goal="${budget.name}">Add Funds
-        </button>
-
-        <button type="button" class="btn bg-transparent p-1" data-toggle="modal" data-target="#deleteGoal"
-                th:data-i="${budget.id}">
-            <i class="fas fa-trash-alt"></i>
-        </button>
-
-        <button type="button" class="btn bg-transparent p-1 editIcon" data-toggle="modal" data-target="#editGoal"
-                th:data-id="${budget.id}">
-            <i class="fas fa-edit"></i>
-        </button>
+        <button type="button" id="addFundsButton" class="btn btn-success p-1" data-toggle="modal" data-target="#addFundsModal" th:data-goal="${budget.name}"><i class="fas fa-dollar-sign mr-2"></i>Add Funds</button>
+        <button type="button" class="btn btn-danger p-1" data-toggle="modal" data-target="#deleteGoal" th:data-i="${budget.id}"><i class="fas fa-trash-alt mr-2"></i>Delete</button>
+        <button type="button" class="btn btn-warning p-1 editIcon" data-toggle="modal" data-target="#editGoal" th:data-id="${budget.id}"><i class="fas fa-edit mr-2"></i>Edit</button>
 
         <div class="w-100"></div>
 
@@ -85,9 +75,7 @@
 </div>
 
 <div class="text-center">
-    <button type="button" id="addGoalButton" class="btn bg-transparent border border-dark p-1" data-toggle="modal"
-            data-target="#addGoalModal">+
-    </button><label class="ml-2"> Add a Goal</label>
+    <button type="button" id="addGoalButton" class="btn bg-transparent border border-dark p-1" data-toggle="modal" data-target="#addGoalModal">+</button><label class="ml-2"> Add a Goal</label>
 </div>
 
 <!--ADD GOAL MODAL-->
@@ -113,9 +101,8 @@
                                th:field="*{balance_in_cents}">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
-                        </button>
-                        <button type="submit" class="btn btn-secondary">Add Goal</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle mr-2"></i>Add Bill</button>
                     </div>
                 </form>
             </div>
@@ -142,9 +129,8 @@
                         <input type="hidden" id="goalName" name="goalName">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
-                        </button>
-                        <button type="submit" class="btn btn-secondary">Add Funds</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel</button>
+                        <button type="submit" class="btn btn-success"><i class="fas fa-dollar-bill mr-2"></i>Add Funds</button>
                     </div>
                 </form>
             </div>
@@ -167,8 +153,9 @@
                 <p>This is permanent and cannot be undone.</p>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel</button>
                 <form th:action="@{|/goals/delete|}" th:method="POST">
-                    <button type="submit" class="btn btn-secondary p-1" name="id" id="delete-goal-id">Confirm</button>
+                    <button type="submit" class="btn btn-success" name="id" id="delete-goal-id"><i class="far fa-check-circle mr-2"></i>Confirm</button>
                 </form>
             </div>
         </div>
@@ -199,9 +186,8 @@
                         <input type="hidden" class="form-control" id="edit-goal-id" name="id">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
-                        </button>
-                        <button type="submit" class="btn btn-secondary">Save Changes</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle mr-2"></i>Save Changes</button>
                     </div>
                 </form>
             </div>
