@@ -2,12 +2,14 @@
 
 
 $(document).ready(function () {
+
     setTimeout(function calculateBalanceAutomatically() {
         let remainingBalance = document.getElementById('income').value - document.getElementById('expenditures').value;
+
         if (remainingBalance > 0) {
-            $(document.getElementById('balance').innerHTML = "$" + remainingBalance.toFixed(2).fontcolor("darkgreen"));
+            $(document.getElementById('balance').innerHTML = "$" + remainingBalance.toFixed(2).fontcolor("green"));
         } else {
-            $(document.getElementById('balance').innerHTML = "$" + remainingBalance.toFixed(2).fontcolor("firebrick"));
+            $(document.getElementById('balance').innerHTML = "$" + remainingBalance.toFixed(2).fontcolor("red"));
         }
 
         $(document.getElementById('balance').innerHTML = "$" + remainingBalance.toFixed(2)).trigger('click');
@@ -19,13 +21,14 @@ $(document).ready(function () {
         let remainingBalance = document.getElementById('income').value - document.getElementById('expenditures').value;
 
         if (remainingBalance > 0) {
-            $(document.getElementById('balance').innerHTML = "$" + remainingBalance.toFixed(2).fontcolor("darkgreen"));
+            $(document.getElementById('balance').innerHTML = "$" + remainingBalance.toFixed(2).fontcolor("green"));
         } else {
-            $(document.getElementById('balance').innerHTML = "$" + remainingBalance.toFixed(2).fontcolor("firebrick"));
+            $(document.getElementById('balance').innerHTML = "$" + remainingBalance.toFixed(2).fontcolor("red"));
         }
 }
 
     // jQuery = on button click, run incomeButton function that will make a json call to database and append value to id of "#income"
+
 
     // $("#importIncome").click(function (event) {
     //     event.preventDefault()
@@ -45,6 +48,7 @@ $(document).ready(function () {
     //     });
     // }
 
+
     // jQuery = on button click, run expenditureButton function that will make a json call to database and append value to id of "#expenditures"
 
     $("#importExpenditures").click(function (event) {
@@ -60,8 +64,6 @@ $(document).ready(function () {
         });
 
         request.done(function (totalExpenditures) {
-            console.log(totalExpenditures);
-            console.log(typeof totalExpenditures);
             $("#expenditures").val(totalExpenditures/100)
         });
     }
@@ -105,11 +107,8 @@ $('#deleteGoal').on('show.bs.modal', function (event) {
 $('#editGoal').on('show.bs.modal', function (event) {
     let button = $(event.relatedTarget)
     let name = button.parent().children(":nth-child(1)").text()
-    console.log(name);
     let amount = button.parent().children(":nth-child(2)").val()
-    console.log(amount);
     let id = button.data("id") // Reads as "th:data-id"
-    console.log(id);
     let modal = $(this)
     modal.find(".modal-body input#edit-goal-name").val(name);
     modal.find(".modal-body input#edit-goal-amount").val(amount);
@@ -120,5 +119,5 @@ $('#quackulator_calculate').click(function(){
     $('.quackulator_container_start').css("background-image", 'url("../img/quackulator_end.png")')
     setTimeout(function(){
         $('.quackulator_container_start').css("background-image", 'url("../img/quackulator_start.png")')
-    }, 1300)
+    }, 800)
 });

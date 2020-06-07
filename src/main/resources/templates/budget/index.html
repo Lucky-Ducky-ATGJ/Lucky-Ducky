@@ -10,19 +10,19 @@
 <br>
 
 <div class="row quackulator_container_start">
-<!--    <div class="number-input text-center">-->
-<!--        <label for="income" class="mr-1 large-font">Income: </label>-->
-<!--        <input type="number" step="0.01" id="income" th:value="${income/100}" placeholder="(Enter income)">-->
-<!--        <button id="importIncome">Import</button>-->
-<!--    </div>-->
+
+    <div class="number-input">
+        <label for="income" class="mr-1 large-font">Income: </label>
+        <input type="number" step="0.01" id="income" th:value="${income/100}" placeholder="(Enter income)">
+        <button id="importIncome">Import</button>
+    </div>
 
     <div class="ml-3 mr-3 font-weight-bold large-font" id="quackulator_minus"> &mdash;</div>
 
     <div class="number-input">
         <label for="expenditures" class="mr-1 large-font">Expenditures: </label>
-        <input type="number" step="0.01" id="expenditures" th:value="${expenses/100}"
-               placeholder="(Enter expenditures)">
-<!--        <button id="importExpenditures">Import</button>-->
+        <input type="number" step="0.01" id="expenditures" th:value="${expenses/100}" placeholder="(Enter expenditures)">
+        <button id="importExpenditures">Import</button>
     </div>
 
     <div class="ml-3 mr-3 large-font" id="quackulator_equals"> =</div>
