@@ -59,10 +59,6 @@ public class BudgetController {
         return "budget/index"; // Sends a Model over page to HTML that contains both "budget" and "transactions" with values
     }
 
-
-
-
-
     @GetMapping("/transactions.json")
     public @ResponseBody
         double viewAllTransactionsInJSONFormat() {
@@ -77,7 +73,7 @@ public class BudgetController {
 
     @GetMapping("/goals.json")
     public @ResponseBody
-    double viewAllGoalsInJSONFormat() {
+        double viewAllGoalsInJSONFormat() {
         return transRepo.getGoalTotal();
     }
 

@@ -6,52 +6,45 @@
 <div th:replace="partials/partial :: top_banner"></div>
 <div th:replace="partials/partial :: standard_nav"></div>
 
-<div class="container">
-    <div class="row mt-5">
-        <div class="col-3" style="border: 2px solid black">
-            <img src="img/Ducks/LuckyTheDuck.jpeg" alt="Personal Duck" class="img-thumbnail" style="height: 175px; width: 175px">
-            <div><a th:href="@{'/profile/'+${user.id}+'/profile-edit'}">Edit Profile</a></div>
-            <div><a th:href="@{'/profile/'+${user.id}+'/delete'}">Delete Profile</a></div>
-        </div>
+<h1 class="text-center mt-4 mb-4">Your Profile</h1>
 
-        <div class="col-5" style="border: 2px solid black">
-            <h2> Upcoming Bills</h2>
-            <div th:each="bill : ${upcomingBills}">
-                <span th:text="${bill.name} + ' is due on ' + ${bill.dueDate}"></span>
-            </div>
+<div class="row ml-3 mr-3">
 
-            <h2> Overdue Bills</h2>
-            <div th:each="bill : ${overdueBills}">
-                <span th:text="${bill.name} + ' was due on ' + ${bill.dueDate}"></span>
-            </div>
-
-            <h2> Goal Tracker</h2>
-            <div th:each="budget : ${newGoal}">
-                <label th:text="${budget.name}" class="mr-3 my-auto large-font" style="margin-left: 95px"></label>
-                <div class="progress border border-dark mt-1"
-                     style="height: 25px; width: 400px; background-color: white">
-                    <div class="progress-bar" role="progressbar"
-                         th:style="'width:' + ((${budget.goal_funds} * 100) / ${budget.balance_in_cents}) + '%'"
-                         th:text="'$' + ${budget.goal_funds/100}"></div>
-                </div>
-
-
-                <label th:text="${'Goal: $' + (budget.balance_in_cents - budget.goal_funds)/100}"
-                       class="ml-3 my-auto large-font"></label>
-
-
-            </div>
-
-            <div th:if="${param.logout}">
-                You have been logged out.
-            </div>
-        </div>
-
-<!--        <div class="col">-->
-            <div id="donutchart" class="col-4" style="width: 500px; height: 400px; border: 2px solid black"></div>
-<!--        </div>-->
+    <div class="col-2" style="border: none">
+        <img src="img/Ducks/LuckyTheDuck.jpeg" alt="Personal Duck" class="img-thumbnail"
+             style="height: 175px; width: 175px">
+        <div style="padding-left: 47px; padding-top: 10px"><a th:href="@{'/profile/'+${user.id}+'/profile-edit'}">Edit Profile</a></div>
+        <div style="padding-left: 37px; padding-top: 5px"><a th:href="@{'/profile/'+${user.id}+'/delete'}">Delete Profile</a></div>
     </div>
-</div> <!-- end of container -->
+
+    <div class="col-4" style="border: none">
+        <h3 style="text-decoration-line: underline">Upcoming Bills</h3>
+        <div th:each="bill : ${upcomingBills}" style="margin-top: 5%; margin-bottom: 5%">
+            <span th:text="${bill.name} + ' is due on ' + ${bill.dueDate}"></span>
+        </div>
+
+        <h3 style="text-decoration-line: underline">Overdue Bills</h3>
+        <div th:each="bill : ${overdueBills}" style="margin-top: 5%; margin-bottom: 5%">
+            <span th:text="${bill.name} + ' was due on ' + ${bill.dueDate}" style="color: red"></span>
+        </div>
+
+        <h3 style="text-decoration-line: underline">Goal Tracker</h3>
+        <div th:each="budget : ${newGoal}" style="margin-top: 5%; margin-bottom: 10%">
+            <label th:text="${budget.name}"></label>
+            <label th:text="${'Goal: $' + (budget.balance_in_cents - budget.goal_funds)/100}" class="float-right"></label>
+            <div class="progress border border-dark mt-1" style="height: 25px; width: 430px; background-color: lightskyblue">
+                <div class="progress-bar" role="progressbar" th:style="'width:' + ((${budget.goal_funds} * 100) / ${budget.balance_in_cents}) + '%'" th:text="'$' + ${budget.goal_funds/100}"></div>
+            </div>
+            <hr>
+        </div>
+
+        <div th:if="${param.logout}">You have been logged out.</div>
+    </div>
+
+    <div class="col-5" style="border: none">
+        <div id="donutchart" class="p-0 m-0" style="width: 900px; height: 700px"></div>
+    </div>
+</div>
 
 <div th:replace="partials/partial :: footer_nav"></div>
 <div th:replace="partials/partial :: footer"></div>
