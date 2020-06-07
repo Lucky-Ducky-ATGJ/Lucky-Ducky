@@ -35,6 +35,17 @@ $('#payBill').on('show.bs.modal', function (event) {
     modal.find('.modal-body input#payment-id').val(id)
 });
 
+$('#resetBill').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+    var id = button.data("reset")
+    var name = button.parent().parent().children(":nth-child(1)").text()
+    var date = button.parent().parent().children(":nth-child(2)").text()
+    var modal = $(this)
+    modal.find('.modal-title span#reset-name').html(name)
+    modal.find('.modal-body input#reset-date').val(date)
+    modal.find('.modal-body input#reset-id').val(id)
+});
+
 function sortTable(n) {
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     table = document.getElementById("bill-table");
