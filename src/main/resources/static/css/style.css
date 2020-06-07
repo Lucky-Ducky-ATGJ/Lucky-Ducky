@@ -197,13 +197,17 @@ body {
 
 .quackulator_container_start{
     background-image: url("../img/quackulator_start.png");
-    background-size: cover;
-    height: 485px;
-    width: 1263px;
-    margin: auto;
-    padding-top: 285px;
-    padding-left: 20px;
-    alignment: center;
+    background-size: 1000px;
+    height: 385px;
+    width: 1163px;
+    margin-left: 200px;
+    background-repeat: no-repeat;
+}
+
+#quackulator_inputs{
+    transform: translateX(-146%) translateY(-137%);
+    left: 48%;
+    position: absolute;
 }
 
 #quackulator_minus{
@@ -214,15 +218,43 @@ body {
     padding-left: 106px;
 }
 
+#balance{
+    transform: translateX(740%) translateY(-10%);
+    left: 48%;
+    position: absolute;
+}
+
+#remaining{
+    transform: translateX(659%) translateY(731%);
+    left: 48%;
+    position: absolute;
+}
+
 .quackulator_container_end{
     background-image: url("../img/quackulator_end.png");
-    background-size: cover;
-    height: 485px;
-    width: 1263px;
-    margin: auto;
-    padding-top: 285px;
-    padding-left: 20px;
-    alignment: center;
+    background-size: 1000px;
+    height: 385px;
+    width: 1163px;
+    margin-left: 200px;
+    background-repeat: no-repeat;
+}
+
+#quackulator_calculate{
+    transform: translateX(241%) translateY(-814%);
+    left: 48%;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border-radius: 16px;
+    font-size: 14px;
+    text-align: center;
+}
+
+#instructions {
+    transform: translateX(-55%) translateY(-300%);
+    left: 48%;
+    position: absolute;
 }
 
 .footer > .navbar-nav > li > a {padding-top:5px !important; padding-bottom:5px !important;}
