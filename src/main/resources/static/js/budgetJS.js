@@ -1,5 +1,6 @@
 "use strict";
 
+
 $(document).ready(function () {
     setTimeout(function calculateBalanceAutomatically() {
         let remainingBalance = document.getElementById('income').value - document.getElementById('expenditures').value;
@@ -13,6 +14,7 @@ $(document).ready(function () {
     }, 10);
 });
 
+
     function calculateBalance() {
         let remainingBalance = document.getElementById('income').value - document.getElementById('expenditures').value;
 
@@ -25,23 +27,23 @@ $(document).ready(function () {
 
     // jQuery = on button click, run incomeButton function that will make a json call to database and append value to id of "#income"
 
-    $("#importIncome").click(function (event) {
-        event.preventDefault()
-        incomeButton();
-        expenditureButton();
-    });
+    // $("#importIncome").click(function (event) {
+    //     event.preventDefault()
+    //     incomeButton();
+    //     expenditureButton();
+    // });
 
-    function incomeButton() {
-        let request = $.ajax({
-            url: '/transactions.json',
-            type: "get",
-            dataType: "text"
-        });
+    // function incomeButton() {
+    //     let request = $.ajax({
+    //         url: '/transactions.json',
+    //         type: "get",
+    //         dataType: "text"
+    //     });
 
-        request.done(function (totalIncome) {
-            $("#income").val(totalIncome/100)
-        });
-    }
+    //     request.done(function (totalIncome) {
+    //         $("#income").val(totalIncome/100)
+    //     });
+    // }
 
     // jQuery = on button click, run expenditureButton function that will make a json call to database and append value to id of "#expenditures"
 
