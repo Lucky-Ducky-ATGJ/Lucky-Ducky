@@ -12,6 +12,7 @@
 
     <div class="col-2" style="border: none">
         <img src="img/Ducks/LuckyTheDuck.jpeg" alt="Personal Duck" class="img-thumbnail" style="height: 175px; width: 175px">
+
         <button type="button" class="btn btn-warning p-1 ml-4 mt-3"><a th:href="@{'/profile/profile-edit'}" style="color: dimgray"><i class="fas fa-edit mr-2" style="color: dimgray"></i>Edit Profile</a></button>
         <button type="button" class="btn btn-danger p-1 ml-4 mt-3"><a th:href="@{'/profile/'+${user.id}+'/delete'}" style="color: white"><i class="fas fa-trash-alt mr-2" style="color: white"></i>Delete Profile</a></button>
     </div>
