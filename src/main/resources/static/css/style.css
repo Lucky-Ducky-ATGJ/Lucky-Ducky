@@ -76,6 +76,9 @@ body {
     height: 204px;
 }
 
+.table-button{
+    min-width: 100px;
+}
 #navbar-title {
     transform: translateX(-48%) translateY(-26%);
     left: 48%;
