@@ -13,6 +13,9 @@
 <div th:if="${param.logout}" class="alert alert-warning text-center mt-2">
     You have been logged out.
 </div>
+<div th:if="${pd}" class="alert alert-warning text-center mt-2">
+    Your account has been delete.
+</div>
 
 <div class="container">
     <div class="row">
@@ -36,7 +39,9 @@
                         </div>
                         <button class="btn btn-lg btn-success btn-block" type="submit" value="Log In"><i class="fas fa-door-open mr-2"></i>Sign In</button>
                         <hr class="my-4">
-
+                        <a href="/register" class="ml-2">Don't have an account? Waddle you waiting for!
+                            <img src="img/plain_waddle.png" alt="waddles" style="width: 30px; height: 30px;margin-left: 2px;margin-bottom: 9px">
+                        </a>
                     </form>
                 </div>
             </div>

@@ -5,13 +5,19 @@
 <body>
 <div th:replace="partials/partial :: top_banner"></div>
 <div th:replace="partials/partial :: standard_nav"></div>
-
+<br>
 <h1 class="text-center">Edit Profile</h1>
 <div th:if="${ccp}" class="alert alert-danger text-center mt-2">
     Current Password Incorrect.
 </div>
 <div th:if="${mp}" class="alert alert-danger text-center mt-2">
     Passwords Do Not Match.
+</div>
+<div th:if="${sei}" class="alert alert-success text-center mt-2">
+    Your Information Was Updated.
+</div>
+<div th:if="${scp}" class="alert alert-success text-center mt-2">
+    Password Has Been Changed.
 </div>
 
 <div class="container">
