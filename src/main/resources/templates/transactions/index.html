@@ -11,6 +11,7 @@
 <div id="transactions"></div>
 
 <div class="container">
+
 <div class="p-4 row">
     <div class="col-7">
     <table class="table table-hover">
@@ -39,13 +40,16 @@
     </table>
     </div>
     <div class="col-5" id="donutchart-trans">
+      
     </div>
-</div>
 </div>
 
-    <div class="text-center">
-        <button type="button" id="addBButton" class="btn bg-transparent border border-dark p-1" data-toggle="modal" data-target="#addTransaction">+</button><label class="ml-2"> Add a Transaction</label>
-    </div>
+<div class="text-center">
+    <button type="button" id="addBButton" class="btn bg-transparent border border-dark p-1" data-toggle="modal"
+            data-target="#addTransaction">+
+    </button>
+    <label class="ml-2"> Add a Transaction</label>
+</div>
 
 <div class="modal fade" id="deleteTransaction" tabindex="-1" role="dialog" aria-labelledby="deleteConfirm"
      aria-hidden="true">
@@ -61,9 +65,12 @@
                 <p>This is permanent and cannot be undone.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel
+                </button>
                 <form th:action="@{|/transactions/delete|}" th:method="POST">
-                    <button type="submit" class="btn btn-success" name="id" id="delete-id"><i class="far fa-check-circle mr-2"></i>Confirm</button>
+                    <button type="submit" class="btn btn-success" name="id" id="delete-id"><i
+                            class="far fa-check-circle mr-2"></i>Confirm
+                    </button>
                 </form>
             </div>
         </div>
@@ -104,8 +111,12 @@
                         </select>
                     </div>
                     <div class="modal-footer mr-4">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel</button>
-                        <button type="submit" id="edit-id" name="id" class="btn btn-primary"><i class="fas fa-check-circle mr-2"></i>Save Changes</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                                class="fas fa-ban mr-2"></i>Cancel
+                        </button>
+                        <button type="submit" id="edit-id" name="id" class="btn btn-primary"><i
+                                class="fas fa-check-circle mr-2"></i>Save Changes
+                        </button>
                     </div>
                 </form>
             </div>
@@ -135,7 +146,8 @@
 
                     <div>
                         <label for="add-amount">Transaction Amount</label>
-                        <input type="number" step="any" class="form-control" id="add-amount" th:field="*{amountInCents}">
+                        <input type="number" step="any" class="form-control" id="add-amount"
+                               th:field="*{amountInCents}">
                     </div>
 
                     <div>
@@ -151,8 +163,12 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel</button>
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle mr-2"></i>Add Transaction</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                                class="fas fa-ban mr-2"></i>Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle mr-2"></i>Add
+                            Transaction
+                        </button>
                     </div>
                 </form>
             </div>
@@ -165,7 +181,7 @@
 <div th:replace="partials/partial :: footer-transactions"></div>
 
 
-    <script th:inline="javascript" type="text/javascript">
+<script th:inline="javascript" type="text/javascript">
     $(document).ready()
     {
         let moneyFormat = $(".money-td");
@@ -177,6 +193,7 @@
             $(td).text("$" + moneyParsed);
         }
     }
+
         $(document).ready(function () {
             google.charts.load("current", {packages:["corechart"]});  //this loads visualization API and corechart package
             google.charts.setOnLoadCallback(drawChart); //this sets callback to run when the Google Visualization API is loaded
@@ -204,6 +221,7 @@
                 chart.draw(data, options);
             }
         });
+
 
 </script>
 </body>

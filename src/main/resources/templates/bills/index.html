@@ -7,48 +7,59 @@
 <div th:replace="partials/partial :: standard_nav"></div>
 
 <br>
+
 <h1 class="text-center">Your Bills</h1>
 
 <div class="container">
-<div class="p-4">
-    <table class="table table-hover" id="bill-table">
-        <thead class="thead-dark">
-        <tr>
-            <th onclick="sortTable(0)" class="text-center">Name</th>
-            <th onclick="sortTable(1)" class="text-center">Due Date</th>
-            <th onclick="sortTable(2)" class="text-center">Minimum Amount</th>
-            <th onclick="sortTable(3)" class="text-center">Last Amount Paid</th>
-            <th onclick="sortTable(4)" class="text-center">Pay Bill/Reset Bill</th>
-            <th class="text-center">Delete/Edit</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="bill : ${bills}">
-            <td class="bill-name text-center" th:text="${bill.name}"></td>
-            <td class="bill-date text-center" th:text="${bill.dueDate}"></td>
-            <td class="money-td bill-amount text-center" th:text="'$' + ${bill.amountInCents}"></td>
-            <td class="money-td bill-payment text-center" th:text="'$' + ${bill.lastAmt}"></td>
-            <td class="text-center" th:if="${bill.paid == false}">
-                <button type="button" class="btn btn-success p-1" data-toggle="modal" data-target="#payBill" th:data-pay="${bill.id}"><i class="fas fa-dollar-sign mr-2"></i>Pay Bill</button>
-            </td>
-            <td class="text-center" th:if="${bill.paid == true}">
-                <button type="button" class="btn btn-primary p-1" data-toggle="modal" data-target="#resetBill" th:data-reset="${bill.id}"><i class="fas fa-redo-alt mr-2"></i>Reset</button>
-            </td>
-            <td class="text-center">
-                <button type="button" class="btn btn-danger p-1 text-light" data-toggle="modal" data-target="#deleteBill" th:data-i="${bill.id}"><i class="fas fa-trash-alt mr-2"></i>Delete</button>
-                <button type="button" class="btn btn-warning p-1 text-dark editIcon" data-toggle="modal" data-target="#editBill" th:data-id="${bill.id}"><i class="fas fa-edit mr-2"></i>Edit</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <div class="text-center">
-        <button type="button" id="addBButton" class="btn bg-transparent border border-dark p-1" data-toggle="modal"
-                data-target="#addBill">+
-        </button><label class="ml-2"> Add a Bill</label>
+    <div class="p-4">
+        <table class="table table-hover" id="bill-table">
+            <thead class="thead-dark">
+            <tr>
+                <th onclick="sortTable(0)" class="text-center">Name</th>
+                <th onclick="sortTable(1)" class="text-center">Due Date</th>
+                <th onclick="sortTable(2)" class="text-center">Minimum Amount</th>
+                <th onclick="sortTable(3)" class="text-center">Last Amount Paid</th>
+                <th onclick="sortTable(4)" class="text-center">Pay Bill/Paid</th>
+                <th class="text-center">Delete/Edit</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="bill : ${bills}">
+                <td class="bill-name text-center" th:text="${bill.name}"></td>
+                <td class="bill-date text-center" th:text="${bill.dueDate}"></td>
+                <td class="money-td bill-amount text-center" th:text="'$' + ${bill.amountInCents}"></td>
+                <td class="money-td bill-payment text-center" th:text="'$' + ${bill.lastAmt}"></td>
+                <td class="text-center" th:if="${bill.paid == false}">
+                    <button type="button" class="btn btn-success p-1" data-toggle="modal" data-target="#payBill"
+                            th:data-pay="${bill.id}"><i class="fas fa-dollar-sign mr-2"></i>Pay Bill
+                    </button>
+                </td>
+                <td class="text-center" th:if="${bill.paid == true}">
+                    <button type="button" class="btn btn-primary p-1" data-toggle="modal" data-target="#resetBill"
+                            th:data-reset="${bill.id}"><i class="fas fa-redo-alt mr-2"></i>Reset
+                    </button>
+                </td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-danger p-1 text-light" data-toggle="modal"
+                            data-target="#deleteBill" th:data-i="${bill.id}"><i class="fas fa-trash-alt mr-2"></i>Delete
+                    </button>
+                    <button type="button" class="btn btn-warning p-1 text-dark editIcon" data-toggle="modal"
+                            data-target="#editBill" th:data-id="${bill.id}"><i class="fas fa-edit mr-2"></i>Edit
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="text-center">
+            <button type="button" id="addBButton" class="btn bg-transparent border border-dark p-1" data-toggle="modal"
+                    data-target="#addBill">+
+            </button>
+            <label class="ml-2"> Add a Bill</label>
+        </div>
     </div>
-</div>
 
 </div>
+
 <div class="modal fade" id="deleteBill" tabindex="-1" role="dialog" aria-labelledby="deleteConfirm"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -63,9 +74,12 @@
                 <p>This is permanent and cannot be undone.</p>
             </div>
             <div class="modal-footer d-flex justify-content-around">
-                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel
+                </button>
                 <form th:action="@{/bills/delete}" th:method="post">
-                    <button type="submit" class="btn btn-success" name="id" id="delete-id"><i class="far fa-check-circle mr-2"></i>Confirm</button>
+                    <button type="submit" class="btn btn-success" name="id" id="delete-id"><i
+                            class="far fa-check-circle mr-2"></i>Confirm
+                    </button>
                 </form>
             </div>
         </div>
@@ -92,8 +106,12 @@
                         <input type="hidden" id="payment-id" name="id">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel</button>
-                        <button type="submit" class="btn btn-success"><i class="fas fa-dollar-sign mr-2"></i>Confirm Payment</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                                class="fas fa-ban mr-2"></i>Cancel
+                        </button>
+                        <button type="submit" class="btn btn-success"><i class="fas fa-dollar-sign mr-2"></i>Confirm
+                            Payment
+                        </button>
                     </div>
                 </form>
             </div>
@@ -129,8 +147,12 @@
                         <input type="hidden" class="form-control" id="edit-id" name="id">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel</button>
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle mr-2"></i>Save Changes</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                                class="fas fa-ban mr-2"></i>Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle mr-2"></i>Save
+                            Changes
+                        </button>
                     </div>
                 </form>
             </div>
@@ -164,11 +186,15 @@
                     <div>
                         <label for="add-amount">Minimum Bill Amount</label>
                         <br>
-                        <input type="number" step="0.01" class="form-control" id="add-amount" th:field="*{amountInCents}" placeholder="Can be zero">
+                        <input type="number" step="0.01" class="form-control" id="add-amount"
+                               th:field="*{amountInCents}" placeholder="Can be zero">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel</button>
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle mr-2"></i>Add Bill</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                                class="fas fa-ban mr-2"></i>Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle mr-2"></i>Add Bill
+                        </button>
                     </div>
                 </form>
             </div>
@@ -182,7 +208,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-center" id="resetBillLabel">Reset <span id="reset-name"></span> Pay Status?</h5>
+                <h5 class="modal-title text-center" id="resetBillLabel">Reset <span id="reset-name"></span> Pay Status?
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -196,8 +223,11 @@
                         <input type="hidden" id="reset-id" name="id">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel</button>
-                        <button type="submit" class="btn btn-primary"><i class="fas fa-check mr-2"></i>Confirm Reset</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                                class="fas fa-ban mr-2"></i>Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-check mr-2"></i>Confirm Reset
+                        </button>
                     </div>
                 </form>
             </div>
@@ -209,15 +239,15 @@
 <div th:replace="partials/partial :: footer"></div>
 
 <script>
-$(document).ready()
+    $(document).ready()
     {
         let moneyFormat = $(".money-td");
         console.log(moneyFormat);
         for (let td of moneyFormat) {
-        let moneyParsed = $(td).text();
-        console.log(td);
-        moneyParsed = parseFloat(moneyParsed.substring(1)).toFixed(2);
-        $(td).text("$" + moneyParsed);
+            let moneyParsed = $(td).text();
+            console.log(td);
+            moneyParsed = parseFloat(moneyParsed.substring(1)).toFixed(2);
+            $(td).text("$" + moneyParsed);
         }
     }
 </script>
