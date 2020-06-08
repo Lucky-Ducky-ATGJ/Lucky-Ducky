@@ -15,8 +15,11 @@
 
 <div class="container">
 
-<div class="p-4 row">
-    <div class="col-8">
+<div class="mt-5 row d-flex justify-content-center">
+    <div id="donutchart-trans"></div>
+</div>
+
+<div class="row">
     <table class="table table-hover">
         <thead class="thead-dark">
         <tr class="text-center">
@@ -35,15 +38,14 @@
                 th:style="${transaction.income} == true ? 'color: green' : 'color: red'"></td>
             <td class="data-center" th:text="${transaction.category.name}"></td>
             <td class="data-icons-center">
-                <button type="button" class="btn btn-danger text-light table-button" data-toggle="modal" data-target="#deleteTransaction" th:data-i="${transaction.id}"><i class="fas fa-trash-alt mr-2"></i>Delete</button>
-                <button type="button" class="btn btn-warning text-dark editIcon table-button" data-toggle="modal" data-target="#editTransaction" th:data-id="${transaction.id}"><i class="fas fa-edit mr-2"></i>Edit</button>
+                <button type="button" class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteTransaction" th:data-i="${transaction.id}"><i class="fas fa-trash-alt mr-2"></i>Delete</button>
+                <button type="button" class="btn btn-warning text-dark editIcon" data-toggle="modal" data-target="#editTransaction" th:data-id="${transaction.id}"><i class="fas fa-edit mr-2"></i>Edit</button>
             </td>
         </tr>
         </tbody>
     </table>
     </div>
 
-    <div class="col-4" id="donutchart-trans">
 
 
     </div>
@@ -223,7 +225,13 @@
 
                 var options = {
                     title: 'Income vs Expenses',
-                    pieHole: 0.3,
+                    legend: { position: 'left', align: 'center'},
+                    chartArea:{left:0,top:30,width:"100%",height:"100%"}
+                    ,height: 400
+                    ,width: 400,
+                    is3D: true,
+                    backgroundColor: 'rgb(235,235,235)'
+
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('donutchart-trans'));
