@@ -53,7 +53,7 @@ public class Bill{
     public Bill() {
     }
 
-    public Bill(long id, String name, double amountInCents, LocalDate dueDate, boolean isPaid, Date createdAt,  User user, List<Transaction> transactions) {
+    public Bill(long id, String name, double amountInCents, LocalDate dueDate, boolean isPaid, Date createdAt,  User user) {
         this.id = id;
         this.name = name;
         this.amountInCents = amountInCents;
@@ -61,16 +61,14 @@ public class Bill{
         this.isPaid = isPaid;
         this.createdAt = createdAt;
         this.user = user;
-        this.transactions = transactions;
     }
 
-    public Bill(String name, double amountInCents, LocalDate dueDate, boolean isPaid, User user, List<Transaction> transactions) {
+    public Bill(String name, double amountInCents, LocalDate dueDate, boolean isPaid, User user) {
         this.name = name;
         this.amountInCents = amountInCents;
         this.dueDate = dueDate;
         this.isPaid = isPaid;
         this.user = user;
-        this.transactions = transactions;
     }
 
     public long getId() {
