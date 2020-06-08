@@ -7,6 +7,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -156,26 +157,13 @@ public class UserController {
         return "user/profile";
     }
 
-    @GetMapping("/profile/{id}/delete")
-    public String getDeleteProfileForm(@PathVariable long id, Model model) {
-        Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (obj == null || !(obj instanceof UserDetails)) {
-            return "redirect:/login";
-        }
-        User user = (User) obj;
-        User singleUser = userRepo.getOne(id);
-        if (user.getId() != user.getId()) {
-            return "redirect:/profile/" + user.getId();
-        }
-        model.addAttribute("user", singleUser);
-        return "user/delete";
-    }
-
-    @PostMapping("/profile/{id}/delete")
-    public String deleteProfile(@PathVariable long id, Model model) {
-        User singleUser = userRepo.getOne(id);
+    @PostMapping("/profile/delete")
+    public String deleteProfile(Model model) {
+        User tempUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User singleUser = userRepo.getOne(tempUser.getId());
         userRepo.delete(singleUser);
-        return "redirect:/login";
+        model.addAttribute("pd",true);
+        return "user/login";
     }
 
     //    I added the part below, remove it if it doesn't work.
@@ -258,8 +246,6 @@ public class UserController {
         model.addAttribute("scp", true);
         return "user/profile-edit";
     }
-
-
 
     private void authenticate(User user) {
         // Notice how we're using an empty list for the roles
