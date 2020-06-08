@@ -11,41 +11,36 @@
 <div id="transactions"></div>
 
 <div class="container">
-    <div class="p-4 row">
-        <div class="col-8">
-            <table class="table table-hover">
-                <thead class="thead-dark">
-                <tr class="text-center">
-                    <th>Date added</th>
-                    <th>Name</th>
-                    <th>Amount</th>
-                    <th>Category</th>
-                    <th>Delete/Edit</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr id="editTrans" th:each="transaction : ${transactions}" class="text-center">
-                    <td class="data-center" th:text="${#dates.format(transaction.createDate, 'dd-MMM-yyyy')}"></td>
-                    <td class="data-center" th:text="${transaction.name}"></td>
-                    <td class="data-center money-td" th:text="'$' + ${transaction.amountInCents/100}"
-                        th:style="${transaction.income} == true ? 'color: green' : 'color: red'"></td>
-                    <td class="data-center" th:text="${transaction.category.name}"></td>
-                    <td class="data-icons-center">
-                        <button type="button" class="btn btn-danger p-1 text-light" data-toggle="modal"
-                                data-target="#deleteTransaction" th:data-i="${transaction.id}"><i
-                                class="fas fa-trash-alt mr-2"></i>Delete
-                        </button>
-                        <button type="button" class="btn btn-warning p-1 text-dark editIcon" data-toggle="modal"
-                                data-target="#editTransaction" th:data-id="${transaction.id}"><i
-                                class="fas fa-edit mr-2"></i>Edit
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-4" id="donutchart-trans">
-        </div>
+
+<div class="p-4 row">
+    <div class="col-7">
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr class="text-center">
+            <th>Date added</th>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Delete/Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr id="editTrans" th:each="transaction : ${transactions}" class="text-center">
+            <td class="data-center" th:text="${#dates.format(transaction.createDate, 'dd-MMM-yyyy')}"></td>
+            <td class="data-center" th:text="${transaction.name}"></td>
+            <td class="data-center money-td" th:text="'$' + ${transaction.amountInCents/100}"
+                th:style="${transaction.income} == true ? 'color: green' : 'color: red'"></td>
+            <td class="data-center" th:text="${transaction.category.name}"></td>
+            <td class="data-icons-center">
+                <button type="button" class="btn btn-danger p-1 text-light" data-toggle="modal" data-target="#deleteTransaction" th:data-i="${transaction.id}"><i class="fas fa-trash-alt mr-2"></i>Delete</button>
+                <button type="button" class="btn btn-warning p-1 text-dark editIcon" data-toggle="modal" data-target="#editTransaction" th:data-id="${transaction.id}"><i class="fas fa-edit mr-2"></i>Edit</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+    <div class="col-5" id="donutchart-trans">
+      
     </div>
 </div>
 
@@ -198,29 +193,35 @@
             $(td).text("$" + moneyParsed);
         }
     }
-    $(document).ready(function () {
-        google.charts.load("current", {packages: ["corechart"]});  //this loads visualization API and corechart package
-        google.charts.setOnLoadCallback(drawChart); //this sets callback to run when the Google Visualization API is loaded
-        function drawChart() {
-            /*<![CDATA[*/
-            var chartArray = [];
-            chartArray.push(['Categories', '% of spending']);
-            /*[# th:each="categoryTotal : ${categoryTotals}"]*/
-            chartArray.push([[[${categoryTotal.cat.name}]], [[${categoryTotal.catTotal/100}]]]);
-            /*[/]*/
-            /*]]>*/
-            console.log(chartArray);
-            var data = google.visualization.arrayToDataTable(chartArray);
 
-            var options = {
-                title: 'Summary Of Expenditures',
-                pieHole: 0.3,
-            };
+        $(document).ready(function () {
+            google.charts.load("current", {packages:["corechart"]});  //this loads visualization API and corechart package
+            google.charts.setOnLoadCallback(drawChart); //this sets callback to run when the Google Visualization API is loaded
+            function drawChart() {
+                /*<![CDATA[*/
+                var chartArray = [];
+                chartArray.push(['Income/Expenses', '% of spending']);
+                /*[# th:each="incomeTotal : ${incomeList}"]*/
+                chartArray.push([ "Income", [[${income/100}]] ],[ "expenses", [[${expenses/100}]] ]);
+                /*[/]*/
+                /*]]>*/
+            chartArray.pop();
+            chartArray.pop();
 
-            var chart = new google.visualization.PieChart(document.getElementById('donutchart-trans'));
-            chart.draw(data, options);
-        }
-    });
+                console.log(chartArray);
+
+                var data = google.visualization.arrayToDataTable(chartArray);
+
+                var options = {
+                    title: 'Income vs Expenses',
+                    pieHole: 0.3,
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('donutchart-trans'));
+                chart.draw(data, options);
+            }
+        });
+
 
 </script>
 </body>

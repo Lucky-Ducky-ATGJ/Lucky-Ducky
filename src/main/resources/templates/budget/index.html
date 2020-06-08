@@ -6,37 +6,36 @@
 <div th:replace="partials/partial :: top_banner"></div>
 <div th:replace="partials/partial :: standard_nav"></div>
 <br>
-<h1 class="text-center">The Quackulator 9000&trade;</h1>
+<h1 class="text-center">The Quackulator&trade;</h1>
 <br>
 
-<div class="row quackulator_container_start">
+<div class="quackulator_container_start"></div>
 
-    <div class="number-input">
-        <label for="income" class="mr-1 large-font">Income: </label>
+<div class="row" id="quackulator_inputs">
+    <div class="number-input" style="margin-top: 210px">
         <input type="number" step="0.01" id="income" th:value="${income/100}" placeholder="(Enter income)">
-        <button id="importIncome">Import</button>
+        <p class="mr-1 large-font" style="margin-left: 45px">Income</p>
     </div>
 
-    <div class="ml-3 mr-3 font-weight-bold large-font" id="quackulator_minus"> &mdash;</div>
+    <div class="ml-3 mr-3 font-weight-bold large-font" id="quackulator_minus" style="margin-top: 210px; margin-left: 100px"> &mdash;</div>
 
-    <div class="number-input">
-        <label for="expenditures" class="mr-1 large-font">Expenditures: </label>
+    <div class="number-input" style="margin-top: 210px">
         <input type="number" step="0.01" id="expenditures" th:value="${expenses/100}" placeholder="(Enter expenditures)">
-        <button id="importExpenditures">Import</button>
+        <p class="mr-1 large-font" style="margin-left: 20px">Expenditures</p>
     </div>
 
-    <div class="ml-3 mr-3 large-font" id="quackulator_equals"> =</div>
+    <div id="balance" class="mr-1 large-font" style="margin-top: 210px"></div>
 
-    <div class="mr-1 large-font"> Remaining:</div>
+    <p id="remaining" class="mr-1 large-font">Remaining</p>
 
-    <div class="answer large-font">
-        <p id="balance"></p>
-    </div>
 </div>
 
 <div class="button text-center">
-    <button class="btn btn-warning p-1" onclick="calculateBalance()" id="quackulator_calculate"><i class="fas fa-power-off mr-2"></i>Quackulate!</button>
+    <button class="btn btn-danger btn-circle btn-sm" onclick="calculateBalance()" id="quackulator_calculate"><i class="fas fa-power-off"></i></button>
 </div>
+
+<p id="instructions" class="mr-1" style="font-size: 18px">Press the red "Power" button <br>to calculate manual inputs!</p>
+
 <br>
 <hr>
 
