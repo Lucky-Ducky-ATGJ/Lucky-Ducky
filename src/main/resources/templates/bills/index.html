@@ -101,7 +101,7 @@
                     <div>
                         <label for="pay-amt">Enter payment amount.</label>
                         <br>
-                        <input type="number" step="0.01" id="pay-amt" name="payAmt" required>
+                        <input type="number" step="0.01" id="pay-amt" name="payAmt" oninput="check(this)" required>
                         <input type="hidden" id="payment-name" name="payName">
                         <input type="hidden" id="payment-id" name="id">
                     </div>

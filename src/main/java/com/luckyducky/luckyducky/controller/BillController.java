@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -109,9 +110,15 @@ public class BillController {
         // Get the current user and their budget
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Budget budget = budgetRepo.findBudgetByUserAndName(user, "main");
-        // Get bill that was paid from database and change paid status to true
+        // Get bill that was paid from database
         Bill bill = billRepo.getOne(id);
-        bill.setPaid(true);
+        LocalDate today = LocalDate.now();
+        LocalDate firstOfCurrentMonth = today.with( TemporalAdjusters.firstDayOfMonth() );
+        LocalDate lastOfCurrentMonth = today.with( TemporalAdjusters.lastDayOfMonth() );
+        if (payAmt >= bill.getAmountInCents()){
+            bill.setPaid(true);
+        }
+        // Set paid amount to the bills last amt
         bill.setLastAmt(payAmt);
         billRepo.save(bill);
         // Set the empty Transaction with all the data
@@ -126,7 +133,7 @@ public class BillController {
         return "redirect:/transactions";
     }
 
-/////////////////  Pay Bill  /////////////////////////
+/////////////////  Reset Bill  /////////////////////////
     @PostMapping("/bills/reset")
     public String resetBill(@RequestParam String resetDate, @RequestParam long id){
         // Get current bill info from database using id passed over
