@@ -53,6 +53,7 @@ public class BudgetController {
             }
         }
 
+
         model.addAttribute("income", thisUsersTransIncome);
         model.addAttribute("expenses", thisUsersTransExpenses);
 
