@@ -8,15 +8,13 @@
 
 <h1 class="text-center mt-4 mb-4">Your Profile</h1>
 
-<div class="container">
-
 <div class="row ml-3 mr-3">
 
     <div class="col-2" style="border: none">
         <img src="img/Ducks/LuckyTheDuck.jpeg" alt="Personal Duck" class="img-thumbnail" style="height: 175px; width: 175px">
 
-        <button type="button" class="btn btn-warning p-1 ml-4 mt-3"><a th:href="@{'/profile/profile-edit'}" style="color: dimgray"><i class="fas fa-edit mr-2" style="color: dimgray"></i>Edit Profile</a></button>
-        <button type="button" class="btn btn-danger p-1 ml-4 mt-3"><a th:href="@{'/profile/'+${user.id}+'/delete'}" style="color: white"><i class="fas fa-trash-alt mr-2" style="color: white"></i>Delete Profile</a></button>
+        <button type="button" class="btn btn-warning p-1 ml-4 mt-3"><a th:href="@{'/profile/profile-edit'}" style="color: slategray"><i class="fas fa-edit mr-2" style="color: dimgray"></i>Edit Profile</a></button>
+        <button type="button" class="btn btn-danger p-1 ml-3 mt-3"><a th:href="@{'/profile/'+${user.id}+'/delete'}" style="color: white"><i class="fas fa-trash-alt mr-2" style="color: white"></i>Delete Profile</a></button>
     </div>
 
     <div class="col-4" style="border: none">
@@ -44,19 +42,32 @@
     </div>
 
     <div class="col-5 m-0 p-0" style="border: none">
-        <div id="donutchart" class="p-0 m-0" style="width: 900px; height: 700px"></div>
+        <div id="donutchart" class="p-0 m-0" style="width: 450px; height: 350px"></div>
+        <div id="donutchart-trans" class="p-0 m-0" style="width: 450px; height: 350px"></div>
     </div>
-</div>
-
 </div>
 
 <div th:replace="partials/partial :: footer_nav"></div>
 <div th:replace="partials/partial :: footer"></div>
 
 <script th:inline="javascript" type="text/javascript">
+    $(document).ready()
+    {
+        let moneyFormat = $(".money-td");
+        console.log(moneyFormat);
+        for (let td of moneyFormat) {
+            let moneyParsed = $(td).text();
+            console.log(td);
+            moneyParsed = parseFloat(moneyParsed.substring(1)).toFixed(2);
+            $(td).text("$" + moneyParsed);
+        }
+    }
+
     $(document).ready(function () {
         google.charts.load("current", {packages:["corechart"]});  //this loads visualization API and corechart package
         google.charts.setOnLoadCallback(drawChart); //this sets callback to run when the Google Visualization API is loaded
+        google.charts.setOnLoadCallback(drawChart2); //this sets callback to run when the Google Visualization API is loaded
+
         function drawChart() {
             /*<![CDATA[*/
             var chartArray = [];
@@ -75,6 +86,30 @@
 
             var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
             chart.draw(data, options);
+        }
+
+        function drawChart2() {
+            /*<![CDATA[*/
+            var chartArray2 = [];
+            chartArray2.push(['Income/Expenses', '% of spending']);
+            /*[# th:each="incomeTotal : ${incomeList}"]*/
+            chartArray2.push([ "Income", [[${income/100}]] ],[ "expenses", [[${expenses/100}]] ]);
+            /*[/]*/
+            /*]]>*/
+            chartArray2.pop();
+            chartArray2.pop();
+
+            console.log(chartArray2);
+
+            var data2 = google.visualization.arrayToDataTable(chartArray2);
+
+            var options2 = {
+                title: 'Income vs Expenses',
+                pieHole: 0.3,
+            };
+
+            var chart2 = new google.visualization.PieChart(document.getElementById('donutchart-trans'));
+            chart2.draw(data2, options2);
         }
     });
 </script>
