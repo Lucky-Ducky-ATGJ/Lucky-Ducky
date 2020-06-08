@@ -36,39 +36,72 @@
 
             <!-- right side content -->
             <ul class="navbar-nav ml-auto">
+
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="/">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="/profile" sec:authorize="isAuthenticated()">Profile</a>
+                    <a class="nav-link" href="/profile" sec:authorize="isAuthenticated()">
+                        <i class="fas fa-user"></i>
+                        Profile
+                    </a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="/transactions" sec:authorize="isAuthenticated()">Transaction</a>
+                    <a class="nav-link" href="/transactions" sec:authorize="isAuthenticated()">
+                        <i class="fas fa-search-dollar"></i>
+                        Transactions
+                    </a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="/bills" sec:authorize="isAuthenticated()">Bills</a>
+                    <a class="nav-link" href="/bills" sec:authorize="isAuthenticated()">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    Bills
+                    </a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="/budget" sec:authorize="isAuthenticated()">Budget</a>
+                    <a class="nav-link" href="/budget" sec:authorize="isAuthenticated()">
+                        <i class="fas fa-hand-holding-usd"></i>
+                        Budget
+                    </a>
                 </li>
+
                 <li class="nav-item">
-                    <a class="nav-link" href="/about">About Us</a>
+                    <a class="nav-link" href="/about">
+                        <i class="fas fa-users"></i>
+                        About Us
+                    </a>
                 </li>
-                <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" href="/profile">
-                    <i class="fas fa-user"></i></a>
-                </li>
+
                 <li class="nav-item" sec:authorize="isAuthenticated()">
                     <form th:action="@{/logout}" th:method="post">
-                        <button class="nav-link" style="border:none; background:none; color:red">Logout</button>
+                        <button class="nav-link" style="border:none; background:none; color:red">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Logout
+                        </button>
                     </form>
                 </li>
+
                 <li class="nav-item" sec:authorize="isAnonymous()">
-                    <a class="nav-link" href="/register">Sign-Up</a>
+                    <a class="nav-link" href="/register">
+                        <i class="fas fa-user-plus"></i>
+                        Sign-Up
+                    </a>
                 </li>
+
                 <li class="nav-item" sec:authorize="isAnonymous()">
-                    <a class="nav-link" href="/login" style="color:green">Login</a>
+                    <a class="nav-link" href="/login" style="color:green">
+                    <i class="fas fa-sign-in-alt"></i>
+                        Login
+                    </a>
                 </li>
+
             </ul>
         </div>
     </nav>
