@@ -43,11 +43,16 @@ public class TransactionController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Budget> budgets = budgetRepo.findBudgetsByUser(user);
         List<Transaction> ordered = combineTransactions(budgets);
+        double thisUsersTransIncome = 0;
+        double thisUsersTransExpenses = 0;
         double amount = transaction.getAmountInCents();
+        List<Double> incomeList = new ArrayList<Double>();
+        List<Double> expensesList = new ArrayList<Double>();
         model.addAttribute("amount", amount);
         model.addAttribute("transactions", ordered);
         model.addAttribute("transaction", transaction);
         model.addAttribute("categories", catRepo.findAll());
+
 
 
         List<Budget> theseBudgets = budgetRepo.findBudgetsByUser(user);
@@ -76,7 +81,28 @@ public class TransactionController {
             }
             categoryTotals.add(thisOne);
         }
+
+        for ( Budget userBudget : theseBudgets) {
+            List<Transaction> allTx = transRepo.findAllByBudget(userBudget);
+            if (allTx.size() != 0) {
+                // we got some results, so LET'S GOOOOOOO
+                for( Transaction currentTx :  allTx) {
+                    if (currentTx.getIncome() == true){
+                        thisUsersTransIncome += currentTx.getAmountInCents();
+                    }else{
+                        thisUsersTransExpenses += currentTx.getAmountInCents();
+                    }
+                }
+            }
+        }
+        incomeList.add(thisUsersTransIncome);
+        incomeList.add(thisUsersTransExpenses);
+
+        model.addAttribute("income", thisUsersTransIncome);
+        model.addAttribute("expenses", thisUsersTransExpenses);
         model.addAttribute("categoryTotals", categoryTotals);
+        model.addAttribute("incomeList", incomeList);
+        model.addAttribute("expensesList", expensesList);
 
         return "transactions/index";
     }

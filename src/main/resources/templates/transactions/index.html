@@ -12,7 +12,7 @@
 
 <div class="container">
 <div class="p-4 row">
-    <div class="col-8">
+    <div class="col-7">
     <table class="table table-hover">
         <thead class="thead-dark">
         <tr class="text-center">
@@ -38,7 +38,7 @@
         </tbody>
     </table>
     </div>
-    <div class="col-4" id="donutchart-trans">
+    <div class="col-5" id="donutchart-trans">
     </div>
 </div>
 </div>
@@ -183,16 +183,20 @@
             function drawChart() {
                 /*<![CDATA[*/
                 var chartArray = [];
-                chartArray.push(['Categories', '% of spending']);
-                /*[# th:each="categoryTotal : ${categoryTotals}"]*/
-                chartArray.push([ [[${categoryTotal.cat.name}]], [[${categoryTotal.catTotal/100}]] ]);
+                chartArray.push(['Income/Expenses', '% of spending']);
+                /*[# th:each="incomeTotal : ${incomeList}"]*/
+                chartArray.push([ "Income", [[${income/100}]] ],[ "expenses", [[${expenses/100}]] ]);
                 /*[/]*/
                 /*]]>*/
+            chartArray.pop();
+            chartArray.pop();
+
                 console.log(chartArray);
+
                 var data = google.visualization.arrayToDataTable(chartArray);
 
                 var options = {
-                    title: 'Summary Of Expenditures',
+                    title: 'Income vs Expenses',
                     pieHole: 0.3,
                 };
 
