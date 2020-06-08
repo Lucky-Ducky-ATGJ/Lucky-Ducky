@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
@@ -58,6 +59,12 @@ public class BillController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Transaction> transactions = new ArrayList<>();
         // Set the bill isPaid, User and Transaction properties
+//        Budget budget = budgetRepo.findBudgetByUserAndName(user, "main");
+//        ZoneId zoneId = ZoneId.of ( "America/Chicago" );
+//        LocalDate today = LocalDate.now ( zoneId );
+//        LocalDate firstOfCurrentMonth = today.with( TemporalAdjusters.firstDayOfMonth() );
+//        LocalDate lastOfCurrentMonth = today.with( TemporalAdjusters.lastDayOfMonth() );
+//        List<Transaction> listThem = transRepo.findAllByBudgetAndCategory_IdAndCreateDateIsBetween(budget,1L,firstOfCurrentMonth,lastOfCurrentMonth);
         bill.setPaid(false);
         bill.setUser(user);
         bill.setTransactions(transactions);
