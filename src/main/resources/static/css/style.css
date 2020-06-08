@@ -264,12 +264,54 @@ margin-right: 153px;
     border-radius: 16px;
     font-size: 14px;
     text-align: center;
+    border: transparent;
+    background-color: red;
+}
+
+#quackulator_calculate i{
+    color: white;
 }
 
 #instructions {
     transform: translateX(-55%) translateY(-300%);
     left: 48%;
     position: absolute;
+}
+
+.btn-danger{
+    border: transparent;
+    background-color: lightgray;
+}
+
+.btn-danger i{
+    color: black;
+}
+
+.btn-warning{
+    border: transparent;
+    background-color: lightgray;
+}
+
+.btn-warning i{
+    color: black;
+}
+
+#edit_profile{
+    border: transparent;
+    background-color: goldenrod;
+}
+
+#edit_profile i{
+    color: black;
+}
+
+#delete_profile{
+    border: transparent;
+    background-color: indianred;
+}
+
+#delete_profile i{
+    color: black;
 }
 
 .footer > .navbar-nav > li > a {padding-top:5px !important; padding-bottom:5px !important;}

@@ -27,7 +27,7 @@
             <th>Name</th>
             <th>Amount</th>
             <th>Category</th>
-            <th>Delete/Edit</th>
+            <th>Edit/Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -37,9 +37,9 @@
             <td class="data-center money-td" th:text="'$' + ${transaction.amountInCents/100}"
                 th:style="${transaction.income} == true ? 'color: green' : 'color: red'"></td>
             <td class="data-center" th:text="${transaction.category.name}"></td>
-            <td class="data-icons-center">
-                <button type="button" class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteTransaction" th:data-i="${transaction.id}"><i class="fas fa-trash-alt mr-2"></i>Delete</button>
-                <button type="button" class="btn btn-warning text-dark editIcon" data-toggle="modal" data-target="#editTransaction" th:data-id="${transaction.id}"><i class="fas fa-edit mr-2"></i>Edit</button>
+            <td class="text-center">
+                <button type="button" class="btn btn-warning text-black-50 editIcon" data-toggle="modal" data-target="#editTransaction" th:data-id="${transaction.id}"><i class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-danger text-black-50" data-toggle="modal" data-target="#deleteTransaction" th:data-i="${transaction.id}"><i class="fas fa-trash-alt"></i></button>
             </td>
         </tr>
         </tbody>
@@ -51,12 +51,12 @@
     </div>
 </div>
 
-<div class="text-center">
-    <button type="button" id="addBButton" class="btn bg-transparent border border-dark p-1" data-toggle="modal"
-            data-target="#addTransaction">+
-    </button>
-    <label class="ml-2"> Add a Transaction</label>
-</div>
+    <div class="text-center">
+        <button type="button" id="addBButton" class="btn btn-primary p-2 w-auto" data-toggle="modal"
+                data-target="#addTransaction"><i class="fas fa-plus mr-2"></i>Add a Transaction
+        </button>
+    </div>
+
 
 <div class="modal fade" id="deleteTransaction" tabindex="-1" role="dialog" aria-labelledby="deleteConfirm"
      aria-hidden="true">
