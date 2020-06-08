@@ -89,7 +89,7 @@
 
 <script th:inline="javascript" type="text/javascript">
     $(document).ready(function () {
-        google.charts.load("current", {packages: ["corechart"]});  //this loads visualization API and corechart package
+        google.charts.load("current", {packages: ["corechart",]});  //this loads visualization API and corechart package
         google.charts.setOnLoadCallback(drawChart); //this sets callback to run when the Google Visualization API is loaded
 
         function drawChart() {
