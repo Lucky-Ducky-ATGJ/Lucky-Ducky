@@ -24,6 +24,12 @@
     <div class="row">
         <div class="col-lg-2 px-auto mt-5">
             <img src="../../img/Ducks/LuckyTheDuck.jpeg" alt="Lucky Duck" class="img-thumbnail" style="height: 175px; width: 175px">
+            <button type="button" class="btn btn-warning p-1 ml-4 mt-3">
+                <a th:href="@{'/profile'}" style="color: black">
+                    <i class="fas fa-user mr-2" style="color: black"></i>
+                    Profile
+                </a>
+            </button>
         </div>
 
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
@@ -57,8 +63,8 @@
                             <input class="ml-auto mt-2" id="email" th:field="*{email}"/>
                         </div>
 
-                        <button class="btn btn-lg btn-primary btn-block text-uppercase mt-3" type="submit">SAVE
-                            CHANGES
+                        <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">
+                            <i class="fas fa-check mr-2"></i>Save Changes
                         </button>
 
                     </form>
@@ -86,7 +92,8 @@
                             <input class="ml-auto mt-2" type="password" id="confirmNewPass" name="confirmNewPass"/>
                         </div>
 
-                        <button class="btn btn-lg btn-primary btn-block text-uppercase mt-3" type="submit">Update
+                        <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">
+                            <i class="fas fa-check mr-2"></i>Update
                             Password
                         </button>
 
