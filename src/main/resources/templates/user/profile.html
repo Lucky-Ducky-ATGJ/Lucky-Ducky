@@ -98,21 +98,18 @@
             var chartArray = [];
             chartArray.push(['Categories', '% of spending']);
             /*[# th:each="categoryTotal : ${categoryTotals}"]*/
-            chartArray.push([[[${categoryTotal.cat.name}]], [[${categoryTotal.catTotal/100}]]]);
+            echartArray.push([ [[${categoryTotal.cat.name}]], [[${categoryTotal.catTotal/100}]] ]);
             /*[/]*/
             /*]]>*/
             console.log(chartArray);
             var data = google.visualization.arrayToDataTable(chartArray);
-
             var options = {
                 title: 'Transaction Summary (by Category)',
                 pieHole: 0.3,
             };
-
             var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
             chart.draw(data, options);
         }
-
     });
 </script>
 </body>
