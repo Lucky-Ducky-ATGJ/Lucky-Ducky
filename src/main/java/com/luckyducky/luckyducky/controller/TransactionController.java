@@ -111,9 +111,14 @@ public class TransactionController {
     public String newTransaction(@ModelAttribute Transaction transaction) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Budget userBudget = budgetRepo.findBudgetByUserAndName(user, "main");
-        transaction.setBudget(userBudget);
-        transRepo.save(transaction);
+        try {
+            transaction.setBudget(userBudget);
+            transRepo.save(transaction);
+            return "redirect:/transactions";
+        } catch (Exception e) {
+            e.printStackTrace();
         return "redirect:/transactions";
+        }
     }
 
     @PostMapping("/transactions/delete")
