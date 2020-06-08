@@ -10,52 +10,51 @@
 
 <div class="row ml-3 mr-3">
 
-        <div class="col-2" style="border: none">
-            <img src="img/Ducks/LuckyTheDuck.jpeg" alt="Personal Duck" class="img-thumbnail"
-                 style="height: 175px; width: 175px">
+    <div class="col-2" style="border: none">
+        <img src="img/Ducks/LuckyTheDuck.jpeg" alt="Personal Duck" class="img-thumbnail"
+             style="height: 175px; width: 175px">
 
-            <button type="button" class="btn btn-warning p-1 ml-4 mt-3">
-                <a th:href="@{'/profile/profile-edit'}" style="color: slategrey">
-                    <i class="fas fa-edit mr-2" style="color: dimgray"></i>
-                    Edit Profile
-                </a>
-            </button>
+        <button type="button" class="btn btn-warning p-1 ml-4 mt-3">
+            <a th:href="@{'/profile/profile-edit'}" style="color: slategrey">
+                <i class="fas fa-edit mr-2" style="color: dimgray"></i>
+                Edit Profile
+            </a>
+        </button>
 
-            <button type="button" class="btn btn-danger p-1 ml-4 mt-3" data-toggle="modal" data-target="#deleteProfile">
-                    <i class="fas fa-trash-alt mr-2" style="color: white"></i>
-                    Delete Profile
-                </a>
-            </button>
+        <button type="button" class="btn btn-danger p-1 ml-4 mt-3" data-toggle="modal" data-target="#deleteProfile">
+            <i class="fas fa-trash-alt mr-2" style="color: white"></i>
+            Delete Profile
+        </button>
+    </div>
+
+    <div class="col-4" style="border: none">
+        <h3 style="text-decoration-line: underline">Upcoming Bills</h3>
+        <div th:each="bill : ${upcomingBills}" style="margin-top: 5%; margin-bottom: 5%">
+            <span th:text="${bill.name} + ' is due on ' + ${bill.dueDate}"></span>
         </div>
 
-        <div class="col-4" style="border: none">
-            <h3 style="text-decoration-line: underline">Upcoming Bills</h3>
-            <div th:each="bill : ${upcomingBills}" style="margin-top: 5%; margin-bottom: 5%">
-                <span th:text="${bill.name} + ' is due on ' + ${bill.dueDate}"></span>
-            </div>
-
-            <h3 style="text-decoration-line: underline">Overdue Bills</h3>
-            <div th:each="bill : ${overdueBills}" style="margin-top: 5%; margin-bottom: 5%">
-                <span th:text="${bill.name} + ' was due on ' + ${bill.dueDate}" style="color: red"></span>
-            </div>
-
-            <h3 style="text-decoration-line: underline">Goal Tracker</h3>
-            <div th:each="budget : ${newGoal}" style="margin-top: 5%; margin-bottom: 10%">
-                <label th:text="${budget.name}"></label>
-                <label th:text="${'Goal: $' + (budget.balance_in_cents - budget.goal_funds)/100}"
-                       class="float-right"></label>
-                <div class="progress border border-dark mt-1"
-                     style="height: 25px; width: 430px; background-color: lightskyblue">
-                    <div class="progress-bar" role="progressbar"
-                         th:style="'width:' + ((${budget.goal_funds} * 100) / ${budget.balance_in_cents}) + '%'"
-                         th:text="'$' + ${budget.goal_funds/100}"></div>
-                </div>
-                <hr>
-            </div>
-
-<!--            <div th:if="${param.logout}">You have been logged out.</div>-->
+        <h3 style="text-decoration-line: underline">Overdue Bills</h3>
+        <div th:each="bill : ${overdueBills}" style="margin-top: 5%; margin-bottom: 5%">
+            <span th:text="${bill.name} + ' was due on ' + ${bill.dueDate}" style="color: red"></span>
         </div>
-  
+
+        <h3 style="text-decoration-line: underline">Goal Tracker</h3>
+        <div th:each="budget : ${newGoal}" style="margin-top: 5%; margin-bottom: 10%">
+            <label th:text="${budget.name}"></label>
+            <label th:text="${'Goal: $' + (budget.balance_in_cents - budget.goal_funds)/100}"
+                   class="float-right"></label>
+            <div class="progress border border-dark mt-1"
+                 style="height: 25px; width: 430px; background-color: lightskyblue">
+                <div class="progress-bar" role="progressbar"
+                     th:style="'width:' + ((${budget.goal_funds} * 100) / ${budget.balance_in_cents}) + '%'"
+                     th:text="'$' + ${budget.goal_funds/100}"></div>
+            </div>
+            <hr>
+        </div>
+
+        <!--            <div th:if="${param.logout}">You have been logged out.</div>-->
+    </div>
+
     <div class="modal fade" id="deleteProfile" tabindex="-1" role="dialog" aria-labelledby="deleteConfirm"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -80,31 +79,19 @@
                 </div>
             </div>
         </div>
+    </div>
     <div class="col-5 m-0 p-0" style="border: none">
         <div id="donutchart" class="p-0 m-0" style="width: 450px; height: 350px"></div>
-        <div id="donutchart-trans" class="p-0 m-0" style="width: 450px; height: 350px"></div>
+        <!--        <div id="donutchart-trans" class="p-0 m-0" style="width: 450px; height: 350px"></div>-->
     </div>
-
+</div>
 <div th:replace="partials/partial :: footer_nav"></div>
 <div th:replace="partials/partial :: footer"></div>
 
 <script th:inline="javascript" type="text/javascript">
-    $(document).ready()
-    {
-        let moneyFormat = $(".money-td");
-        console.log(moneyFormat);
-        for (let td of moneyFormat) {
-            let moneyParsed = $(td).text();
-            console.log(td);
-            moneyParsed = parseFloat(moneyParsed.substring(1)).toFixed(2);
-            $(td).text("$" + moneyParsed);
-        }
-    }
-
     $(document).ready(function () {
         google.charts.load("current", {packages: ["corechart"]});  //this loads visualization API and corechart package
         google.charts.setOnLoadCallback(drawChart); //this sets callback to run when the Google Visualization API is loaded
-        google.charts.setOnLoadCallback(drawChart2); //this sets callback to run when the Google Visualization API is loaded
 
         function drawChart() {
             /*<![CDATA[*/
@@ -126,29 +113,6 @@
             chart.draw(data, options);
         }
 
-        function drawChart2() {
-            /*<![CDATA[*/
-            var chartArray2 = [];
-            chartArray2.push(['Income/Expenses', '% of spending']);
-            /*[# th:each="incomeTotal : ${incomeList}"]*/
-            chartArray2.push([ "Income", [[${income/100}]] ],[ "expenses", [[${expenses/100}]] ]);
-            /*[/]*/
-            /*]]>*/
-            chartArray2.pop();
-            chartArray2.pop();
-
-            console.log(chartArray2);
-
-            var data2 = google.visualization.arrayToDataTable(chartArray2);
-
-            var options2 = {
-                title: 'Income vs Expenses',
-                pieHole: 0.3,
-            };
-
-            var chart2 = new google.visualization.PieChart(document.getElementById('donutchart-trans'));
-            chart2.draw(data2, options2);
-        }
     });
 </script>
 </body>
