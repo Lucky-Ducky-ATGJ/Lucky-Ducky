@@ -60,23 +60,23 @@ public class BudgetController {
         return "budget/index"; // Sends a Model over page to HTML that contains both "budget" and "transactions" with values
     }
 
-    @GetMapping("/transactions.json")
-    public @ResponseBody
-        double viewAllTransactionsInJSONFormat() {
-        return transRepo.getTotalIncome();
-    }
-
-    @GetMapping("/transactions2.json")
-    public @ResponseBody
-        double viewAllExpendituresInJSONFormat() {
-        return transRepo.getTotalExpenditures();
-    }
-
-    @GetMapping("/goals.json")
-    public @ResponseBody
-        double viewAllGoalsInJSONFormat() {
-        return transRepo.getGoalTotal();
-    }
+//    @GetMapping("/transactions.json")
+//    public @ResponseBody
+//        double viewAllTransactionsInJSONFormat() {
+//        return transRepo.getTotalIncome();
+//    }
+//
+//    @GetMapping("/transactions2.json")
+//    public @ResponseBody
+//        double viewAllExpendituresInJSONFormat() {
+//        return transRepo.getTotalExpenditures();
+//    }
+//
+//    @GetMapping("/goals.json")
+//    public @ResponseBody
+//        double viewAllGoalsInJSONFormat() {
+//        return transRepo.getGoalTotal();
+//    }
 
     @PostMapping("/addGoal")
     public String addGoal(@ModelAttribute Budget budget){
@@ -101,12 +101,12 @@ public class BudgetController {
         return "redirect:/budget";
     }
 
-    @GetMapping("/spentbycategory.json")
-    public @ResponseBody
-    List<Double> viewSpentByCategoryInJSONFormat() {
-        List<Double> listOfTotals = transRepo.getTotalExpendituresByCategory();
-        return transRepo.getTotalExpendituresByCategory();
-    }
+//    @GetMapping("/spentbycategory.json")
+//    public @ResponseBody
+//    List<Double> viewSpentByCategoryInJSONFormat() {
+//        List<Double> listOfTotals = transRepo.getTotalExpendituresByCategory();
+//        return transRepo.getTotalExpendituresByCategory();
+//    }
 
     public List<Budget> updatedGoalAmounts(List<Budget> budgetList){
         for(Budget budget : budgetList){
