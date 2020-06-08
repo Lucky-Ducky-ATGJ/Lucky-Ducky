@@ -9,6 +9,7 @@
 <br>
 <h1 class="text-center">Your Bills</h1>
 
+<div class="container">
 <div class="p-4">
     <table class="table table-hover" id="bill-table">
         <thead class="thead-dark">
@@ -47,6 +48,7 @@
     </div>
 </div>
 
+</div>
 <div class="modal fade" id="deleteBill" tabindex="-1" role="dialog" aria-labelledby="deleteConfirm"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -180,7 +182,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-center" id="resetBillLabel">Reset <span id="reset-name"></span></h5>
+                <h5 class="modal-title text-center" id="resetBillLabel">Reset <span id="reset-name"></span> Pay Status?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -188,21 +190,20 @@
             <div class="modal-body">
                 <form th:action="@{/bills/reset}" th:method="post">
                     <div>
-                        <label for="pay-amt">Enter New Date.</label>
+                        <label for="pay-amt">Enter New Due Date</label>
                         <br>
                         <input type="date" id="reset-date" name="resetDate">
                         <input type="hidden" id="reset-id" name="id">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
                         <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel</button>
-                        <button type="submit" class="btn btn-success"><i class="fas fa-dollar-sign mr-2"></i>Confirm Reset</button>
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-check mr-2"></i>Confirm Reset</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
 
 <div th:replace="partials/partial :: footer_nav"></div>
 <div th:replace="partials/partial :: footer"></div>

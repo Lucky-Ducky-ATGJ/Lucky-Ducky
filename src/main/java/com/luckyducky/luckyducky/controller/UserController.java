@@ -197,7 +197,7 @@ public class UserController {
         user.setPassword(tempUser.getPassword());
         user.setId(tempUser.getId());
         userRepo.save(user);
-        return "redirect:/profile";
+        return "redirect:/profile-info-updated";
     }
 
     @PostMapping("/profile/password-edit")
@@ -212,7 +212,7 @@ public class UserController {
         String hash = passwordEncoder.encode(newPass);
         user.setPassword(hash);
         userRepo.save(user);
-        return "redirect:/profile";
+        return "redirect:/profile-password-updated";
     }
 
     @RequestMapping("/profile/profile-edit-CCP")
@@ -240,6 +240,26 @@ public class UserController {
         model.addAttribute("mp",true);
         return "user/profile-edit";
     }
+
+    @RequestMapping("/profile-info-updated")
+    public String infoUpdated(Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User tempUser = userRepo.getOne(user.getId());
+        model.addAttribute("user", tempUser);
+        model.addAttribute("sei", true);
+        return "user/profile-edit";
+    }
+
+    @RequestMapping("/profile-password-updated")
+    public String passwordUpdated(Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User tempUser = userRepo.getOne(user.getId());
+        model.addAttribute("user", tempUser);
+        model.addAttribute("scp", true);
+        return "user/profile-edit";
+    }
+
+
 
     private void authenticate(User user) {
         // Notice how we're using an empty list for the roles
