@@ -85,6 +85,7 @@ $("document").ready(function () {
         });
 
         request.done(function (goalTotal) {
+            goalTotal.toFixed(2)
             $(".progressBar").val(goalTotal).value.trigger('click')
         }, 10);
 
