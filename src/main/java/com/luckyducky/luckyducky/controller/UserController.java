@@ -7,6 +7,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -156,26 +157,13 @@ public class UserController {
         return "user/profile";
     }
 
-    @GetMapping("/profile/{id}/delete")
-    public String getDeleteProfileForm(@PathVariable long id, Model model) {
-        Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (obj == null || !(obj instanceof UserDetails)) {
-            return "redirect:/login";
-        }
-        User user = (User) obj;
-        User singleUser = userRepo.getOne(id);
-        if (user.getId() != user.getId()) {
-            return "redirect:/profile/" + user.getId();
-        }
-        model.addAttribute("user", singleUser);
-        return "user/delete";
-    }
-
-    @PostMapping("/profile/{id}/delete")
-    public String deleteProfile(@PathVariable long id, Model model) {
-        User singleUser = userRepo.getOne(id);
+    @PostMapping("/profile/delete")
+    public String deleteProfile(Model model) {
+        User tempUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User singleUser = userRepo.getOne(tempUser.getId());
         userRepo.delete(singleUser);
-        return "redirect:/login";
+        model.addAttribute("pd",true);
+        return "user/login";
     }
 
     //    I added the part below, remove it if it doesn't work.
@@ -197,7 +185,7 @@ public class UserController {
         user.setPassword(tempUser.getPassword());
         user.setId(tempUser.getId());
         userRepo.save(user);
-        return "redirect:/profile";
+        return "redirect:/profile-info-updated";
     }
 
     @PostMapping("/profile/password-edit")
@@ -212,7 +200,7 @@ public class UserController {
         String hash = passwordEncoder.encode(newPass);
         user.setPassword(hash);
         userRepo.save(user);
-        return "redirect:/profile";
+        return "redirect:/profile-password-updated";
     }
 
     @RequestMapping("/profile/profile-edit-CCP")
@@ -238,6 +226,24 @@ public class UserController {
         User user = userRepo.getOne(tempUser.getId());
         model.addAttribute("user", user);
         model.addAttribute("mp",true);
+        return "user/profile-edit";
+    }
+
+    @RequestMapping("/profile-info-updated")
+    public String infoUpdated(Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User tempUser = userRepo.getOne(user.getId());
+        model.addAttribute("user", tempUser);
+        model.addAttribute("sei", true);
+        return "user/profile-edit";
+    }
+
+    @RequestMapping("/profile-password-updated")
+    public String passwordUpdated(Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User tempUser = userRepo.getOne(user.getId());
+        model.addAttribute("user", tempUser);
+        model.addAttribute("scp", true);
         return "user/profile-edit";
     }
 

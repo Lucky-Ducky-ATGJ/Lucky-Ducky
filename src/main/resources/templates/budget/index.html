@@ -6,7 +6,7 @@
 <div th:replace="partials/partial :: top_banner"></div>
 <div th:replace="partials/partial :: standard_nav"></div>
 <br>
-<h1 class="text-center">The Quackulator&trade;</h1>
+<h1 class="text-center">The Quackulator</h1>
 <br>
 
 <div class="quackulator_container_start"></div>
@@ -41,40 +41,35 @@
 
 <h1 class="text-center">Your Goals</h1>
 <br>
-<div class="container">
-    <div th:each="budget : ${newGoal}" class="row mb-4 d-flex justify-content-center ml-5">
 
-        <label th:text="${budget.name}" class="mr-3 my-auto large-font" style="margin-left: 95px"></label>
 
-        <input type="hidden" id="grabGoalTotalBalance" th:value="${budget.balance_in_cents/100}">
 
-        <div class="progress border border-dark mt-1" style="height: 25px; width: 500px; background-color: lightblue">
-            <div class="progress-bar" role="progressbar"
-                 th:style="'width:' + ((${budget.goal_funds} * 100) / ${budget.balance_in_cents}) + '%'"
-                 th:text="'$' + ${budget.goal_funds/100}">
-            </div>
-        </div>
 
-        <label th:text="${'Goal: $' + (budget.balance_in_cents/100)}" class="ml-3 my-auto large-font"></label>
 
-        <button type="button" id="addFundsButton" class="btn btn-success p-1" data-toggle="modal" data-target="#addFundsModal" th:data-goal="${budget.name}"><i class="fas fa-dollar-sign mr-2"></i>Add Funds</button>
-        <button type="button" class="btn btn-danger p-1" data-toggle="modal" data-target="#deleteGoal" th:data-i="${budget.id}"><i class="fas fa-trash-alt mr-2"></i>Delete</button>
-        <button type="button" class="btn btn-warning p-1 editIcon" data-toggle="modal" data-target="#editGoal" th:data-id="${budget.id}"><i class="fas fa-edit mr-2"></i>Edit</button>
 
-        <div class="w-100"></div>
+<div th:each="budget : ${newGoal}">
 
-        <div class="row d-flex justify-content-center">
-            <div class="col">
-                <p th:text="'$' + ${(budget.balance_in_cents - budget.goal_funds)/100 + ' Left to Go!'}"
-                   class="my-auto large-font"></p>
-            </div>
-        </div>
+    <div class="text-center">
+        <label th:text="${budget.name}" class="float-left" style="margin-left: 427px"></label> <label th:text="${'Goal: $' + (budget.balance_in_cents - budget.goal_funds)/100}"></label>
+    </div>
 
+    <div class="progress border border-dark" style="height: 25px; width: 570px; background-color: lightskyblue; margin-left: auto; margin-right: auto">
+        <div class="progress-bar text-center" role="progressbar" th:style="'width:' + ((${budget.goal_funds} * 100) / ${budget.balance_in_cents}) + '%'" th:text="'$' + ${budget.goal_funds/100}"></div>
+    </div>
+
+    <div style="margin-left: 650px" class="mt-3">
+        <p th:text="'$' + ${(budget.balance_in_cents - budget.goal_funds)/100 + ' Left to Go!'}"></p>
+    </div>
+
+    <div style="margin-left: 550px" class="mt-3 mb-5">
+        <button type="button" id="addFundsButton" class="btn btn-success" data-toggle="modal" data-target="#addFundsModal" th:data-goal="${budget.name}"><i class="fas fa-dollar-sign mr-2"></i>Add Funds</button>
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteGoal" th:data-i="${budget.id}"><i class="fas fa-trash-alt mr-2"></i>Delete</button>
+        <button type="button" class="btn btn-warning editIcon" data-toggle="modal" data-target="#editGoal" th:data-id="${budget.id}"><i class="fas fa-edit mr-2"></i>Edit</button>
     </div>
 </div>
 
-<div class="text-center">
-    <button type="button" id="addGoalButton" class="btn bg-transparent border border-dark p-1" data-toggle="modal" data-target="#addGoalModal">+</button><label class="ml-2"> Add a Goal</label>
+<div style="margin-left: 650px">
+    <button type="button" id="addBButton" class="btn bg-transparent border border-dark p-1" data-toggle="modal" data-target="#addGoalModal">+</button><label class="ml-2"> Add a Goal</label>
 </div>
 
 <!--ADD GOAL MODAL-->

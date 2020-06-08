@@ -11,10 +11,20 @@
 <div class="row ml-3 mr-3">
 
     <div class="col-2" style="border: none">
-        <img src="img/Ducks/LuckyTheDuck.jpeg" alt="Personal Duck" class="img-thumbnail" style="height: 175px; width: 175px">
+        <img src="img/Ducks/LuckyTheDuck.jpeg" alt="Personal Duck" class="img-thumbnail"
+             style="height: 175px; width: 175px">
 
-        <button type="button" class="btn btn-warning p-1 ml-4 mt-3"><a th:href="@{'/profile/profile-edit'}" style="color: dimgray"><i class="fas fa-edit mr-2" style="color: dimgray"></i>Edit Profile</a></button>
-        <button type="button" class="btn btn-danger p-1 ml-4 mt-3"><a th:href="@{'/profile/'+${user.id}+'/delete'}" style="color: white"><i class="fas fa-trash-alt mr-2" style="color: white"></i>Delete Profile</a></button>
+        <button type="button" class="btn btn-warning p-1 ml-4 mt-3">
+            <a th:href="@{'/profile/profile-edit'}" style="color: slategrey">
+                <i class="fas fa-edit mr-2" style="color: dimgray"></i>
+                Edit Profile
+            </a>
+        </button>
+
+        <button type="button" class="btn btn-danger p-1 ml-4 mt-3" data-toggle="modal" data-target="#deleteProfile">
+            <i class="fas fa-trash-alt mr-2" style="color: white"></i>
+            Delete Profile
+        </button>
     </div>
 
     <div class="col-4" style="border: none">
@@ -31,34 +41,64 @@
         <h3 style="text-decoration-line: underline">Goal Tracker</h3>
         <div th:each="budget : ${newGoal}" style="margin-top: 5%; margin-bottom: 10%">
             <label th:text="${budget.name}"></label>
-            <label th:text="${'Goal: $' + (budget.balance_in_cents - budget.goal_funds)/100}" class="float-right"></label>
-            <div class="progress border border-dark mt-1" style="height: 25px; width: 430px; background-color: lightskyblue">
-                <div class="progress-bar" role="progressbar" th:style="'width:' + ((${budget.goal_funds} * 100) / ${budget.balance_in_cents}) + '%'" th:text="'$' + ${budget.goal_funds/100}"></div>
+            <label th:text="${'Goal: $' + (budget.balance_in_cents - budget.goal_funds)/100}"
+                   class="float-right"></label>
+            <div class="progress border border-dark mt-1"
+                 style="height: 25px; width: 430px; background-color: lightskyblue">
+                <div class="progress-bar" role="progressbar"
+                     th:style="'width:' + ((${budget.goal_funds} * 100) / ${budget.balance_in_cents}) + '%'"
+                     th:text="'$' + ${budget.goal_funds/100}"></div>
             </div>
             <hr>
         </div>
 
-        <div th:if="${param.logout}">You have been logged out.</div>
+        <!--            <div th:if="${param.logout}">You have been logged out.</div>-->
     </div>
 
+    <div class="modal fade" id="deleteProfile" tabindex="-1" role="dialog" aria-labelledby="deleteConfirm"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirm">Delete Your Profile?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>All data will be erased! This is permanent and cannot be undone.</p>
+                </div>
+                <div class="modal-footer d-flex justify-content-around">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel
+                    </button>
+                    <form th:action="@{/profile/delete}" th:method="post">
+                        <button type="submit" class="btn btn-success" name="id" id="delete-id"><i
+                                class="far fa-check-circle mr-2"></i>Confirm
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="col-5 m-0 p-0" style="border: none">
-        <div id="donutchart" class="p-0 m-0" style="width: 900px; height: 700px"></div>
+        <div id="donutchart" class="p-0 m-0" style="width: 450px; height: 350px"></div>
+        <!--        <div id="donutchart-trans" class="p-0 m-0" style="width: 450px; height: 350px"></div>-->
     </div>
 </div>
-
 <div th:replace="partials/partial :: footer_nav"></div>
 <div th:replace="partials/partial :: footer"></div>
 
 <script th:inline="javascript" type="text/javascript">
     $(document).ready(function () {
-        google.charts.load("current", {packages:["corechart"]});  //this loads visualization API and corechart package
+        google.charts.load("current", {packages: ["corechart"]});  //this loads visualization API and corechart package
         google.charts.setOnLoadCallback(drawChart); //this sets callback to run when the Google Visualization API is loaded
+
         function drawChart() {
             /*<![CDATA[*/
             var chartArray = [];
             chartArray.push(['Categories', '% of spending']);
             /*[# th:each="categoryTotal : ${categoryTotals}"]*/
-            chartArray.push([ [[${categoryTotal.cat.name}]], [[${categoryTotal.catTotal/100}]] ]);
+            chartArray.push([[[${categoryTotal.cat.name}]], [[${categoryTotal.catTotal/100}]]]);
             /*[/]*/
             /*]]>*/
             console.log(chartArray);
@@ -72,6 +112,7 @@
             var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
             chart.draw(data, options);
         }
+
     });
 </script>
 </body>
