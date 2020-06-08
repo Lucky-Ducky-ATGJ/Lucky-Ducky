@@ -74,15 +74,10 @@ public class BillController {
         LocalDate lDate = LocalDate.parse(date);
         // using Id get the current Bill with that Id
         Bill bill = billRepo.getOne(id);
-        double last = 0;
-        if (bill.getLastAmt() != 0) {
-            last = bill.getLastAmt();
-        }
         // Get the current User
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         // Create a new bill and use all the information above to create it
-        Bill updatedBill = new Bill(id,name,amount,lDate,bill.isPaid(),bill.getCreatedAt(),user,bill.getTransactions());
-        updatedBill.setLastAmt(last);
+        Bill updatedBill = new Bill(id,name,amount,lDate,bill.isPaid(),bill.getCreatedAt(),user);
         // Save and override the bill in the database based on the Id
         billRepo.save(updatedBill);
         // Go back to the index of Bills by the URL so that the new info loads

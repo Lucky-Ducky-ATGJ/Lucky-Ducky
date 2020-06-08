@@ -101,7 +101,7 @@
                     <div>
                         <label for="pay-amt">Enter payment amount.</label>
                         <br>
-                        <input type="number" step="0.01" id="pay-amt" name="payAmt">
+                        <input type="number" step="0.01" id="pay-amt" name="payAmt" required>
                         <input type="hidden" id="payment-name" name="payName">
                         <input type="hidden" id="payment-id" name="id">
                     </div>
@@ -133,17 +133,17 @@
                 <form th:action="@{/bills/edit}" th:method="post">
                     <div>
                         <label for="edit-name">Bill Name</label>
-                        <input type="text" class="form-control" id="edit-name" name="name">
+                        <input type="text" class="form-control" id="edit-name" name="name" required>
                     </div>
                     <br>
                     <div>
                         <label for="edit-due-date">Bill Due Date</label>
-                        <input type="date" class="form-control" id="edit-due-date" name="date">
+                        <input type="date" class="form-control" id="edit-due-date" name="date" required>
                     </div>
                     <br>
                     <div>
                         <label for="edit-amount">Bill Amount</label>
-                        <input type="number" step="0.01" class="form-control" id="edit-amount" name="amount">
+                        <input type="number" step="0.01" class="form-control" id="edit-amount" name="amount" required>
                         <input type="hidden" class="form-control" id="edit-id" name="id">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
@@ -175,19 +175,19 @@
                 <form th:action="@{/bills/add}" th:method="post" th:object="${newBill}">
                     <div>
                         <label for="add-name">Bill Name</label>
-                        <input type="text" class="form-control" id="add-name" th:field="*{name}">
+                        <input type="text" class="form-control" id="add-name" th:field="*{name}" required>
                     </div>
                     <br>
                     <div>
                         <label for="add-due-date">Bill Due Date</label>
-                        <input type="date" class="form-control" id="add-due-date" th:field="*{dueDate}">
+                        <input type="date" class="form-control" id="add-due-date" th:field="*{dueDate}" required>
                     </div>
                     <br>
                     <div>
                         <label for="add-amount">Minimum Bill Amount</label>
                         <br>
                         <input type="number" step="0.01" class="form-control" id="add-amount"
-                               th:field="*{amountInCents}" placeholder="Can be zero">
+                               th:field="*{amountInCents}" placeholder="Can be zero" required>
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
                         <button type="button" class="btn btn-danger" data-dismiss="modal"><i
@@ -219,7 +219,7 @@
                     <div>
                         <label for="pay-amt">Enter New Due Date</label>
                         <br>
-                        <input type="date" id="reset-date" name="resetDate">
+                        <input type="date" id="reset-date" name="resetDate" required>
                         <input type="hidden" id="reset-id" name="id">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
