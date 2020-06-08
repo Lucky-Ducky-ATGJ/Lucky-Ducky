@@ -15,8 +15,11 @@
 
 <div class="container">
 
-<div class="p-4 row">
-    <div class="col-8">
+<div class="mt-5 row d-flex justify-content-center">
+    <div id="donutchart-trans"></div>
+</div>
+
+<div class="row">
     <table class="table table-hover">
         <thead class="thead-dark">
         <tr class="text-center">
@@ -43,7 +46,6 @@
     </table>
     </div>
 
-    <div class="col-4" id="donutchart-trans">
 
 
     </div>
@@ -223,7 +225,13 @@
 
                 var options = {
                     title: 'Income vs Expenses',
-                    pieHole: 0.3,
+                    legend: { position: 'left', align: 'center'},
+                    chartArea:{left:0,top:30,width:"100%",height:"100%"}
+                    ,height: 400
+                    ,width: 400,
+                    is3D: true,
+                    backgroundColor: 'rgb(235,235,235)'
+
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('donutchart-trans'));

@@ -6,6 +6,8 @@
     border-color: black;
 }
 
+
+
 html {
     position: relative;
     min-height: 100%;
@@ -14,10 +16,15 @@ html {
 body {
     margin: 0 0 100px;
     font-family: 'Roboto', sans-serif;
+    background-color: #EBEBEB;
+}
+
+table{
+    background-color: ghostwhite;
 }
 
 .appTitle {
-
+    margin-top: 30px;
 }
 
 .data-center {
@@ -79,6 +86,11 @@ body {
 .table-button{
     min-width: 100px;
 }
+
+#donutchart-trans{
+margin-right: 153px;
+}
+
 #navbar-title {
     transform: translateX(-220%) translateY(-53%);
     left: 48%;

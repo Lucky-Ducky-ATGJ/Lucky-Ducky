@@ -104,7 +104,11 @@
             var data = google.visualization.arrayToDataTable(chartArray);
             var options = {
                 title: 'Transaction Summary (by Category)',
-                pieHole: 0.3,
+                legend: { position: 'left', align: 'center'},
+                chartArea:{left:0,top:30,width:"100%",height:"100%"}
+                ,height: 500
+                ,width: 500,
+                is3D: true
             };
             var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
             chart.draw(data, options);
