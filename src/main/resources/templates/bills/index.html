@@ -19,7 +19,7 @@
                 <th onclick="sortTable(1)" class="text-center">Due Date</th>
                 <th onclick="sortTable(2)" class="text-center">Minimum Amount</th>
                 <th onclick="sortTable(3)" class="text-center">Last Amount Paid</th>
-                <th onclick="sortTable(4)" class="text-center">Pay Bill/Paid</th>
+                <th onclick="sortTable(4)" class="text-center">Pay Bill/Reset</th>
                 <th class="text-center">Delete/Edit</th>
             </tr>
             </thead>
@@ -40,22 +40,23 @@
                     </button>
                 </td>
                 <td class="text-center">
-                    <button type="button" class="btn btn-danger p-1 text-light" data-toggle="modal"
-                            data-target="#deleteBill" th:data-i="${bill.id}"><i class="fas fa-trash-alt mr-2"></i>Delete
+                    <button type="button" class="btn btn-warning p-2 text-dark editIcon" data-toggle="modal"
+                            data-target="#editBill" th:data-id="${bill.id}"><i class="fas fa-edit rounded-circle"></i>
                     </button>
-                    <button type="button" class="btn btn-warning p-1 text-dark editIcon" data-toggle="modal"
-                            data-target="#editBill" th:data-id="${bill.id}"><i class="fas fa-edit mr-2"></i>Edit
+                    <button type="button" class="btn btn-danger p-2 ml-1 text-light" data-toggle="modal"
+                            data-target="#deleteBill" th:data-i="${bill.id}"><i class="fas fa-trash-alt rounded-circle"></i>
                     </button>
                 </td>
             </tr>
             </tbody>
         </table>
+
         <div class="text-center">
-            <button type="button" id="addBButton" class="btn bg-transparent border border-dark p-1" data-toggle="modal"
-                    data-target="#addBill">+
+            <button type="button" id="addBButton" class="btn btn-primary p-2 w-auto" data-toggle="modal"
+                    data-target="#addBill"><i class="fas fa-plus mr-2"></i>Add a Bill
             </button>
-            <label class="ml-2"> Add a Bill</label>
         </div>
+
     </div>
 
 </div>
