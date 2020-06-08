@@ -37,7 +37,7 @@ public class TransactionController {
         public int catTotal;
     }
 
-    @GetMapping("/transactions")        
+    @GetMapping("/transactions")
     public String showTransaction(Model model) {
         Transaction transaction = new Transaction();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -107,18 +107,31 @@ public class TransactionController {
         return "transactions/index";
     }
 
+    private double getValue(String textBoxData) {
+        try {
+            // parse the string value to double and return
+            return Double.parseDouble(textBoxData);
+        } catch (NumberFormatException e) {
+            // return zero if exception accrued due to wrong string data
+            return 0;
+        }
+    }
+
+
     @PostMapping("/transactions/add")
     public String newTransaction(@ModelAttribute Transaction transaction) {
+
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Budget userBudget = budgetRepo.findBudgetByUserAndName(user, "main");
-        try {
+//        try {
+
             transaction.setBudget(userBudget);
             transRepo.save(transaction);
             return "redirect:/transactions";
-        } catch (Exception e) {
-            e.printStackTrace();
-        return "redirect:/transactions";
-        }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        return "redirect:/transactions";
+//        }
     }
 
     @PostMapping("/transactions/delete")

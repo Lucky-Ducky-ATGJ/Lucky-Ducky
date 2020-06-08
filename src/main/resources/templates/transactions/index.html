@@ -96,12 +96,12 @@
                 <form th:action="@{/transactions/edit}" th:method="post">
                     <div>
                         <label for="edit-name">Transaction Name</label>
-                        <input type="text" class="form-control" id="edit-name" name="name">
+                        <input required type="text" class="form-control" id="edit-name" name="name">
                     </div>
 
                     <div>
                         <label for="edit-amount">Transaction Amount</label>
-                        <input type="number" step="0.01" class="form-control" id="edit-amount" name="amount">
+                        <input required type="number" step="0.01" class="form-control" id="edit-amount" name="amount">
                     </div>
 
                     <div>
@@ -146,14 +146,14 @@
                 <form th:action="@{/transactions/add}" th:method="post" th:object="${transaction}">
                     <div>
                         <label for="add-name">Transaction Name</label>
-                        <input type="text" class="form-control" id="add-name" th:field="*{name}">
+                        <input required type="text" class="form-control" id="add-name" th:field="*{name}">
                     </div>
 
                     <div>
                         <label for="add-amount">Transaction Amount</label>
 
 
-                        <input  name="amount" type="number" step="any" class="form-control" id="add-amount" th:field="*{amountInCents}">
+                        <input  required name="amount" type="number" step="any" class="form-control" id="add-amount" th:field="*{amountInCents}">
 
 
                     </div>
