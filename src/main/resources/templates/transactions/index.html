@@ -38,12 +38,12 @@
         </thead>
         <tbody>
         <tr id="editTrans" th:each="transaction : ${transactions}" class="text-center">
-            <td class="data-center" th:text="${#dates.format(transaction.createDate, 'dd-MMM-yyyy')}"></td>
-            <td class="data-center" th:text="${transaction.name}"></td>
-            <td class="data-center money-td" th:text="'$' + ${transaction.amountInCents/100}"
+            <td class="data-center align-middle" th:text="${#dates.format(transaction.createDate, 'dd-MMM-yyyy')}"></td>
+            <td class="data-center align-middle" th:text="${transaction.name}"></td>
+            <td class="data-center money-td align-middle" th:text="'$' + ${transaction.amountInCents/100}"
                 th:style="${transaction.income} == true ? 'color: green' : 'color: red'"></td>
-            <td class="data-center" th:text="${transaction.category.name}"></td>
-            <td class="text-center">
+            <td class="data-center align-middle" th:text="${transaction.category.name}"></td>
+            <td class="text-center align-middle">
                 <button type="button" class="btn btn-warning text-black-50 editIcon" data-toggle="modal"
                         data-target="#editTransaction" th:data-id="${transaction.id}"><i class="fas fa-edit"></i>
                 </button>
@@ -231,7 +231,7 @@
             var options = {
                 title: 'Income vs Expenses',
                 legend: {position: 'left', align: 'center'},
-                chartArea: {left: 0, top: 30, width: "100%", height: "100%"}
+                chartArea: {left: 0, top: 30, width: "97%", height: "97%"}
                 , height: 400
                 , width: 400,
                 is3D: true,
