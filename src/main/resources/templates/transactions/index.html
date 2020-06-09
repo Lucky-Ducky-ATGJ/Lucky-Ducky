@@ -6,8 +6,7 @@
 <div th:replace="partials/partial :: top_banner"></div>
 <div th:replace="partials/partial :: standard_nav"></div>
 
-<br>
-<h1 class="text-center">Your Transactions</h1>
+<h1 class="text-center top-title">Your Transactions</h1>
 <div th:if="${param.error}" class="alert alert-danger text-center mt-2">
     invalid input
 </div>
@@ -15,11 +14,18 @@
 
 <div class="container">
 
-<div class="mt-5 row d-flex justify-content-center">
-    <div id="donutchart-trans"></div>
-</div>
+    <div class="mt-5 row d-flex justify-content-center">
+        <div id="donutchart-trans"></div>
+    </div>
 
-<div class="row">
+    <!--    <div class="row">-->
+
+    <div class="text-center">
+        <button type="button" id="addTButton" class="btn btn-primary p-2 w-auto float-right mb-3" data-toggle="modal"
+                data-target="#addTransaction"><i class="fas fa-plus mr-2"></i>Add a Transaction
+        </button>
+    </div>
+
     <table class="table table-hover">
         <thead class="thead-dark">
         <tr class="text-center">
@@ -38,25 +44,26 @@
                 th:style="${transaction.income} == true ? 'color: green' : 'color: red'"></td>
             <td class="data-center" th:text="${transaction.category.name}"></td>
             <td class="text-center">
-                <button type="button" class="btn btn-warning text-black-50 editIcon" data-toggle="modal" data-target="#editTransaction" th:data-id="${transaction.id}"><i class="fas fa-edit"></i></button>
-                <button type="button" class="btn btn-danger text-black-50" data-toggle="modal" data-target="#deleteTransaction" th:data-i="${transaction.id}"><i class="fas fa-trash-alt"></i></button>
+                <button type="button" class="btn btn-warning text-black-50 editIcon" data-toggle="modal"
+                        data-target="#editTransaction" th:data-id="${transaction.id}"><i class="fas fa-edit"></i>
+                </button>
+                <button type="button" class="btn btn-danger text-black-50" data-toggle="modal"
+                        data-target="#deleteTransaction" th:data-i="${transaction.id}"><i
+                        class="fas fa-trash-alt"></i></button>
             </td>
         </tr>
         </tbody>
     </table>
-    </div>
-
-
-
-    </div>
-</div>
+    <!--    </div>-->
 
     <div class="text-center">
-        <button type="button" id="addBButton" class="btn btn-primary p-2 w-auto" data-toggle="modal"
+        <button type="button" id="addBButton" class="btn btn-primary p-2 w-auto float-left" data-toggle="modal"
                 data-target="#addTransaction"><i class="fas fa-plus mr-2"></i>Add a Transaction
         </button>
     </div>
-
+</div>
+<br>
+<br>
 
 <div class="modal fade" id="deleteTransaction" tabindex="-1" role="dialog" aria-labelledby="deleteConfirm"
      aria-hidden="true">
@@ -132,7 +139,6 @@
     </div>
 </div>
 
-
 <!--Add transaction modal-->
 <div class="modal fade" id="addTransaction" tabindex="-1" role="dialog" aria-labelledby="addTransactionLabel"
      aria-hidden="true">
@@ -155,7 +161,8 @@
                         <label for="add-amount">Transaction Amount</label>
 
 
-                        <input  required name="amount" type="number" step="any" class="form-control" id="add-amount" th:field="*{amountInCents}">
+                        <input required name="amount" type="number" step="any" class="form-control" id="add-amount"
+                               th:field="*{amountInCents}">
 
 
                     </div>
@@ -186,11 +193,9 @@
         </div>
     </div>
 </div>
-</div>
+
 <div th:replace="partials/partial :: footer_nav"></div>
 <div th:replace="partials/partial :: footer-transactions"></div>
-
-
 
 <script th:inline="javascript" type="text/javascript">
     $(document).ready()
@@ -205,40 +210,39 @@
         }
     }
 
-        $(document).ready(function () {
-            google.charts.load("current", {packages:["corechart"]});  //this loads visualization API and corechart package
-            google.charts.setOnLoadCallback(drawChart); //this sets callback to run when the Google Visualization API is loaded
-            function drawChart() {
-                /*<![CDATA[*/
-                var chartArray = [];
-                chartArray.push(['Income/Expenses', '% of spending']);
-                /*[# th:each="incomeTotal : ${incomeList}"]*/
-                chartArray.push([ "Income", [[${income/100}]] ],[ "expenses", [[${expenses/100}]] ]);
-                /*[/]*/
-                /*]]>*/
+    $(document).ready(function () {
+        google.charts.load("current", {packages: ["corechart"]});  //this loads visualization API and corechart package
+        google.charts.setOnLoadCallback(drawChart); //this sets callback to run when the Google Visualization API is loaded
+        function drawChart() {
+            /*<![CDATA[*/
+            var chartArray = [];
+            chartArray.push(['Income/Expenses', '% of spending']);
+            /*[# th:each="incomeTotal : ${incomeList}"]*/
+            chartArray.push(["Income", [[${income/100}]]], ["expenses", [[${expenses/100}]]]);
+            /*[/]*/
+            /*]]>*/
             chartArray.pop();
             chartArray.pop();
 
-                console.log(chartArray);
+            console.log(chartArray);
 
-                var data = google.visualization.arrayToDataTable(chartArray);
+            var data = google.visualization.arrayToDataTable(chartArray);
 
-                var options = {
-                    title: 'Income vs Expenses',
-                    legend: { position: 'left', align: 'center'},
-                    chartArea:{left:0,top:30,width:"100%",height:"100%"}
-                    ,height: 400
-                    ,width: 400,
-                    is3D: true,
-                    backgroundColor: 'rgb(239,239,239)'
+            var options = {
+                title: 'Income vs Expenses',
+                legend: {position: 'left', align: 'center'},
+                chartArea: {left: 0, top: 30, width: "100%", height: "100%"}
+                , height: 400
+                , width: 400,
+                is3D: true,
+                backgroundColor: 'rgb(239,239,239)'
 
-                };
+            };
 
-                var chart = new google.visualization.PieChart(document.getElementById('donutchart-trans'));
-                chart.draw(data, options);
-            }
-        });
-
+            var chart = new google.visualization.PieChart(document.getElementById('donutchart-trans'));
+            chart.draw(data, options);
+        }
+    });
 
 </script>
 </body>

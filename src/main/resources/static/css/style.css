@@ -21,6 +21,10 @@ table{
     background-color: ghostwhite;
 }
 
+.top-title {
+    margin-top: 40px;
+}
+
 .appTitle {
     margin-top: 30px;
 }
