@@ -41,8 +41,8 @@
         <h3 style="text-decoration-line: underline">Goal Tracker</h3>
         <div th:each="budget : ${newGoal}" style="margin-top: 5%; margin-bottom: 10%">
             <label th:text="${budget.name}"></label>
-            <label th:text="${'Goal: $' + (budget.balance_in_cents - budget.goal_funds)/100}"
-                   class="float-right"></label>
+            <label class="float-right">Goal:<span class="money-td" th:text="'$' + ${(budget.balance_in_cents - budget.goal_funds)/100}">
+                </span></label>
             <div class="progress border border-dark mt-1"
                  style="height: 25px; width: 430px; background-color: lightskyblue">
                 <div class="progress-bar" role="progressbar"
@@ -91,6 +91,18 @@
     $(document).ready(function () {
         google.charts.load("current", {packages: ["corechart",]});  //this loads visualization API and corechart package
         google.charts.setOnLoadCallback(drawChart); //this sets callback to run when the Google Visualization API is loaded
+
+        $(document).ready()
+        {
+            let moneyFormat = $(".money-td");
+            console.log(moneyFormat);
+            for (let td of moneyFormat) {
+                let moneyParsed = $(td).text();
+                console.log(td);
+                moneyParsed = parseFloat(moneyParsed.substring(1)).toFixed(2);
+                $(td).text("$" + moneyParsed);
+            }
+        }
 
         function drawChart() {
             /*<![CDATA[*/
