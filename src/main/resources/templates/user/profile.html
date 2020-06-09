@@ -69,7 +69,7 @@
                     <p>All data will be erased! This is permanent and cannot be undone.</p>
                 </div>
                 <div class="modal-footer d-flex justify-content-around">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel
+                    <button type="button" class="btn btn-danger cancel" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel
                     </button>
                     <form th:action="@{/profile/delete}" th:method="post">
                         <button type="submit" class="btn btn-success" name="id" id="delete-id"><i

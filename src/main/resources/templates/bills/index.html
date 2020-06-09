@@ -78,7 +78,7 @@
                 <p>This is permanent and cannot be undone.</p>
             </div>
             <div class="modal-footer d-flex justify-content-around">
-                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel
+                <button type="button" class="btn btn-danger cancel" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel
                 </button>
                 <form th:action="@{/bills/delete}" th:method="post">
                     <button type="submit" class="btn btn-success" name="id" id="delete-id"><i
@@ -110,7 +110,7 @@
                         <input type="hidden" id="payment-id" name="id">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                        <button type="button" class="btn btn-danger cancel" data-dismiss="modal"><i
                                 class="fas fa-ban mr-2"></i>Cancel
                         </button>
                         <button type="submit" class="btn btn-success"><i class="fas fa-dollar-sign mr-2"></i>Confirm
@@ -151,7 +151,7 @@
                         <input type="hidden" class="form-control" id="edit-id" name="id">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                        <button type="button" class="btn btn-danger cancel" data-dismiss="modal"><i
                                 class="fas fa-ban mr-2"></i>Cancel
                         </button>
                         <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle mr-2"></i>Save
@@ -194,7 +194,7 @@
                                th:field="*{amountInCents}" oninput="check(this)" required>
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                        <button type="button" class="btn btn-danger cancel" data-dismiss="modal"><i
                                 class="fas fa-ban mr-2"></i>Cancel
                         </button>
                         <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle mr-2"></i>Add Bill
@@ -227,7 +227,7 @@
                         <input type="hidden" id="reset-id" name="id">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i
+                        <button type="button" class="btn btn-danger cancel" data-dismiss="modal"><i
                                 class="fas fa-ban mr-2"></i>Cancel
                         </button>
                         <button type="submit" class="btn btn-primary"><i class="fas fa-check mr-2"></i>Confirm Reset
