@@ -47,7 +47,7 @@
                  style="height: 25px; width: 430px; background-color: lightskyblue">
                 <div class="progress-bar" role="progressbar"
                      th:style="'width:' + ((${budget.goal_funds} * 100) / ${budget.balance_in_cents}) + '%'"
-                     th:text="'$' + ${budget.goal_funds/100}"></div>
+                     ><span class="money-td"  th:text="'$' + ${budget.goal_funds/100}"></span></div>
             </div>
             <hr>
         </div>
@@ -117,7 +117,7 @@
             var options = {
                 title: 'Transaction Summary (by Category)',
                 legend: { position: 'left', align: 'center'},
-                chartArea:{left:0,top:30,width:"100%",height:"100%"}
+                chartArea:{left:0,top:30,width:"97%",height:"97%"}
                 ,height: 500
                 ,width: 500,
                 is3D: true,

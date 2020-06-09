@@ -28,11 +28,11 @@
             </thead>
             <tbody>
             <tr th:each="bill : ${bills}">
-                <td class="bill-name text-center" th:text="${bill.name}"></td>
-                <td class="bill-date text-center" th:text="${bill.dueDate}"></td>
-                <td class="money-td bill-amount text-center" th:text="'$' + ${bill.amountInCents}"></td>
-                <td class="money-td bill-payment text-center" th:text="'$' + ${bill.lastAmt}"></td>
-                <td class="text-center" th:if="${bill.paid == false}">
+                <td class="bill-name text-center align-middle" th:text="${bill.name}"></td>
+                <td class="bill-date text-center align-middle" th:text="${bill.dueDate}"></td>
+                <td class="money-td bill-amount text-center align-middle" th:text="'$' + ${bill.amountInCents}"></td>
+                <td class="money-td bill-payment text-center align-middle" th:text="'$' + ${bill.lastAmt}"></td>
+                <td class="text-center align-middle" th:if="${bill.paid == false}">
                     <button type="button" class="btn btn-success p-1" data-toggle="modal" data-target="#payBill"
                             th:data-pay="${bill.id}"><i class="fas fa-dollar-sign mr-2"></i>Pay Bill
                     </button>
