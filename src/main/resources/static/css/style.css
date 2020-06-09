@@ -110,8 +110,14 @@ margin-right: 153px;
 #warped span{font-family:'ABeeZee';font-size:34px;font-weight:normal;font-style:normal;
     line-height:0.75; white-space:pre; overflow:visible; padding:0px; color: goldenrod;}
 
+            /*text-shadow:*/
+            /*-1px -1px 0 #000,*/
+            /*1px -1px 0 #000,*/
+            /*-1px 1px 0 #000,*/
+            /*1px 1px 0 #000;}*/
+
 #warped .w0 { transform: rotate(7.18rad); width: 19px; height: 25px; left:
-        -2.66px; top: 329.94px;}
+        -2.66px; top: 329.94px}
 
 #warped .w1 { transform: rotate(7.11rad); width: 15px; height: 25px; left:
         10.39px; top: 342.86px;}
@@ -222,13 +228,13 @@ margin-right: 153px;
 }
 
 #quackulator_inputs{
-    transform: translateX(-170%) translateY(-137%);
+    transform: translateX(-175%) translateY(-137%);
     left: 48%;
     position: absolute;
 }
 
 #quackulator_inputs #number-input{
-    transform: translateX(-185%) translateY(-137%);
+    transform: translateX(-190%) translateY(-137%);
     left: 48%;
     position: absolute;
 }
@@ -238,13 +244,13 @@ margin-right: 153px;
 }
 
 #balance{
-    transform: translateX(740%) translateY(-10%);
+    transform: translateX(805%) translateY(-10%);
     left: 48%;
     position: absolute;
 }
 
 #remaining{
-    transform: translateX(565%) translateY(731%);
+    transform: translateX(615%) translateY(730%);
     left: 48%;
     position: absolute;
 }
