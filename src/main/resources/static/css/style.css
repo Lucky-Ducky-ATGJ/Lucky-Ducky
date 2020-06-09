@@ -313,5 +313,14 @@ margin-right: 153px;
     color: black;
 }
 
+#backProfile{
+    border: transparent;
+    background-color: goldenrod;
+}
+
+#backProfile i{
+    color: black;
+}
+
 .footer > .navbar-nav > li > a {padding-top:5px !important; padding-bottom:5px !important;}
 .footer > .navbar {min-height:32px !important}
