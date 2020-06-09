@@ -6,8 +6,6 @@
     border-color: black;
 }
 
-
-
 html {
     position: relative;
     min-height: 100%;
@@ -16,7 +14,7 @@ html {
 body {
     margin: 0 0 100px;
     font-family: 'Roboto', sans-serif;
-    background-color: #EBEBEB;
+    background-color: rgb(239,239,239);
 }
 
 table{
@@ -220,13 +218,15 @@ margin-right: 153px;
 }
 
 #quackulator_inputs{
-    transform: translateX(-146%) translateY(-137%);
+    transform: translateX(-170%) translateY(-137%);
     left: 48%;
     position: absolute;
 }
 
-#quackulator_minus{
-    padding-left: 5px;
+#quackulator_inputs #number-input{
+    transform: translateX(-185%) translateY(-137%);
+    left: 48%;
+    position: absolute;
 }
 
 #quackulator_equals{
@@ -234,24 +234,19 @@ margin-right: 153px;
 }
 
 #balance{
-    transform: translateX(865%) translateY(-10%);
+    transform: translateX(740%) translateY(-10%);
     left: 48%;
     position: absolute;
 }
 
 #remaining{
-    transform: translateX(659%) translateY(731%);
+    transform: translateX(565%) translateY(731%);
     left: 48%;
     position: absolute;
 }
 
 .quackulator_container_end{
     background-image: url("../img/quackulator_end.png");
-    background-size: 1000px;
-    height: 385px;
-    width: 1163px;
-    margin-left: 200px;
-    background-repeat: no-repeat;
 }
 
 #quackulator_calculate{
