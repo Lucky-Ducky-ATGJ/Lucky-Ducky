@@ -120,5 +120,5 @@ $('#quackulator_calculate').click(function(){
     $('.quackulator_container_start').css("background-image", 'url("../img/quackulator_end.png")')
     setTimeout(function(){
         $('.quackulator_container_start').css("background-image", 'url("../img/quackulator_start.png")')
-    }, 800)
+    }, 900)
 });
