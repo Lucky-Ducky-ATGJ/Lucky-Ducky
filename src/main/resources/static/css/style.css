@@ -322,5 +322,9 @@ margin-right: 153px;
     color: black;
 }
 
+.cancel{
+    background-color: red;
+}
+
 .footer > .navbar-nav > li > a {padding-top:5px !important; padding-bottom:5px !important;}
 .footer > .navbar {min-height:32px !important}

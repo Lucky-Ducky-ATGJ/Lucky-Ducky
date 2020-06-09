@@ -98,7 +98,7 @@
                                th:field="*{balance_in_cents}">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel</button>
+                        <button type="button" class="btn btn-danger cancel" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel</button>
                         <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle mr-2"></i>Add Bill</button>
                     </div>
                 </form>
@@ -126,7 +126,7 @@
                         <input type="hidden" id="goalName" name="goalName">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel</button>
+                        <button type="button" class="btn btn-danger cancel" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel</button>
                         <button type="submit" class="btn btn-success"><i class="fas fa-dollar-bill mr-2"></i>Add Funds</button>
                     </div>
                 </form>
@@ -150,7 +150,7 @@
                 <p>This is permanent and cannot be undone.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel</button>
+                <button type="button" class="btn btn-danger cancel" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel</button>
                 <form th:action="@{|/goals/delete|}" th:method="POST">
                     <button type="submit" class="btn btn-success" name="id" id="delete-goal-id"><i class="far fa-check-circle mr-2"></i>Confirm</button>
                 </form>
@@ -183,7 +183,7 @@
                         <input type="hidden" class="form-control" id="edit-goal-id" name="id">
                     </div>
                     <div class="modal-footer d-flex justify-content-around">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel</button>
+                        <button type="button" class="btn btn-danger cancel" data-dismiss="modal"><i class="fas fa-ban mr-2"></i>Cancel</button>
                         <button type="submit" class="btn btn-primary"><i class="fas fa-check-circle mr-2"></i>Save Changes</button>
                     </div>
                 </form>
