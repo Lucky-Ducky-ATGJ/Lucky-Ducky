@@ -83,7 +83,7 @@
                     <form th:action="@{/logout}" th:method="post">
                         <button class="nav-link" style="border:none; background:none; color:red">
                             <i class="fas fa-sign-in-alt"></i>
-                            Logout
+                            Log Out
                         </button>
                     </form>
                 </li>
@@ -98,7 +98,7 @@
                 <li class="nav-item" sec:authorize="isAnonymous()">
                     <a class="nav-link" href="/login" style="color:green">
                     <i class="fas fa-sign-in-alt"></i>
-                        Login
+                        Log In
                     </a>
                 </li>
 
