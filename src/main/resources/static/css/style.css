@@ -108,13 +108,13 @@ margin-right: 153px;
     transform-origin:50% 100%; }
 
 #warped span{font-family:'ABeeZee';font-size:34px;font-weight:normal;font-style:normal;
-    line-height:0.75; white-space:pre; overflow:visible; padding:0px; color: goldenrod;}
+    line-height:0.75; white-space:pre; overflow:visible; padding:0px; color: rgb(255, 195, 45);
 
-            /*text-shadow:*/
-            /*-1px -1px 0 #000,*/
-            /*1px -1px 0 #000,*/
-            /*-1px 1px 0 #000,*/
-            /*1px 1px 0 #000;}*/
+            text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;}
 
 #warped .w0 { transform: rotate(7.18rad); width: 19px; height: 25px; left:
         -2.66px; top: 329.94px}
