@@ -33,15 +33,15 @@
             <span th:text="${bill.name} + ' is due on ' + ${bill.dueDate}"></span>
         </div>
 
-        <h3 style="text-decoration-line: underline">Overdue Bills</h3>
+        <h3 style="text-decoration-line: underline; margin-top: 10%">Overdue Bills</h3>
         <div th:each="bill : ${overdueBills}" style="margin-top: 3%; margin-bottom: 3%">
             <span th:text="${bill.name} + ' was due on ' + ${bill.dueDate}" style="color: red"></span>
         </div>
 
-        <h3 style="text-decoration-line: underline">Goal Tracker</h3>
+        <h3 style="text-decoration-line: underline; margin-top: 10%">Goal Tracker</h3>
         <div th:each="budget : ${newGoal}" style="margin-top: 3%; margin-bottom: 6%">
             <label th:text="${budget.name}"></label>
-            <label class="float-right">Goal:<span class="money-td" th:text="'$' + ${(budget.balance_in_cents - budget.goal_funds)/100}">
+            <label class="float-right">Goal: <span class="money-td" th:text="'$' + ${(budget.balance_in_cents - budget.goal_funds)/100}">
                 </span></label>
             <div class="progress border border-dark mt-1"
                  style="height: 25px; width: 430px; background-color: lightskyblue">
