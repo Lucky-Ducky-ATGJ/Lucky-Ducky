@@ -29,17 +29,17 @@
 
     <div class="col-4" style="border: none">
         <h3 style="text-decoration-line: underline">Upcoming Bills</h3>
-        <div th:each="bill : ${upcomingBills}" style="margin-top: 5%; margin-bottom: 5%">
+        <div th:each="bill : ${upcomingBills}" style="margin-top: 3%; margin-bottom: 3%">
             <span th:text="${bill.name} + ' is due on ' + ${bill.dueDate}"></span>
         </div>
 
         <h3 style="text-decoration-line: underline">Overdue Bills</h3>
-        <div th:each="bill : ${overdueBills}" style="margin-top: 5%; margin-bottom: 5%">
+        <div th:each="bill : ${overdueBills}" style="margin-top: 3%; margin-bottom: 3%">
             <span th:text="${bill.name} + ' was due on ' + ${bill.dueDate}" style="color: red"></span>
         </div>
 
         <h3 style="text-decoration-line: underline">Goal Tracker</h3>
-        <div th:each="budget : ${newGoal}" style="margin-top: 5%; margin-bottom: 10%">
+        <div th:each="budget : ${newGoal}" style="margin-top: 3%; margin-bottom: 6%">
             <label th:text="${budget.name}"></label>
             <label class="float-right">Goal:<span class="money-td" th:text="'$' + ${(budget.balance_in_cents - budget.goal_funds)/100}">
                 </span></label>
