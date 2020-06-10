@@ -115,8 +115,8 @@
             console.log(chartArray);
             var data = google.visualization.arrayToDataTable(chartArray);
             var options = {
-                title: 'Transaction Summary (by Category)',
-                legend: { position: 'left', align: 'center'},
+                title: 'Transaction Summary (by Category)', fontSize:18,
+                legend: { position: 'left', align: 'center',textStyle: {fontSize: 17} },
                 chartArea:{left:0,top:30,width:"97%",height:"97%"}
                 ,height: 500
                 ,width: 500,
