@@ -223,6 +223,8 @@ table{
 #warped .w33 { transform: rotate(5.22rad); width: 11px; height: 25px;
     left: 409.68px; top: 297.26px;}
 
+/*Budget Page*/
+
 .quackulator_container_start{
     background-image: url("../img/quackulator_start.png");
     background-size: 1000px;
