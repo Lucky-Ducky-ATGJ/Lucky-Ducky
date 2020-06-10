@@ -38,6 +38,7 @@ table{
 }
 
 /* Add button for the Bills page */
+
 #addBButton {
     width: 35px;
 }
@@ -59,8 +60,7 @@ table{
     vertical-align: middle;
 }
 
-.modal-backdrop
-{
+.modal-backdrop {
     opacity:0.4 !important;
 }
 
@@ -81,8 +81,13 @@ table{
 }
 
 .about_us_pics {
-    width: 237px;
-    height: 204px;
+    width: 234px;
+    height: 224px;
+}
+
+#jimmy {
+    width: 234px;
+    height: 224px;
 }
 
 .table-button{
@@ -90,7 +95,7 @@ table{
 }
 
 #donutchart-trans{
-margin-right: 153px;
+    margin-right: 153px;
 }
 
 #navbar-title {
@@ -303,30 +308,27 @@ margin-right: 153px;
 
 #edit_profile{
     border: transparent;
-    background-color: goldenrod;
-}
-
-#edit_profile i{
-    color: black;
+    background-color: gold;
 }
 
 #delete_profile{
     border: transparent;
-    background-color: indianred;
+    background-color: red;
 }
 
-#delete_profile i{
-    color: black;
-}
+/*#delete_profile i{*/
+/*    color: black;*/
+/*}*/
 
 #backProfile{
     border: transparent;
-    background-color: goldenrod;
+    background-color: gold;
+    color: white;
 }
 
-#backProfile i{
-    color: black;
-}
+/*#backProfile i{*/
+/*    color: black;*/
+/*}*/
 
 .cancel{
     background-color: red;
