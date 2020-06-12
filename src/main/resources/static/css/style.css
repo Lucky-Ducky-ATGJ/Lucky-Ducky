@@ -64,6 +64,10 @@ table{
     vertical-align: middle;
 }
 
+th{
+    cursor: pointer;
+}
+
 .modal-backdrop {
     opacity:0.4 !important;
 }
