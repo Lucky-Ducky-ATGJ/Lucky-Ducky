@@ -202,10 +202,10 @@
     {
         console.log("hello")
         let moneyFormat = $(".money-td");
-        console.log(moneyFormat);
+        // console.log(moneyFormat);
         for (let td of moneyFormat) {
             let moneyParsed = $(td).text();
-            console.log(td);
+            // console.log(td);
             moneyParsed = parseFloat(moneyParsed.substring(1)).toFixed(2);
             $(td).text("$" + moneyParsed);
         }

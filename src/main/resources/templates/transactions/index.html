@@ -201,10 +201,10 @@
     $(document).ready()
     {
         let moneyFormat = $(".money-td");
-        console.log(moneyFormat);
+        // console.log(moneyFormat);
         for (let td of moneyFormat) {
             let moneyParsed = $(td).text();
-            console.log(td);
+            // console.log(td);
             moneyParsed = parseFloat(moneyParsed.substring(1)).toFixed(2);
             $(td).text("$" + moneyParsed);
         }
@@ -217,12 +217,12 @@
         }
 
         let dates = $(".date-span")
-        console.log(dates)
+        // console.log(dates)
         for (let date of dates) {
             let dateText = $(date).text();
             dateText = dateFormatter(dateText);
             $(date).text(dateText);
-            console.log(date);
+            // console.log(date);
         }
     }
 
@@ -240,7 +240,7 @@
             chartArray.pop();
             chartArray.pop();
 
-            console.log(chartArray);
+            // console.log(chartArray);
 
             var data = google.visualization.arrayToDataTable(chartArray);
 
