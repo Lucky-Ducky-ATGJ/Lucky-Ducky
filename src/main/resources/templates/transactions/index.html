@@ -38,7 +38,7 @@
         </thead>
         <tbody>
         <tr id="editTrans" th:each="transaction : ${transactions}" class="text-center">
-            <td class="data-center align-middle" th:text="${#dates.format(transaction.createDate, 'dd-MMM-yyyy')}"></td>
+            <td class="data-center align-middle date-span" th:text="${#dates.format(transaction.createDate, 'dd-MMM-yyyy')}"></td>
             <td class="data-center align-middle" th:text="${transaction.name}"></td>
             <td class="data-center money-td align-middle" th:text="'$' + ${transaction.amountInCents/100}"
                 th:style="${transaction.income} == true ? 'color: green' : 'color: red'"></td>
@@ -161,7 +161,7 @@
                         <label for="add-amount">Transaction Amount</label>
 
 
-                        <input required name="amount" type="number" step="any" class="form-control" id="add-amount"
+                        <input required name="amount" type="number" step="any" class="form-control  money-td" id="add-amount"
                                th:field="*{amountInCents}">
 
 
@@ -207,6 +207,22 @@
             console.log(td);
             moneyParsed = parseFloat(moneyParsed.substring(1)).toFixed(2);
             $(td).text("$" + moneyParsed);
+        }
+
+        function dateFormatter(oldDate) {
+            let partTwo = oldDate.substr(3, 3);
+            let partOne = oldDate.substr(0, 2);
+            let partThree = oldDate.substr(7);
+            return (partTwo + "-" + partOne + "-" + partThree);
+        }
+
+        let dates = $(".date-span")
+        console.log(dates)
+        for (let date of dates) {
+            let dateText = $(date).text();
+            dateText = dateFormatter(dateText);
+            $(date).text(dateText);
+            console.log(date);
         }
     }
 

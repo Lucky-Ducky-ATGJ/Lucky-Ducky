@@ -29,7 +29,7 @@
             <tbody>
             <tr th:each="bill : ${bills}">
                 <td class="bill-name text-center align-middle" th:text="${bill.name}"></td>
-                <td class="bill-date text-center align-middle" th:text="${bill.dueDate}"></td>
+                <td class="bill-date text-center align-middle date-span" th:text="${bill.dueDate}"></td>
                 <td class="money-td bill-amount text-center align-middle" th:text="'$' + ${bill.amountInCents}"></td>
                 <td class="money-td bill-payment text-center align-middle" th:text="'$' + ${bill.lastAmt}"></td>
                 <td class="text-center align-middle" th:if="${bill.paid == false}">
@@ -252,6 +252,62 @@
             console.log(td);
             moneyParsed = parseFloat(moneyParsed.substring(1)).toFixed(2);
             $(td).text("$" + moneyParsed);
+        }
+
+
+        function dateFormatter(oldDate) {
+            let partTwo = oldDate.substr(5, 2);
+            let partOne = oldDate.substr(8, 2);
+            switch (partTwo) {
+                case "01":
+                    partTwo = "Jan"
+                    break;
+                case "02":
+                    partTwo = "Feb"
+                    break;
+                case "03":
+                    partTwo = "Mar"
+                    break;
+                case "04":
+                    partTwo = "Apr"
+                    break;
+                case "05":
+                    partTwo = "May"
+                    break;
+                case "06":
+                    partTwo = "Jun"
+                    break;
+                case "07":
+                    partTwo = "Jul"
+                    break;
+                case "08":
+                    partTwo = "Aug"
+                    break;
+                case "09":
+                    partTwo = "Sep"
+                    break;
+                case "10":
+                    partTwo = "Oct"
+                    break;
+                case "11":
+                    partTwo = "Nov"
+                    break;
+                case "12":
+                    partTwo = "Dec"
+                    break;
+
+            }
+            let partThree = oldDate.substr(0, 4);
+            return (partTwo + "-" + partOne + "-" + partThree);
+        }
+
+        let dates = $(".date-span")
+        console.log(dates)
+        for (let date of dates) {
+            let dateText = $(date).text();
+            dateText = dateFormatter(dateText);
+            $(date).text(dateText);
+            console.log(date);
         }
     }
 </script>
